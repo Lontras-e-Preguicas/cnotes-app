@@ -6,15 +6,19 @@ Neste repositório será gerenciado o desenvolvimento da aplicação móvel do s
 
 ---
 
-Essa é uma aplicação desenvolvida por meio do [React-Native](https://reactnative.dev). Sendo inicialmente gerada pelo `react-native-cli`.
+Essa é uma aplicação desenvolvida por meio do [React-Native](https://reactnative.dev). Sendo inicialmente gerada pelo `expo init`.
 
 ## Build
 
 Para construir, executar e testar o projeto é necessário que as etapas a seguir sejam executadas (dentro da pasta `app/`):
 
-1. Verificar que o [ambiente de desenvolvimento (React Native CLI Quickstart)](https://reactnative.dev/docs/environment-setup) está configurado
-2. Instalar as dependências do projeto, executando `yarn install` (dentro da pasta `app/`)
-3. Executar a aplicação usando `yarn run android` ou `yarn run ios`
+1. Verificar que o [ambiente de desenvolvimento (Expo Quickstart)](https://reactnative.dev/docs/environment-setup) está configurado
+   1. Node.js 12
+   2. Yarn
+   3. Expo
+   4. Simulador instalado ou o app do Expo instalado em um dispositivo
+2. Instalar as dependências do projeto, executando `yarn` (dentro da pasta `app/`)
+3. Executar a aplicação usando `yarn start` ou `yarn run ios/android`
 
 Feito isso, o projeto estará, idealmente, funcionando.
 
