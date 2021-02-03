@@ -1,0 +1,27 @@
+{
+  "extends": [
+    "airbnb",
+    "airbnb/hooks",
+    "prettier",
+    "prettier/react",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": [
+    "react",
+    "react-native",
+    "prettier"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "env": {
+    "browser": true,
+    "react-native/react-native": true
+  },
+  "rules": {
+    "react/jsx-filename-extension": [1, {"extensions": [".js", ".jsx"]}],
+    "react/style-prop-object": [0]
+  }
+}
