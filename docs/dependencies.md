@@ -3,7 +3,8 @@
 Dependências atuais da aplicação e justificativas:
 
 - `react-native`: núcleo
-<!-- - `eslint`: linter -->
+- `eslint` + plugins: linting
+- `prettier`: auto formatação
 - `expo`: execução e gerenciamento
 - `styled-components`: estilização
-- `@react-navigatio/native`: routing and navigation
+- `@react-navigation/native`: routing and navigation
