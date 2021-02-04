@@ -1,5 +1,7 @@
 import React from "react";
+import { registerRootComponent } from "expo";
 
+import { StatusBar } from "expo-status-bar";
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
 
@@ -20,6 +22,7 @@ const App = () => {
 
   return (
     <>
+      <StatusBar style="auto" />
       <Wrapper>
         <Title>Hello, Fellas!</Title>
         <Content>This is the test screen.</Content>
@@ -49,3 +52,5 @@ const Content = styled.Text`
 `;
 
 export default App;
+
+registerRootComponent(App);
