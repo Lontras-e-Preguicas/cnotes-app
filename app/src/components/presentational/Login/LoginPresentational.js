@@ -45,7 +45,7 @@ const LoginPresentational = ({
                 autoCapitalize="none"
                 autoCompleteType="email"
                 value={email}
-                onChange={setEmail}
+                onChangeText={setEmail}
               />
             </StyledInputWrapper>
             <StyledInputWrapper>
@@ -56,7 +56,7 @@ const LoginPresentational = ({
                 autoCompleteType="password"
                 secureTextEntry={true}
                 value={password}
-                onChange={setPassword}
+                onChangeText={setPassword}
               />
             </StyledInputWrapper>
 
