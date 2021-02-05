@@ -12,7 +12,18 @@ const getAuthToken = async () => {
   return await AsyncStorage.getItem(AUTH_TOKEN_PATH);
 };
 
-async function authenticatedFetch(input, init = {}) {
+async function fetchTimeout(input, { timeout = 10000, ...init }) {
+  // Throws AbortError
+  const controller = new AbortController();
+  const timeoutId = setTimeout(controller.abort, timeout);
+
+  const response = await fetch(input, { signal: controller.signal, ...init });
+  clearTimeout(timeoutId);
+
+  return response;
+}
+
+async function authenticatedFetch(input, init = {}, fetcher = fetch) {
   let headers = new Headers();
   let authToken = await getAuthToken();
 
@@ -23,7 +34,7 @@ async function authenticatedFetch(input, init = {}) {
     headers,
   };
 
-  return await fetch(input, params);
+  return await fetcher(input, params);
 }
 
 // Requests
@@ -38,13 +49,17 @@ class Api {
         "Content-Type": JSON_CONTENT_TYPE,
       }),
       body: JSON.stringify({ email, password }),
+      timeoutMessage: "",
     };
 
     let response;
     let data = {};
 
     try {
-      response = await fetch(`${Constants.API_URL}/api/user/token/`, params);
+      response = await fetchTimeout(
+        `${Constants.API_URL}/api/user/token/`,
+        params
+      );
       data = await response.json();
     } catch {
       throw new Error("Falha ao fazer requisição");
