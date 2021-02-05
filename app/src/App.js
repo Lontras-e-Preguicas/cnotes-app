@@ -1,11 +1,14 @@
 import React from "react";
 import { registerRootComponent } from "expo";
 
+import { NavigationContainer } from "@react-navigation/native";
+
 import { StatusBar } from "expo-status-bar";
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
 
 import { LoginScreen } from "./screens";
+import MainRoutes from "./routes";
 
 const App = () => {
   const [fontsLoaded] = useFonts({
@@ -21,10 +24,9 @@ const App = () => {
   }
 
   return (
-    <>
-      <StatusBar style="auto" />
-      <LoginScreen />
-    </>
+    <NavigationContainer>
+      <MainRoutes />
+    </NavigationContainer>
   );
 };
 
