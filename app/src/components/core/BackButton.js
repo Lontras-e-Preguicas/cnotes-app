@@ -5,6 +5,7 @@ import styled from "styled-components/native";
 import { Ionicons } from "@expo/vector-icons";
 import { Typography } from "../../config";
 import getSpacing from "../../config/spacing";
+import DefaultTouchable from "./DefaultTouchable";
 
 export const BackButton = ({
   tintColor,
@@ -25,7 +26,7 @@ export const BackButton = ({
   );
 };
 
-const Wrapper = styled.TouchableOpacity`
+const Wrapper = styled(DefaultTouchable)`
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;

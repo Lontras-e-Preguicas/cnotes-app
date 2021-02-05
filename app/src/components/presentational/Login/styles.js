@@ -2,6 +2,7 @@ import styled from "styled-components/native";
 import { Colors, Spacing, Typography } from "../../../config";
 import getSpacing from "../../../config/spacing";
 import Button from "../../core/Button";
+import DefaultTouchable from "../../core/DefaultTouchable";
 
 import { HintedInputWrapper } from "../../core/HintedInput";
 
@@ -66,7 +67,7 @@ export const FormBottomRow = styled.View`
   width: 80%;
 `;
 
-export const ForgotPasswordWrapper = styled.TouchableOpacity`
+export const ForgotPasswordWrapper = styled(DefaultTouchable)`
   align-self: flex-end;
 `;
 

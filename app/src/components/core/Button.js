@@ -3,6 +3,7 @@ import React from "react";
 import styled from "styled-components/native";
 import { Colors, Typography } from "../../config";
 import getSpacing from "../../config/spacing";
+import DefaultTouchable from "./DefaultTouchable";
 
 export function Button({
   ContentComponent = ButtonText,
@@ -20,7 +21,7 @@ export function Button({
   );
 }
 
-export const ButtonWrapper = styled.TouchableOpacity`
+export const ButtonWrapper = styled(DefaultTouchable)`
   border: ${({ fill }) => (fill ? "0" : "1px")} solid ${({ color }) => color};
   border-radius: ${getSpacing(10)};
   background-color: ${({ fill, color }) => (fill ? color : "transparent")};

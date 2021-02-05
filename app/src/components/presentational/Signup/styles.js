@@ -77,17 +77,3 @@ export const StyledActivityIndicator = styled.ActivityIndicator.attrs({
 })`
   height: 100%;
 `;
-
-// Go Back
-// export const GoBackTouchable = styled.TouchableOpacity`
-//   align-self: flex-start;
-//   position: relative;
-//   top: ${getSpacing(24)};
-//   left: ${getSpacing(32)};
-// `;
-
-// export const GoBackText = styled.Text`
-//   color: ${Colors.primaryLight};
-//   font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
-//   font-size: ${Typography.FONT_SIZES.large};
-// `;
