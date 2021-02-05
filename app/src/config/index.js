@@ -19,4 +19,6 @@ export const Spacing = {
   SPACING_MULTIPLIER,
 };
 
-export { Colors };
+import Constants from "./constants";
+
+export { Colors, Constants };
