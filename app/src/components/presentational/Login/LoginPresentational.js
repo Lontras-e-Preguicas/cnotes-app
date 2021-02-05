@@ -13,6 +13,7 @@ import {
   SignupButton,
   KeyboardAvoidingView,
   StyledScrollView,
+  StyledActivityIndicator,
 } from "./styles";
 import { HintedInputHintText, HintedInputInput } from "../../core/HintedInput";
 import { View } from "react-native";
@@ -27,6 +28,7 @@ const LoginPresentational = ({
   doLogin,
   doSignup,
   doForgotPassword,
+  loading,
 }) => (
   <Background source={BackgroundSource}>
     <SafeAreaView>
@@ -66,7 +68,9 @@ const LoginPresentational = ({
               </ForgotPasswordWrapper>
             </FormBottomRow>
 
-            <LoginButton onPress={doLogin}>Login</LoginButton>
+            <LoginButton onPress={doLogin}>
+              {loading ? <StyledActivityIndicator /> : "Login"}
+            </LoginButton>
             <SignupButton onPress={doSignup}>Cadastrar-se</SignupButton>
           </FormWrapper>
         </StyledScrollView>

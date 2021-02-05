@@ -24,12 +24,12 @@ export const KeyboardAvoidingView = styled.KeyboardAvoidingView`
   justify-content: center;
 `;
 
-export const StyledScrollView = styled.ScrollView.attrs((props) => ({
+export const StyledScrollView = styled.ScrollView.attrs({
   contentContainerStyle: {
     height: "100%",
     justifyContent: "center",
   },
-}))`
+})`
   width: 100%;
 `;
 
@@ -87,17 +87,25 @@ export const ForgotPasswordText = styled.Text`
 
 // Buttons
 
-export const LoginButton = styled(Button).attrs((props) => ({
+export const LoginButton = styled(Button).attrs({
   fill: true,
   color: Colors.secondary,
   textColor: Colors.primaryLight,
-}))`
+})`
   width: 75%;
+  height: 48px;
 `;
 
-export const SignupButton = styled(Button).attrs((props) => ({
+export const SignupButton = styled(Button).attrs({
   color: Colors.tertiary,
-}))`
+})`
   width: 75%;
+  height: 48px;
   margin-top: ${getSpacing(16)};
+`;
+
+export const StyledActivityIndicator = styled.ActivityIndicator.attrs({
+  color: Colors.primaryLight,
+})`
+  height: 100%;
 `;

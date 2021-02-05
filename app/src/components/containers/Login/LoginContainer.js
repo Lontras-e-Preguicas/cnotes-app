@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Keyboard } from "react-native";
+import { Keyboard, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import Api from "../../../utils/api";
@@ -8,6 +8,7 @@ import LoginPresentational from "../../presentational/Login";
 
 function LoginContainer(props) {
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
 
   const setEmail = (email) => {
@@ -21,12 +22,14 @@ function LoginContainer(props) {
     Keyboard.dismiss();
 
     const api = new Api();
+    setLoading(true);
     try {
       await api.login(formData.email, formData.password);
       navigation.navigate("Home");
     } catch (ex) {
-      console.warn("Falha ao logar", ex.message);
+      Alert.alert(ex.message);
     }
+    setLoading(false);
   };
   const doSignup = () => {
     Keyboard.dismiss();
@@ -44,6 +47,7 @@ function LoginContainer(props) {
     doLogin,
     doSignup,
     doForgotPassword,
+    loading,
   };
 
   return <LoginPresentational {...presentationalProps} />;

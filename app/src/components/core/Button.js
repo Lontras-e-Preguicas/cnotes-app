@@ -20,7 +20,7 @@ export function Button({
   );
 }
 
-const ButtonWrapper = styled.TouchableOpacity`
+export const ButtonWrapper = styled.TouchableOpacity`
   border: ${({ fill }) => (fill ? "0" : "1px")} solid ${({ color }) => color};
   border-radius: ${getSpacing(10)};
   background-color: ${({ fill, color }) => (fill ? color : "transparent")};
@@ -32,7 +32,7 @@ const ButtonWrapper = styled.TouchableOpacity`
   align-items: center;
 `;
 
-const ButtonText = styled.Text`
+export const ButtonText = styled.Text`
   font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
   font-size: ${Typography.FONT_SIZES.extraLarge};
 

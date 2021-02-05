@@ -30,5 +30,6 @@ export default {
 
   extra: {
     API_URL: process.env.CNOTES_API_URL,
+    DEBUG: process.env.DEBUG || false,
   },
 };
