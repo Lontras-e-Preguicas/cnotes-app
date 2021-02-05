@@ -11,21 +11,29 @@ function LoginContainer(props) {
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
 
-  const setEmail = (email) => {
+  const setEmail = (email = "") => {
     setFormData({ ...formData, email });
   };
-  const setPassword = (password) => {
+  const setPassword = (password = "") => {
     setFormData({ ...formData, password });
   };
 
   const doLogin = async () => {
     Keyboard.dismiss();
 
+    if (loading) {
+      return; // Prevent request stacking
+    }
+
     const api = new Api();
     setLoading(true);
     try {
       await api.login(formData.email, formData.password);
       navigation.navigate("Home");
+
+      // Clear credentials
+      setEmail();
+      setPassword();
     } catch (ex) {
       Alert.alert(ex.message);
     }
