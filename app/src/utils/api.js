@@ -49,7 +49,6 @@ class Api {
         "Content-Type": JSON_CONTENT_TYPE,
       }),
       body: JSON.stringify({ email, password }),
-      timeoutMessage: "",
     };
 
     let response;
@@ -76,15 +75,62 @@ class Api {
       }
 
       if (data.email) {
-        throw new Error("E-mail é obrigatório");
+        throw new Error(`E-mail: ${data.email[0]}`);
       }
 
       if (data.password) {
-        throw new Error("Senha é obrigatório");
+        throw new Error(`Senha: ${data.password[0]}`);
       }
     }
 
     throw new Error("Falha ao realizar login");
+  }
+
+  async signup(name, email, password) {
+    const params = {
+      method: "POST",
+      headers: new Headers({
+        "Content-Type": JSON_CONTENT_TYPE,
+      }),
+      body: JSON.stringify({ name, email, password }),
+    };
+
+    let response;
+    let data = {};
+
+    try {
+      response = await fetchTimeout(
+        `${Constants.API_URL}/api/user/create/`,
+        params
+      );
+      data = await response.json();
+    } catch {
+      throw new Error("Falha ao fazer requisição");
+    }
+
+    if (response.status == 201) {
+      return data;
+    }
+
+    if (response.status == 400) {
+      if (data.non_field_errors) {
+        throw new Error(data.non_field_errors[0]);
+      }
+
+      if (data.name) {
+        throw new Error(`Nome: ${data.name[0]}`);
+      }
+
+      if (data.email) {
+        throw new Error(`E-mail: ${data.email[0]}`);
+      }
+
+      if (data.password) {
+        throw new Error(`Senha: ${data.password[0]}`);
+      }
+    }
+
+    throw new Error("Falha ao realizar cadastro");
   }
 }
 

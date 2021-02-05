@@ -31,8 +31,7 @@ function SignupContainer(props) {
     const api = new Api();
     setLoading(true);
     try {
-      // await api.signup(formData.name, formData.email, formData.password);
-      console.warn("Integração Signup não implementada");
+      await api.signup(formData.name, formData.email, formData.password);
       navigation.goBack();
     } catch (ex) {
       Alert.alert(ex.message);

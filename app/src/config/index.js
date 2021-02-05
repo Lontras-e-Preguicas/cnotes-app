@@ -6,6 +6,7 @@ import {
   getTypography,
 } from "./typography";
 import { getSpacing, SPACING_MULTIPLIER } from "./spacing";
+import Images from "./images";
 
 export const Typography = {
   FONT_FAMILIES,
@@ -21,4 +22,4 @@ export const Spacing = {
 
 import Constants from "./constants";
 
-export { Colors, Constants };
+export { Colors, Constants, Images };

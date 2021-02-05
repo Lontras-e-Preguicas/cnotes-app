@@ -9,6 +9,7 @@ import { HintedInputWrapper } from "../../core/HintedInput";
 
 export const Background = styled.ImageBackground`
   height: 100%;
+  background-color: ${Colors.primaryDark};
 `;
 
 export const SafeAreaView = styled.SafeAreaView`

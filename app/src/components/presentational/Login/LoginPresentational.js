@@ -17,8 +17,9 @@ import {
 } from "./styles";
 import { HintedInputHintText, HintedInputInput } from "../../core/HintedInput";
 import { View } from "react-native";
+import { Images } from "../../../config";
 
-const BackgroundSource = require("../../../assets/images/Login-BG.jpg");
+const BackgroundSource = Images.auth;
 
 const LoginPresentational = ({
   email,
