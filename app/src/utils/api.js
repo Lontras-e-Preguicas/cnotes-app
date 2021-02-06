@@ -15,9 +15,12 @@ const getAuthToken = async () => {
 async function fetchTimeout(input, { timeout = 10000, ...init }) {
   // Throws AbortError
   const controller = new AbortController();
-  const timeoutId = setTimeout(controller.abort, timeout);
 
-  const response = await fetch(input, { signal: controller.signal, ...init });
+  const params = { signal: controller.signal, ...init };
+
+  const timeoutId = setTimeout(() => controller.abort(), timeout);
+
+  const response = await fetch(input, params);
   clearTimeout(timeoutId);
 
   return response;

@@ -16,7 +16,7 @@ import {
   StyledActivityIndicator,
 } from "./styles";
 import { HintedInputHintText, HintedInputInput } from "../../core/HintedInput";
-import { View } from "react-native";
+import { View, Platform } from "react-native";
 import { Images } from "../../../config";
 
 const BackgroundSource = Images.auth;
