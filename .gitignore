@@ -198,6 +198,6 @@ $RECYCLE.BIN/
 *.lnk
 
 # Anti miss-run
-./node_modules
-./package.json
-./yarn.lock
+node_modules/
+package.json
+yarn.lock

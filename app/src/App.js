@@ -1,31 +1,33 @@
 import React from "react";
+import { registerRootComponent } from "expo";
 
-import styled from "styled-components";
-const App = () => (
-  <>
-    <Wrapper>
-      <Title>Hello, Fellas!</Title>
-      <Content>This is the test screen.</Content>
-    </Wrapper>
-  </>
-);
+import { NavigationContainer } from "@react-navigation/native";
 
-const Wrapper = styled.SafeAreaView`
-  flex-grow: 1;
-  align-items: center;
-  justify-content: center;
-  background-color: #fef1f1;
-`;
+import { useFonts } from "expo-font";
+import AppLoading from "expo-app-loading";
 
-const Title = styled.Text`
-  color: #1c1c1c;
-  font-size: 24px;
-  margin-bottom: 8px;
-`;
+import MainRoutes from "./routes";
 
-const Content = styled.Text`
-  color: #2e2e2e;
-  font-size: 16px;
-`;
+const App = () => {
+  const [fontsLoaded] = useFonts({
+    "Quicksand-Regular": require("./assets/fonts/Quicksand-Regular.ttf"),
+    "Quicksand-Bold": require("./assets/fonts/Quicksand-Bold.ttf"),
+    "Quicksand-Light": require("./assets/fonts/Quicksand-Light.ttf"),
+    "Quicksand-Medium": require("./assets/fonts/Quicksand-Medium.ttf"),
+    "Quicksand-SemiBold": require("./assets/fonts/Quicksand-SemiBold.ttf"),
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+
+  return (
+    <NavigationContainer>
+      <MainRoutes />
+    </NavigationContainer>
+  );
+};
 
 export default App;
+
+registerRootComponent(App);

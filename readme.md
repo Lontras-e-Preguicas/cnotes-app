@@ -17,8 +17,9 @@ Para construir, executar e testar o projeto é necessário que as etapas a segui
    2. Yarn
    3. Expo
    4. Simulador instalado ou o app do Expo instalado em um dispositivo
-2. Instalar as dependências do projeto, executando `yarn` (dentro da pasta `app/`)
-3. Executar a aplicação usando `yarn start` ou `yarn run ios/android`
+2. Criar um arquivo `.env` de configurações baseando-se no arquivo `.env.example`
+3. Instalar as dependências do projeto, executando `yarn` (dentro da pasta `app/`)
+4. Executar a aplicação usando `yarn start` ou `yarn run ios/android`
 
 Feito isso, o projeto estará, idealmente, funcionando.
 
