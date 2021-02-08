@@ -1,7 +1,7 @@
 import React from "react";
 
 import { createStackNavigator } from "@react-navigation/stack";
-import { LoginScreen, SignupScreen, HomeScreen } from "./screens";
+import { LoginScreen, SignupScreen, HomeScreen } from "./screens"; //Utilizar HomeScreen da TelaPrincipal(Não apaguei o Home.js)
 import { Colors, Typography } from "./config";
 import BackButton from "./components/core/BackButton";
 
