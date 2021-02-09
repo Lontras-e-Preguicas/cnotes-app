@@ -1,15 +1,16 @@
 import React from "react";
 import styled from "styled-components";
-
-import colors from '../../config/colors.js';
 import { Ionicons, Octicons, FontAwesome} from '@expo/vector-icons';
+
+import getSpacing from '../../config/spacing';
+import colors from '../../config/colors0.js';
 
 const MainMenu = styled.View`
   flex: 1;
   flex-flow: row nowrap;
   width: 100%;
   height: 50%;
-  margin-top: 123%;
+  margin-top: ${getSpacing(30)};
   background-color: ${colors.PrimDark};
 `;
 

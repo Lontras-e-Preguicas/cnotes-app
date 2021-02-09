@@ -2,7 +2,7 @@ import React from "react";
 
 import { StatusBar } from "expo-status-bar";
 
-import TelaPrincipal from "../components/presentational/Principal/TelaPrincipal";
+import TelaPrincipal from "../components/presentational/Principal/PrincipalPresentational";
 
 const HomeScreen = (props) => (
   <>

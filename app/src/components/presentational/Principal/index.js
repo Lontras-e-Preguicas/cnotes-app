@@ -1,3 +1,3 @@
-import TelaPrincipal from "./TelaPrincipal";
+import TelaPrincipal from "./PrincipalPresentational";
 
 export default TelaPrincipal;

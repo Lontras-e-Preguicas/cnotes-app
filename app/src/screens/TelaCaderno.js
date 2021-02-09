@@ -2,7 +2,7 @@ import React from "react";
 
 import { StatusBar } from "expo-status-bar";
 
-import TelaCaderno from "../components/presentational/Caderno/TelaCaderno";
+import TelaCaderno from "../components/presentational/Caderno/CadernoPresentational";
 
 const TelaDoCaderno = (props) => (
   <>

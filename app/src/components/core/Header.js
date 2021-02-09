@@ -1,25 +1,26 @@
 import React from 'react';
 import styled from "styled-components";
-import colors from '../../config/colors.js';
+import colors from '../../config/colors0.js';
 import fontsSize from '../../config/fontsSize.js';
-import {AntDesign, Ionicons, Feather, Octicons } from '@expo/vector-icons';
+import getSpacing from '../../config/spacing';
 
 
 export const Header = styled.View`
   background: ${colors.PrimLight};
   width: 100%;
   height:10%;
-  padding:10%;
+  padding: ${getSpacing(30)};
 
 `;
 export const TitleHeader = styled.Text`
   color: ${colors.PrimDark};
   font-size: 20px;
   align-self: ${props => (props.Caderno ? 'center' : 'flex-start')};
-  padding: 2%;
+  padding-top: ${getSpacing(15)};
+  padding-left: ${props => (props.Caderno ? 0 : getSpacing(15) )};
   position: ${props => (props.Caderno ? 'relative' : 'absolute')};
   left: ${props => (props.Caderno ? 1 : 0)};
-  bottom:0;
+  bottom: 0;
 `;
 
 export const IconHeader1 = styled.TouchableOpacity`
@@ -27,16 +28,16 @@ export const IconHeader1 = styled.TouchableOpacity`
   position: absolute;
   bottom:0;
   right: 0;
-  margin-bottom: 2%;
-  margin-right: 3%;
+  margin-bottom: ${getSpacing(10)};
+  margin-right: ${getSpacing(25)};
 `;
 export const IconHeader2 = styled.TouchableOpacity`
 	align-self: flex-end;
   position: absolute;
   bottom:0;
   right: 0;
-  margin-bottom: 2%;
-  margin-right: 10%;
+  margin-bottom: ${getSpacing(10)};
+  margin-right:  ${getSpacing(65)};
 `;
 
 export const ButtonBack = styled.TouchableOpacity`

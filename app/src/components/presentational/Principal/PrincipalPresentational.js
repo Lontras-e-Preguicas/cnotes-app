@@ -2,14 +2,25 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Dimensions, StatusBar } from 'react-native';
 
-import {Header,TitleHeader, IconHeader1, IconHeader2, ButtonBack, TextoButtonBack} from "../../core/Header.js";
+import {Header,TitleHeader, IconHeader1, IconHeader2} from "../../core/Header.js";
 import {Caderno, HeaderCaderno,TitleHeaderCaderno,BottomCaderno, Icon} from "../../core/Caderno.js";
-import {ButtonFab} from "../../core/ButtonFab.js";
-import {AntDesign, Ionicons, Feather, Octicons } from '@expo/vector-icons';
+import FunctionMenu from "../../core/MainMenu.js";
+import {Ionicons, Feather, Octicons } from '@expo/vector-icons';
 
 const window = Dimensions.get('window');
 const screen = Dimensions.get('screen');
 
+const Wrapper = styled.SafeAreaView`
+  height: 90%;
+  width: 100%;
+  position: relative;
+
+`;
+
+const StyledFlatList = styled.FlatList`
+  width: 100%;
+  height: 100%;
+`;
 
 function FlatList() {
   const [dimensions, setDimensions] = useState({ window, screen });
@@ -25,7 +36,6 @@ function FlatList() {
     };
   });
 
-  // Format: (width - 2 * externalMargin - numCols * spaceBetween / 2) / numCols
   const tileSize = dimensions.window.width / 2 - 16 - 12;
 
   const [tiles, setTiles] = useState(['Tile 1', 'Tile 2', 'Tile 3']);
@@ -46,6 +56,11 @@ function FlatList() {
 
   return (
     <Wrapper>
+      <Header>
+        <TitleHeader >Meus Cadernos</TitleHeader>
+        <IconHeader1><Octicons name="search" size={24} color="black" /></IconHeader1>
+        <IconHeader2 onPress={addTile} ><Feather name="plus" size={27} color="black" /></IconHeader2>
+      </Header>
       <StyledFlatList
         data={showTile ? tiles : []}
         renderItem={({ item: title }) => (
@@ -59,50 +74,30 @@ function FlatList() {
         }}
         keyExtractor={(data, index) => index.toString()}
       />
-      <ButtonFab onPress={addTile}><Feather name="plus" size={30} color="white" /></ButtonFab>
     </Wrapper>
   );
 }
 
-const Tile = ({ title, tileSize }) => (
-      <Caderno Caderno tileSize={tileSize}>
-        <HeaderCaderno Caderno>
+const Tile = ({ title, tileSize}) => (
+
+      <Caderno tileSize={tileSize} >
+        <HeaderCaderno bordercolor={'#FAFCFC'}>
           <TitleHeaderCaderno >{title}</TitleHeaderCaderno>
         </HeaderCaderno>
         <BottomCaderno>
           <Icon>
-            <Ionicons name="document-text" size={24} color="white" />
+            <Ionicons name="journal" size={24} color="white" />
           </Icon>
         </BottomCaderno>
       </Caderno>
 );
 
-const Wrapper = styled.SafeAreaView`
-  height: 90%;
-  width: 100%;
-  position: relative;
 
-`;
-
-const StyledFlatList = styled.FlatList`
-  width: 100%;
-  height: 100%;
-`;
-
-const TelaCaderno = (props) => (
+const TelaPrincipal = (props) => (
   <>
-    <Header>
-      <ButtonBack>
-        <AntDesign name="left" size={24} color="black" />
-          <TextoButtonBack>Voltar</TextoButtonBack>
-        </ButtonBack>
-        <TitleHeader Caderno>{props.NomeCaderno}</TitleHeader>
-        <IconHeader1><Feather name="settings" size={24} color="black" /></IconHeader1>
-        <IconHeader2><Octicons name="search" size={24} color="black" /></IconHeader2>
-    </Header>
       <FlatList />
-  </>
+      <FunctionMenu />
+    </>
 );
 
-
-export default TelaCaderno;
+export default TelaPrincipal;

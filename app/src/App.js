@@ -1,6 +1,7 @@
 import React from "react";
 import { registerRootComponent } from "expo";
-
+{/*import TelaCaderno from "./screens/TelaCaderno";
+import HomeScreen from "./screens/TelaPrincipal";*/}
 import { NavigationContainer } from "@react-navigation/native";
 
 import { useFonts } from "expo-font";
@@ -9,6 +10,8 @@ import AppLoading from "expo-app-loading";
 import MainRoutes from "./routes";
 
 const App = () => {
+    {/* Teste da tela caderno => return(<TelaCaderno />);*/}
+    {/*Teste da tela principal => return(<HomeScreen />);*/}
   const [fontsLoaded] = useFonts({
     "Quicksand-Regular": require("./assets/fonts/Quicksand-Regular.ttf"),
     "Quicksand-Bold": require("./assets/fonts/Quicksand-Bold.ttf"),

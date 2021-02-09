@@ -1,3 +1,3 @@
-import TelaCaderno from "./TelaCaderno";
+import TelaCaderno from "./CadernoPresentational";
 
 export default TelaCaderno;
