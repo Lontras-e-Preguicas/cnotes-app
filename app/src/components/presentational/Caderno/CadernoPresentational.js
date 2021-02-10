@@ -73,7 +73,7 @@ export default function TelaCaderno (props){
         <StyledFlatList
           data={showTile ? tiles : []}
           renderItem={({ item: title }) => (
-            <Caderno Caderno tileSize={tileSize}  onPress={ () => {console.log("onpress deu erro");navigation.navigate('Caderno');} }>
+            <Caderno Caderno tileSize={tileSize}  onPress={ () => navigation.navigate('Caderno') }>
               <HeaderCaderno Caderno bordercolor={'#63E9E9'}>
                 <TitleHeaderCaderno >{title}</TitleHeaderCaderno>
               </HeaderCaderno>

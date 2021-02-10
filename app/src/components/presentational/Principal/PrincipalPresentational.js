@@ -7,6 +7,8 @@ import {Caderno, HeaderCaderno,TitleHeaderCaderno,BottomCaderno, Icon} from "../
 import FunctionMenu from "../../core/MainMenu.js";
 import {Ionicons, Feather, Octicons } from '@expo/vector-icons';
 
+import { useNavigation } from "@react-navigation/native";
+
 const window = Dimensions.get('window');
 const screen = Dimensions.get('screen');
 
@@ -22,7 +24,10 @@ const StyledFlatList = styled.FlatList`
   height: 100%;
 `;
 
-function FlatList() {
+
+export default function TelaPrincipal(props){
+  const navigation= useNavigation();
+
   const [dimensions, setDimensions] = useState({ window, screen });
 
   const onChange = ({ window, screen }) => {
@@ -54,7 +59,8 @@ function FlatList() {
     setShowTile(!showTile);
   };
 
-  return (
+  return(
+  <>
     <Wrapper>
       <Header>
         <TitleHeader >Meus Cadernos</TitleHeader>
@@ -64,7 +70,16 @@ function FlatList() {
       <StyledFlatList
         data={showTile ? tiles : []}
         renderItem={({ item: title }) => (
-          <Tile title={title} tileSize={tileSize} />
+          <Caderno tileSize={tileSize} onPress={ () => navigation.navigate('Caderno') }>
+            <HeaderCaderno bordercolor={'#FAFCFC'}>
+              <TitleHeaderCaderno >{title}</TitleHeaderCaderno>
+            </HeaderCaderno>
+            <BottomCaderno>
+              <Icon>
+                <Ionicons name="journal" size={24} color="white" />
+              </Icon>
+            </BottomCaderno>
+          </Caderno>
         )}
         numColumns={2}
         columnWrapperStyle={{
@@ -75,29 +90,7 @@ function FlatList() {
         keyExtractor={(data, index) => index.toString()}
       />
     </Wrapper>
-  );
-}
-
-const Tile = ({ title, tileSize}) => (
-
-      <Caderno tileSize={tileSize} >
-        <HeaderCaderno bordercolor={'#FAFCFC'}>
-          <TitleHeaderCaderno >{title}</TitleHeaderCaderno>
-        </HeaderCaderno>
-        <BottomCaderno>
-          <Icon>
-            <Ionicons name="journal" size={24} color="white" />
-          </Icon>
-        </BottomCaderno>
-      </Caderno>
-);
-
-
-const TelaPrincipal = (props) => (
-  <>
-      <FlatList />
       <FunctionMenu />
     </>
-);
-
-export default TelaPrincipal;
+  );
+}
