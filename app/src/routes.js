@@ -1,7 +1,7 @@
 import React from "react";
 
 import { createStackNavigator } from "@react-navigation/stack";
-import { LoginScreen, SignupScreen, HomeScreen, ProfileScreen } from "./screens";
+import { LoginScreen, SignupScreen, HomeScreen, ProfileScreen, TelaDoCaderno } from "./screens";
 import { Colors, Typography } from "./config";
 import BackButton from "./components/core/BackButton";
 
