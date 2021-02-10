@@ -4,7 +4,7 @@ import { Dimensions, StatusBar } from 'react-native';
 import {AntDesign, Ionicons, Feather, Octicons } from '@expo/vector-icons';
 
 import {Header,TitleHeader, IconHeader1, IconHeader2, ButtonBack, TextoButtonBack} from "../../core/Header.js";
-import {Text,AddButton,Anotacao, HeaderAnotacao,TitleHeaderAnotacao,BottomAnotacao, Icon} from "../../core/Anotacao.js";
+import {Text2,ValStar,Text1,Text,AddButton,Anotacao, HeaderAnotacao,TitleHeaderAnotacao,BottomAnotacao, Icon} from "../../core/Anotacao.js";
 import {ButtonFab} from "../../core/ButtonFab.js";
 
 
@@ -83,9 +83,12 @@ const Tile = ({ title, tileSize, tileSize2 }) => (
           <TitleHeaderAnotacao >{title}</TitleHeaderAnotacao>
         </HeaderAnotacao>
         <BottomAnotacao>
+        <Text1>Testando... Testando... Testando...</Text1>
+        <Text2>Por: </Text2>
           <Icon>
-            <Ionicons name="document-text" size={24} color="white" />
+            <AntDesign name="star" size={24} color="white" />
           </Icon>
+          <ValStar>4.6</ValStar>
         </BottomAnotacao>
       </Anotacao>
 );

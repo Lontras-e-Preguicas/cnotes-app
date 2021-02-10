@@ -40,7 +40,7 @@ export const Icon = styled.View`
   position: absolute;
   bottom:0;
   margin: ${getSpacing(5)};
-  padding-right: ${getSpacing(5)};
+  padding-right: ${getSpacing(35)};
 `;
 
 export const AddButton = styled.TouchableOpacity`
@@ -58,6 +58,38 @@ export const AddButton = styled.TouchableOpacity`
 export const Text = styled.Text`
   color: ${Colors.primaryLight};
   font-size: ${Typography.FONT_SIZES.large};
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
+`;
+
+export const Text1 = styled.Text`
+  color: ${Colors.primaryLight};
+  font-size: ${Typography.FONT_SIZES.regular};
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
+  align-self: flex-start;
+  margin-left: ${getSpacing(10)};
+  margin-top: ${getSpacing(8)};
+`;
+
+export const Text2 = styled.Text`
+  color: ${Colors.primaryLight};
+  font-size: ${Typography.FONT_SIZES.regular};
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
+  align-self: flex-start;
+  position: absolute;
+  bottom:0;
+  margin-left: ${getSpacing(10)};
+  margin-bottom: ${getSpacing(8)};
+`;
+
+export const ValStar = styled.Text`
+  color: ${Colors.primaryLight};
+  font-size: ${Typography.FONT_SIZES.medium};
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
+  align-self: flex-end;
+  position: absolute;
+  bottom:0;
+  margin: ${getSpacing(5)};
+  padding-right: ${getSpacing(8)};
 `;
 
 
