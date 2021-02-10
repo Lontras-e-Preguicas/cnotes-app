@@ -1,20 +1,21 @@
 import React from 'react';
 import styled from "styled-components";
-import colors from '../../config/colors0.js';
+import { Colors, Typography } from "../../config";
 import fontsSize from '../../config/fontsSize.js';
 import getSpacing from '../../config/spacing';
 
 
 export const Header = styled.View`
-  background: ${colors.PrimLight};
+  background: ${Colors.primaryLight};
   width: 100%;
   height:10%;
   padding: ${getSpacing(30)};
 
 `;
 export const TitleHeader = styled.Text`
-  color: ${colors.PrimDark};
-  font-size: 20px;
+  color: ${Colors.primaryDark};
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.SemiBold};
+  font-size: ${Typography.FONT_SIZES.huge};
   align-self: ${props => (props.Caderno ? 'center' : 'flex-start')};
   padding-top: ${getSpacing(15)};
   padding-left: ${props => (props.Caderno ? 0 : getSpacing(15) )};
@@ -41,7 +42,7 @@ export const IconHeader2 = styled.TouchableOpacity`
 `;
 
 export const ButtonBack = styled.TouchableOpacity`
-  background: ${colors.PrimLight};
+  background: ${Colors.primaryLight};
   align-self: flex-start;
   bottom:0;
   margin-left:5%;
@@ -52,8 +53,9 @@ export const ButtonBack = styled.TouchableOpacity`
 `;
 
 export const TextoButtonBack = styled.Text`
-    color: ${colors.PrimDark};
-    font-size: ${fontsSize.text};
+    color: ${Colors.primaryDark};
+    font-family: ${Typography.FONT_FAMILIES.Quicksand.SemiBold};
+    font-size: ${Typography.FONT_SIZES.large};
     position:absolute;
     margin-left:25px;
 `;

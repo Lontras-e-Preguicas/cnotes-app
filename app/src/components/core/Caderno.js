@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
-import colors from '../../config/colors0.js';
+import { Colors, Typography } from "../../config";
 import getSpacing from '../../config/spacing';
 
 export const Caderno = styled.TouchableOpacity`
@@ -13,8 +13,9 @@ export const Caderno = styled.TouchableOpacity`
  flex-direction: column;
 `;
 export const TitleHeaderCaderno = styled.Text`
-  color: ${colors.PrimLight};
-  font-size: 16px;
+  color: ${Colors.primaryLight};
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
+  font-size: ${Typography.FONT_SIZES.large};
   align-self: flex-start;
   padding: ${getSpacing(15)};
 `;
@@ -27,7 +28,7 @@ export const HeaderCaderno = styled.View`
   height: 30%;
 `;
 export const BottomCaderno = styled.View`
-  background: ${colors.PrimDark};
+  background: ${Colors.primaryDark};
   border-bottom-left-radius: 10px;
 	border-bottom-right-radius: 10px;
   height: 70%;

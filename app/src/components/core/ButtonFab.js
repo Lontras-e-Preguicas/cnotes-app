@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from "styled-components";
-import colors from '../../config/colors0.js';
+import { Colors, Typography } from "../../config";
 import getSpacing from '../../config/spacing';
 
 export const ButtonFab = styled.TouchableOpacity`
-  background: ${colors.PrimDark};
-  border: 2px ${colors.Secondary};
+  background: ${Colors.primaryDark};
+  border: 2px ${Colors.secondary};
   border-radius: 60px;
   align-items: center;
   align-self: flex-end;

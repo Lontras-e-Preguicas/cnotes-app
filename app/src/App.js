@@ -1,8 +1,8 @@
 import React from "react";
 import { registerRootComponent } from "expo";
-{/*import TelaCaderno from "./screens/TelaCaderno";
+{/**/}import TelaCaderno from "./screens/TelaCaderno";
 import HomeScreen from "./screens/TelaPrincipal";
-import TelaConjuntoAnotacao from "./screens/TelaConjAnotacao";*/}
+import TelaConjuntoAnotacao from "./screens/TelaConjAnotacao";
 import { NavigationContainer } from "@react-navigation/native";
 
 import { useFonts } from "expo-font";
@@ -26,7 +26,6 @@ const App = () => {
   if (!fontsLoaded) {
     return <AppLoading />;
   }
-
   return (
     <NavigationContainer>
       <MainRoutes />

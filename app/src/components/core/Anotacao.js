@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
-import colors from '../../config/colors0.js';
-import applyOpacity from '../../config/colors0.js';
+
+import { Colors, Typography } from "../../config";
 import getSpacing from '../../config/spacing';
 import fontsSize from '../../config/fontsSize.js';
 
@@ -15,13 +15,14 @@ export const Anotacao = styled.TouchableOpacity`
  flex-direction: column;
 `;
 export const TitleHeaderAnotacao = styled.Text`
-  color: ${colors.PrimLight};
-  font-size: 16px;
+  color: ${Colors.primaryLight};
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
+  font-size: ${Typography.FONT_SIZES.large};
   align-self: flex-start;
   padding: ${getSpacing(15)};
 `;
 export const HeaderAnotacao = styled.View`
-  background: ${colors.PrimDark};
+  background: ${Colors.primaryDark};
   border-bottom-width:2.4px;
   border-color: ${({bordercolor}) => bordercolor};
   border-top-left-radius: 10px;
@@ -29,7 +30,7 @@ export const HeaderAnotacao = styled.View`
   height: 30%;
 `;
 export const BottomAnotacao = styled.View`
-  background: ${colors.PrimDark};
+  background: ${Colors.primaryDark};
   border-bottom-left-radius: 10px;
 	border-bottom-right-radius: 10px;
   height: 70%;
@@ -44,13 +45,13 @@ export const Icon = styled.View`
 
 export const AddButton = styled(Anotacao)`
   align-items: center;
-  background: ${colors.opaciDark};
+  background: ${Colors.opaciDark};
   padding: ${getSpacing(65)};
   margin-bottom: ${getSpacing(8)};
 `;
 
 export const Text = styled.Text`
-color: ${colors.PrimLight};
+color: ${Colors.primaryLight};
 font-size: ${fontsSize.text};
 `;
 

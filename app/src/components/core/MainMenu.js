@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Ionicons, Octicons, FontAwesome} from '@expo/vector-icons';
 
 import getSpacing from '../../config/spacing';
-import colors from '../../config/colors0.js';
+import { Colors, Typography } from "../../config";
 
 const MainMenu = styled.View`
   flex: 1;
@@ -11,7 +11,7 @@ const MainMenu = styled.View`
   width: 100%;
   height: 50%;
   margin-top: ${getSpacing(30)};
-  background-color: ${colors.PrimDark};
+  background-color: ${Colors.primaryDark};
 `;
 
 export const MenuButton = styled.TouchableOpacity`
@@ -19,7 +19,7 @@ export const MenuButton = styled.TouchableOpacity`
     height: 100%;
     padding: 10px;
     align-items: center;
-    background-color:  ${colors.PrimDark};
+    background-color:  ${Colors.primaryDark};
 `;
 
 export const BookButton = styled(MenuButton)`
