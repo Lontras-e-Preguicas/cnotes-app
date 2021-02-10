@@ -26,11 +26,12 @@ const App = () => {
   if (!fontsLoaded) {
     return <AppLoading />;
   }
-  return (
+  return(<TelaConjuntoAnotacao />);
+{  /*return (
     <NavigationContainer>
       <MainRoutes />
     </NavigationContainer>
-  );
+  );*/}
 };
 
 export default App;

@@ -43,16 +43,21 @@ export const Icon = styled.View`
   padding-right: ${getSpacing(5)};
 `;
 
-export const AddButton = styled(Anotacao)`
+export const AddButton = styled.TouchableOpacity`
+  align-self: flex-start;
+  position: relative;
   align-items: center;
   background: ${Colors.opaciDark};
-  padding: ${getSpacing(65)};
-  margin-bottom: ${getSpacing(8)};
+  height:10%;
+  width:95%;
+  border-radius: 10px;
+  margin: ${getSpacing(5)};
+  padding: ${getSpacing(8)};
 `;
 
 export const Text = styled.Text`
-color: ${Colors.primaryLight};
-font-size: ${fontsSize.text};
+  color: ${Colors.primaryLight};
+  font-size: ${Typography.FONT_SIZES.large};
 `;
 
 
