@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import colors from "../../../config/colors.js";
 
-const Wrapper = styled.SafeAreaView`
+export const Wrapper = styled.SafeAreaView`
   flex-grow: 1;
   align-items: center;
   justify-content: space-between;

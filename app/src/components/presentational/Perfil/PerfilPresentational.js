@@ -4,7 +4,7 @@ import { Wrapper, Header, HeaderTitle, HeaderIcon, PerfilImage, Infos, UserInfos
 import { Ionicons } from '@expo/vector-icons';
 
 
-const PerfilPresentational = () => (
+const PerfilPresentational = (props) => (
   <>
     <Wrapper>
       <Header>
@@ -13,7 +13,7 @@ const PerfilPresentational = () => (
          <Ionicons name="ios-pencil" size={20} color="black" />
         </HeaderIcon>
       </Header>
-      <PerfilImage source={require('./assets/images/ednaldoPereira.png')}/>
+      <PerfilImage source={require('../../../assets/images/ednaldoPereira.png')}/>
       <Infos>
         <UserInfos>
           <InfoTitle>Bio</InfoTitle>

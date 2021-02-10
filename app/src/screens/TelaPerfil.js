@@ -2,7 +2,7 @@ import React from "react";
 
 import { StatusBar } from "expo-status-bar";
 
-import PerfilContainer from "../components/container/Perfil";
+import PerfilContainer from "../components/containers/Perfil";
 
 const ProfileScreen = (props) => (
   <>
