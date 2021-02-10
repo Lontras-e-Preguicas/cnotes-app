@@ -24,7 +24,9 @@ export const StyledFlatList = styled.FlatList`
   height: 100%;
 `;
 
-function FlatList() {
+export default function TelaCaderno (props){
+  const navigation = useNavigation();
+
   const [dimensions, setDimensions] = useState({ window, screen });
 
   const onChange = ({ window, screen }) => {
@@ -56,46 +58,6 @@ function FlatList() {
     setShowTile(!showTile);
   };
 
-  return (
-    <Wrapper>
-      <StyledFlatList
-        data={showTile ? tiles : []}
-        renderItem={({ item: title }) => (
-          <Tile title={title} tileSize={tileSize}/>
-        )}
-        numColumns={2}
-        columnWrapperStyle={{
-          marginLeft: 16,
-          marginRight: 16,
-          justifyContent: 'space-between',
-        }}
-        keyExtractor={(data, index) => index.toString()}
-      />
-      <ButtonFab onPress={addTile}><Feather name="plus" size={30} color="white" /></ButtonFab>
-    </Wrapper>
-  );
-}
-
-export function Tile({ title, tileSize }){
-
-  const navigation = useNavigation();
-
-  return(
-      <Caderno Caderno tileSize={tileSize}  onPress={()=>navigation.navigate('Caderno')}>
-        <HeaderCaderno Caderno bordercolor={'#63E9E9'}>
-          <TitleHeaderCaderno >{title}</TitleHeaderCaderno>
-        </HeaderCaderno>
-        <BottomCaderno>
-          <Icon>
-            <Ionicons name="document-text" size={24} color="white" />
-          </Icon>
-        </BottomCaderno>
-      </Caderno>
-);
-};
-
-export default function TelaCaderno (props){
-  const navigation = useNavigation();
   return(
     <>
       <Header>
@@ -107,7 +69,31 @@ export default function TelaCaderno (props){
           <IconHeader1><Feather name="settings" size={24} color="black" /></IconHeader1>
           <IconHeader2><Octicons name="search" size={24} color="black" /></IconHeader2>
       </Header>
-        <FlatList />
+      <Wrapper>
+        <StyledFlatList
+          data={showTile ? tiles : []}
+          renderItem={({ item: title }) => (
+            <Caderno Caderno tileSize={tileSize}  onPress={ () => {console.log("onpress deu erro");navigation.navigate('Caderno');} }>
+              <HeaderCaderno Caderno bordercolor={'#63E9E9'}>
+                <TitleHeaderCaderno >{title}</TitleHeaderCaderno>
+              </HeaderCaderno>
+              <BottomCaderno>
+                <Icon>
+                  <Ionicons name="document-text" size={24} color="white" />
+                </Icon>
+              </BottomCaderno>
+            </Caderno>
+          )}
+          numColumns={2}
+          columnWrapperStyle={{
+            marginLeft: 16,
+            marginRight: 16,
+            justifyContent: 'space-between',
+          }}
+          keyExtractor={(data, index) => index.toString()}
+        />
+        <ButtonFab onPress={addTile}><Feather name="plus" size={30} color="white" /></ButtonFab>
+      </Wrapper>
     </>
   );
 }
