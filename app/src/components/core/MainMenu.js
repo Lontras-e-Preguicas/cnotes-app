@@ -6,12 +6,13 @@ import getSpacing from '../../config/spacing';
 import { Colors, Typography } from "../../config";
 
 const MainMenu = styled.View`
-  flex: 1;
+  position: absolute;
   flex-flow: row nowrap;
   width: 100%;
-  height: 50%;
+  height: 6%;
   margin-top: ${getSpacing(30)};
   background-color: ${Colors.primaryDark};
+  bottom: 0;
 `;
 
 export const MenuButton = styled.TouchableOpacity`
