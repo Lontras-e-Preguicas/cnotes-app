@@ -32,8 +32,10 @@ export function MainRoutes(props) {
     <MainStack.Screen name="Home" component={HomeScreen} />
   </MainStack.Navigator>*/
   return (
-    <MainStack.Navigator headerMode="none" initialRouteName="Auth">
+    <MainStack.Navigator headerMode="none" initialRouteName="Home">
+      <MainStack.Screen name="Home" component={HomeScreen} />
       <MainStack.Screen name="Profile" component={ProfileScreen} />
+      <MainStack.Screen name="Caderno" component={TelaDoCaderno} />
     </MainStack.Navigator>
   );
 }

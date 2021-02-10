@@ -2,6 +2,7 @@ import React from "react";
 
 import { Wrapper, Header, HeaderTitle, HeaderIcon, PerfilImage, Infos, UserInfos,Info, InfoTitle } from "./styles.js";
 import { Ionicons } from '@expo/vector-icons';
+import FunctionMenu from "../../core/MainMenu.js";
 
 
 const PerfilPresentational = (props) => (
@@ -24,6 +25,7 @@ const PerfilPresentational = (props) => (
           <Info>abcd@gmail.com</Info>
         </UserInfos>
       </Infos>
+      <FunctionMenu/>
     </Wrapper>
   </>
 );

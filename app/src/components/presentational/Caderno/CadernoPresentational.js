@@ -7,18 +7,19 @@ import {Header,TitleHeader, IconHeader1, IconHeader2, ButtonBack, TextoButtonBac
 import {Caderno, HeaderCaderno,TitleHeaderCaderno,BottomCaderno, Icon} from "../../core/Caderno.js";
 import {ButtonFab} from "../../core/ButtonFab.js";
 
+import { useNavigation } from "@react-navigation/native";
 
 const window = Dimensions.get('window');
 const screen = Dimensions.get('screen');
 
-const Wrapper = styled.SafeAreaView`
+export const Wrapper = styled.SafeAreaView`
   height: 90%;
   width: 100%;
   position: relative;
 
 `;
 
-const StyledFlatList = styled.FlatList`
+export const StyledFlatList = styled.FlatList`
   width: 100%;
   height: 100%;
 `;
@@ -60,7 +61,7 @@ function FlatList() {
       <StyledFlatList
         data={showTile ? tiles : []}
         renderItem={({ item: title }) => (
-          <Tile title={title} tileSize={tileSize} />
+          <Tile title={title} tileSize={tileSize}/>
         )}
         numColumns={2}
         columnWrapperStyle={{
@@ -75,8 +76,12 @@ function FlatList() {
   );
 }
 
-const Tile = ({ title, tileSize }) => (
-      <Caderno Caderno tileSize={tileSize}>
+export function Tile({ title, tileSize }){
+
+  const navigation = useNavigation();
+
+  return(
+      <Caderno Caderno tileSize={tileSize}  onPress={()=>navigation.navigate('Caderno')}>
         <HeaderCaderno Caderno bordercolor={'#63E9E9'}>
           <TitleHeaderCaderno >{title}</TitleHeaderCaderno>
         </HeaderCaderno>
@@ -87,22 +92,22 @@ const Tile = ({ title, tileSize }) => (
         </BottomCaderno>
       </Caderno>
 );
+};
 
-
-const TelaCaderno = (props) => (
-  <>
-    <Header>
-      <ButtonBack>
-        <AntDesign name="left" size={24} color="black" />
-          <TextoButtonBack>Voltar</TextoButtonBack>
-        </ButtonBack>
-        <TitleHeader Caderno>{props.NomeCaderno}</TitleHeader>
-        <IconHeader1><Feather name="settings" size={24} color="black" /></IconHeader1>
-        <IconHeader2><Octicons name="search" size={24} color="black" /></IconHeader2>
-    </Header>
-      <FlatList />
-  </>
-);
-
-
-export default TelaCaderno;
+export default function TelaCaderno (props){
+  const navigation = useNavigation();
+  return(
+    <>
+      <Header>
+        <ButtonBack>
+          <AntDesign name="left" size={24} color="black" />
+            <TextoButtonBack onPress={() => navigation.goBack()}>Voltar</TextoButtonBack>
+          </ButtonBack>
+          <TitleHeader Caderno>{props.NomeCaderno}</TitleHeader>
+          <IconHeader1><Feather name="settings" size={24} color="black" /></IconHeader1>
+          <IconHeader2><Octicons name="search" size={24} color="black" /></IconHeader2>
+      </Header>
+        <FlatList />
+    </>
+  );
+}
