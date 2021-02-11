@@ -9,17 +9,23 @@ export const Header = styled.View`
   width: 100%;
   height: 10%;
   padding: ${getSpacing(30)};
+
+  position: relative;
 `;
 export const TitleHeader = styled.Text`
   color: ${Colors.primaryDark};
   font-family: ${Typography.FONT_FAMILIES.Quicksand.SemiBold};
   font-size: ${Typography.FONT_SIZES.huge};
   align-self: ${(props) => (props.Caderno ? "center" : "flex-start")};
-  padding-top: ${getSpacing(15)};
   padding-left: ${(props) => (props.Caderno ? 0 : getSpacing(15))};
   position: ${(props) => (props.Caderno ? "relative" : "absolute")};
-  left: ${(props) => (props.Caderno ? 1 : 0)};
+  left: 0;
+
   bottom: 0;
+  top: 0;
+
+  height: 32px;
+  margin-top: 16px;
 `;
 
 export const IconHeader1 = styled.TouchableOpacity`
