@@ -94,8 +94,8 @@ function FlatList({ navigation }) {
   );
 }
 
-const Tile = ({ title, tileSize }) => (
-  <Caderno Caderno tileSize={tileSize}>
+const Tile = ({ title, tileSize, onPress }) => (
+  <Caderno Caderno onPress={onPress} tileSize={tileSize}>
     <HeaderCaderno Caderno bordercolor={"#63E9E9"}>
       <TitleHeaderCaderno>{title}</TitleHeaderCaderno>
     </HeaderCaderno>
@@ -113,9 +113,9 @@ export default TelaCaderno = (props) => {
   return (
     <>
       <Header>
-        <ButtonBack>
+        <ButtonBack onPress={navigation.goBack}>
           <AntDesign name="left" size={24} color="black" />
-          <TextoButtonBack onPress={navigation.goBack}>Voltar</TextoButtonBack>
+          <TextoButtonBack>Voltar</TextoButtonBack>
         </ButtonBack>
         <TitleHeader Caderno>{props.NomeCaderno}</TitleHeader>
         <IconHeader1>
