@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Dimensions, StatusBar } from "react-native";
 import { AntDesign, Ionicons, Feather, Octicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 import {
   Header,

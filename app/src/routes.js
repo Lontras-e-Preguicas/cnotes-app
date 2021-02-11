@@ -11,6 +11,7 @@ import {
 import { Colors, Typography } from "./config";
 import BackButton from "./components/core/BackButton";
 import TelaConjuntoAnotacao from "./screens/TelaConjAnotacao";
+import TelaDeAtividades from "./screens/TelaAtividades";
 
 const MainStack = createStackNavigator();
 
@@ -38,6 +39,7 @@ export function MainRoutes(props) {
     <MainStack.Navigator headerMode="none" initialRouteName="Auth">
       <MainStack.Screen name="Auth" component={AuthRoutes} />
       <MainStack.Screen name="Home" component={HomeScreen} />
+      <MainStack.Screen name="Notifications" component={TelaDeAtividades} />
       <MainStack.Screen name="Profile" component={ProfileScreen} />
       <MainStack.Screen name="Caderno" component={TelaDoCaderno} />
       <MainStack.Screen name="Conjunto" component={TelaConjuntoAnotacao} />
