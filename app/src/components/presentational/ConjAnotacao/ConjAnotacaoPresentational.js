@@ -12,6 +12,9 @@ import {
   TextoButtonBack,
 } from "../../core/Header.js";
 import {
+  Text2,
+  ValStar,
+  Text1,
   Text,
   AddButton,
   Anotacao,
@@ -21,7 +24,6 @@ import {
   Icon,
 } from "../../core/Anotacao.js";
 import { ButtonFab } from "../../core/ButtonFab.js";
-import { useNavigation } from "@react-navigation/native";
 
 const window = Dimensions.get("window");
 const screen = Dimensions.get("screen");
@@ -96,9 +98,12 @@ const Tile = ({ title, tileSize, tileSize2 }) => (
       <TitleHeaderAnotacao>{title}</TitleHeaderAnotacao>
     </HeaderAnotacao>
     <BottomAnotacao>
+      <Text1>Testando... Testando... Testando...</Text1>
+      <Text2>Por: </Text2>
       <Icon>
-        <Ionicons name="document-text" size={24} color="white" />
+        <AntDesign name="star" size={24} color="white" />
       </Icon>
+      <ValStar>4.6</ValStar>
     </BottomAnotacao>
   </Anotacao>
 );
