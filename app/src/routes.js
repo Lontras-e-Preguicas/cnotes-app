@@ -1,7 +1,13 @@
 import React from "react";
 
 import { createStackNavigator } from "@react-navigation/stack";
-import { LoginScreen, SignupScreen, HomeScreen, ProfileScreen, TelaDoCaderno } from "./screens";
+import {
+  LoginScreen,
+  SignupScreen,
+  HomeScreen,
+  ProfileScreen,
+  TelaDoCaderno,
+} from "./screens";
 import { Colors, Typography } from "./config";
 import BackButton from "./components/core/BackButton";
 
@@ -27,12 +33,9 @@ export function AuthRoutes(props) {
 }
 
 export function MainRoutes(props) {
-  /*<MainStack.Navigator headerMode="none" initialRouteName="Auth">
-    <MainStack.Screen name="Auth" component={AuthRoutes} />
-    <MainStack.Screen name="Home" component={HomeScreen} />
-  </MainStack.Navigator>*/
   return (
-    <MainStack.Navigator headerMode="none" initialRouteName="Home">
+    <MainStack.Navigator headerMode="none" initialRouteName="Auth">
+      <MainStack.Screen name="Auth" component={AuthRoutes} />
       <MainStack.Screen name="Home" component={HomeScreen} />
       <MainStack.Screen name="Profile" component={ProfileScreen} />
       <MainStack.Screen name="Caderno" component={TelaDoCaderno} />
