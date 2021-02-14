@@ -29,7 +29,7 @@ function LoginContainer(props) {
     setLoading(true);
     try {
       await api.login(formData.email, formData.password);
-      navigation.navigate("Home");
+      navigation.navigate("HomeTabs");
 
       // Clear credentials
       setEmail();

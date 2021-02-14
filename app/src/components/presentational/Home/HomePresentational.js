@@ -15,6 +15,7 @@ import {
   BottomCaderno,
   Icon,
 } from "../../core/Caderno.js";
+
 import FunctionMenu from "../../core/MainMenu.js";
 import { Ionicons, Feather, Octicons } from "@expo/vector-icons";
 
@@ -34,7 +35,7 @@ const StyledFlatList = styled.FlatList`
   height: 100%;
 `;
 
-export default function TelaPrincipal(props) {
+export default function HomePresentational(props) {
   const navigation = useNavigation();
 
   const [dimensions, setDimensions] = useState({ window, screen });

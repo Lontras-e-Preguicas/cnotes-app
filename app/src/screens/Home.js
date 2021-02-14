@@ -2,12 +2,15 @@ import React from "react";
 
 import { StatusBar } from "expo-status-bar";
 
-import TelaPrincipal from "../components/presentational/Principal/PrincipalPresentational";
+import HomePresentational from "../components/presentational/Home/HomePresentational";
 
 const HomeScreen = (props) => (
   <>
     <StatusBar style="light" />
-    <TelaPrincipal TituloCaderno="Meus Cadernos" NomeCaderno="Testeeando"/>
+    <HomePresentational
+      TituloCaderno="Meus Cadernos"
+      NomeCaderno="Testeeando"
+    />
   </>
 );
 
