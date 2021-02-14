@@ -1,10 +1,9 @@
 {
-  "plugins": ["react", "react-hooks", "react-native", "prettier"],
+  "plugins": ["react", "react-hooks", "prettier"],
   "extends": [
     "eslint:recommended",
     "prettier/react",
     "plugin:react/recommended",
-    "plugin:react-native/all",
     "plugin:jsx-a11y/strict",
     "plugin:import/errors",
     "plugin:import/warnings",
@@ -16,8 +15,7 @@
     }
   },
   "env": {
-    "browser": true,
-    "react-native/react-native": true
+    "browser": true
   },
   "rules": {
     "react/jsx-filename-extension": [
@@ -26,7 +24,9 @@
         "extensions": [".js", ".jsx"]
       }
     ],
-    "react/style-prop-object": [0]
+    "react/style-prop-object": [0],
+    "quotes": [2, "double", "avoid-escape"],
+    "import/no-named-as-default": 0
   },
   "settings": {
     "react": {
