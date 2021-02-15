@@ -1,65 +1,79 @@
 import React from "react";
-import styled from "styled-components";
-import { Colors, Typography } from "../../config";
-import fontsSize from "../../config/fontsSize.js";
-import getSpacing from "../../config/spacing";
+import styled from "styled-components/native";
 
-export const Header = styled.View`
-  background: ${Colors.primaryLight};
+import DefaultTouchable from "./DefaultTouchable";
+
+import { Ionicons } from "@expo/vector-icons";
+
+import { Colors, Typography, Spacing } from "../../config";
+
+export function Header({ title, rightButtons }) {
+  /*
+  rightButtons: [
+    {
+      icon: str, 
+      onPress: function,
+      ...props
+    },
+    ...
+  ]
+  */
+
+  let rightButtonsComponent = <></>;
+
+  if (rightButtons) {
+    rightButtonsComponent = (
+      <HeaderRightButtons>
+        {rightButtons.map(({ icon, onPress, ...props }, index) => (
+          <DefaultTouchable onPress={onPress} key={index.toString()} {...props}>
+            <StyledHeaderIcon name={icon} />
+          </DefaultTouchable>
+        ))}
+      </HeaderRightButtons>
+    );
+  }
+
+  return (
+    <HeaderContainer>
+      <HeaderContent>
+        <HeaderTitle>{title}</HeaderTitle>
+        {rightButtonsComponent}
+      </HeaderContent>
+    </HeaderContainer>
+  );
+}
+
+export const HeaderContainer = styled.SafeAreaView`
   width: 100%;
-  height: 10%;
-  padding: ${getSpacing(30)};
-
-  position: relative;
-`;
-export const TitleHeader = styled.Text`
-  color: ${Colors.primaryDark};
-  font-family: ${Typography.FONT_FAMILIES.Quicksand.SemiBold};
-  font-size: ${Typography.FONT_SIZES.huge};
-  align-self: ${(props) => (props.Caderno ? "center" : "flex-start")};
-  padding-left: ${(props) => (props.Caderno ? 0 : getSpacing(15))};
-  position: ${(props) => (props.Caderno ? "relative" : "absolute")};
-  left: 0;
-
-  bottom: 0;
-  top: 0;
-
-  height: 32px;
-  margin-top: 16px;
-`;
-
-export const IconHeader1 = styled.TouchableOpacity`
-  align-self: flex-end;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  margin-bottom: ${getSpacing(10)};
-  margin-right: ${getSpacing(25)};
-`;
-export const IconHeader2 = styled.TouchableOpacity`
-  align-self: flex-end;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  margin-bottom: ${getSpacing(10)};
-  margin-right: ${getSpacing(65)};
-`;
-
-export const ButtonBack = styled.TouchableOpacity`
-  background: ${Colors.primaryLight};
   align-self: flex-start;
-  bottom: 0;
-  margin-left: 5%;
-  position: absolute;
-  flex-direction: column;
-  width: 15%;
-  margin-bottom: 2%;
 `;
 
-export const TextoButtonBack = styled.Text`
+export const HeaderContent = styled.View`
+  height: 56px;
+  width: 100%;
+
+  padding: 0 ${Spacing.getSpacing(16)};
+
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  position: relative; /* Later center the text */
+`;
+
+export const HeaderTitle = styled.Text`
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
+  font-size: ${Typography.FONT_SIZES.giant};
   color: ${Colors.primaryDark};
-  font-family: ${Typography.FONT_FAMILIES.Quicksand.SemiBold};
-  font-size: ${Typography.FONT_SIZES.large};
-  position: absolute;
-  margin-left: 25px;
+`;
+
+export const HeaderRightButtons = styled.View`
+  flex-direction: row;
+`;
+
+export const StyledHeaderIcon = styled(Ionicons).attrs({
+  color: Colors.primaryDark,
+  size: 24,
+})`
+  margin-left: ${Spacing.getSpacing(8)};
 `;

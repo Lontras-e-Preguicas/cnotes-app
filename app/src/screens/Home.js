@@ -2,15 +2,12 @@ import React from "react";
 
 import { StatusBar } from "expo-status-bar";
 
-import HomePresentational from "../components/presentational/Home/HomePresentational";
+import HomeContainer from "../components/containers/Home";
 
 const HomeScreen = (props) => (
   <>
-    <StatusBar style="light" />
-    <HomePresentational
-      TituloCaderno="Meus Cadernos"
-      NomeCaderno="Testeeando"
-    />
+    <StatusBar style="dark" />
+    <HomeContainer />
   </>
 );
 
