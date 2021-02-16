@@ -77,7 +77,7 @@ export function HomeRoutes(props) {
             <Ionicons name="md-person" color={color} size={size} />
           ),
         }}
-        component={HomeScreen}
+        component={ProfileScreen}
       />
     </HomeTabs.Navigator>
   );

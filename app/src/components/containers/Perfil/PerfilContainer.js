@@ -2,9 +2,8 @@ import React from "react";
 
 import PerfilPresentational from "../../presentational/Perfil";
 
-
 function PerfilContainer(props) {
-  return <PerfilPresentational/>;
+  return <PerfilPresentational />;
 }
 
 export default PerfilContainer;

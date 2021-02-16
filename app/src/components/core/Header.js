@@ -77,3 +77,5 @@ export const StyledHeaderIcon = styled(Ionicons).attrs({
 })`
   margin-left: ${Spacing.getSpacing(8)};
 `;
+
+export default Header;

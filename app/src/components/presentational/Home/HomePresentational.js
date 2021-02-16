@@ -5,6 +5,8 @@ import { Ionicons } from "@expo/vector-icons";
 
 import { Colors } from "../../../config";
 
+import Header from "../../core/Header";
+
 import {
   StyledFlatList,
   TileContainer,
@@ -16,7 +18,6 @@ import {
   EmptyListTitle,
   EmptyListText,
 } from "./styles.js";
-import { Header } from "../../core/Header";
 
 const window = Dimensions.get("window");
 const screen = Dimensions.get("screen");

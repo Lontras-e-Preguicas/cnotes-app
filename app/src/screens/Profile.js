@@ -7,10 +7,10 @@ import PerfilContainer from "../components/containers/Perfil";
 const ProfileScreen = (props) => (
   <>
     <StatusBar style="light" />
-    <PerfilContainer/>
+    <PerfilContainer />
   </>
 );
 
 export { ProfileScreen };
 
-export default  ProfileScreen ;
+export default ProfileScreen;

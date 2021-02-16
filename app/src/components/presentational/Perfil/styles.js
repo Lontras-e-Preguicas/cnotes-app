@@ -1,57 +1,93 @@
-import React from "react";
-import styled from "styled-components";
-import colors from "../../../config/colors.js";
+import styled from "styled-components/native";
+import { Colors, Spacing, Typography } from "../../../config";
+import { applyOpacity } from "../../../config/colors";
 
 export const Wrapper = styled.SafeAreaView`
-  flex-grow: 1;
-  align-items: center;
-  justify-content: space-between;
-  background-color: ${colors.primaryLight};
+  height: 100%;
+  background-color: ${Colors.primaryLight};
 `;
-export const Header = styled.View`
-  height: 10%;
+
+export const Content = styled.View`
+  flex-grow: 1;
+  margin-top: ${Spacing.getSpacing(8)};
+
+  align-items: center;
+  padding: 0 ${Spacing.getSpacing(16)};
+`;
+
+export const ProfilePictureWrapper = styled.View`
+  elevation: 1;
+  shadow-color: black;
+  shadow-opacity: 0.2;
+  shadow-offset: 1px 1px;
+  shadow-radius: 2px;
+`;
+
+export const ProfilePicture = styled.Image`
+  width: 180px;
+  height: 180px;
+  border-radius: 90px;
+`;
+
+export const ProfileName = styled.Text`
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
+  font-size: ${Typography.FONT_SIZES.huge};
+  color: ${Colors.primaryDark};
+
+  text-align: center;
+
+  margin: ${Spacing.getSpacing(8)} 0;
+`;
+
+export const InfoContainer = styled.View`
+  flex-grow: 1;
+  margin-top: ${Spacing.getSpacing(8)};
+  padding: 0 ${Spacing.getSpacing(8)};
   width: 100%;
-  margin-top:10%;
-  background-color: ${colors.primaryLight};
+`;
+
+export const InfoWrapper = styled.View`
+  flex-direction: column;
+  margin-bottom: ${Spacing.getSpacing(16)};
+`;
+
+export const InfoName = styled.Text`
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
+  font-size: ${Typography.FONT_SIZES.large};
+  color: ${applyOpacity(Colors.primaryDark, 0.8)};
+
+  margin-bottom: ${Spacing.getSpacing(4)};
+`;
+
+export const InfoData = styled.Text`
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
+  font-size: ${Typography.FONT_SIZES.medium};
+  color: ${applyOpacity(Colors.primaryDark, 0.6)};
+
+  margin-bottom: ${Spacing.getSpacing(4)};
+  text-align: justify;
+`;
+
+export const BottomRow = styled.View`
+  width: 100%;
+  margin-bottom: ${Spacing.getSpacing(24)};
+
   flex-direction: row;
   justify-content: space-between;
-`;
-export const HeaderTitle = styled.Text`
-  color: ${colors.primaryDark};
-  font-size: 20px;
-  line-height: 25px;
-  padding: 16px;
-`;
-export const HeaderIcon = styled.TouchableOpacity`
-  padding: 4%;
-`;
-export const PerfilImage = styled.Image`
-  width:180px;
-  height:180px;
-  border-radius:90;
+  align-items: center;
 `;
 
-export const Infos= styled.View`
-  height:45%
-  width: 86%;
+export const BottomText = styled.Text`
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
+  font-size: ${Typography.FONT_SIZES.medium};
+  text-decoration: underline;
+
+  color: ${Colors.primaryDark};
+  text-decoration-color: ${Colors.primaryDark};
+  padding: ${Spacing.getSpacing(8)};
 `;
 
-export const UserInfos = styled.View`
-  width: 86%;
-  height: 6%;
-  margin-left: 7%;
-  margin-top: 10%;
+export const BottomTextAlt = styled(BottomText)`
+  color: ${Colors.secondaryAlt};
+  text-decoration-color: ${Colors.secondaryAlt};
 `;
-export const InfoTitle = styled.Text`
-font-size: 14px;
-line-height: 17px;
-color: rgba(30, 30, 30, 0.8);
-`;
-
-export const Info = styled.Text`
-  font-size: 12px;
-  line-height: 15px;
-  color: rgba(30, 30, 30, 0.6);
-`;
-
-export default UserInfos;
