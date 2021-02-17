@@ -22,7 +22,7 @@ import {
 const window = Dimensions.get("window");
 const screen = Dimensions.get("screen");
 
-function HomePresentational({ notebooks, refreshing, onRefresh }) {
+function HomePresentational({ notebooks, refreshing, onRefresh, openCaderno }) {
   const [dimensions, setDimensions] = useState({ window, screen });
 
   const onChange = ({ window, screen }) => {
@@ -54,7 +54,9 @@ function HomePresentational({ notebooks, refreshing, onRefresh }) {
 
         <StyledFlatList
           data={notebooks}
-          renderItem={(props) => <Tile tileSize={tileSize} {...props} />}
+          renderItem={(props) => (
+            <Tile tileSize={tileSize} openCaderno={openCaderno} {...props} />
+          )}
           keyExtractor={(data, index) => index.toString()}
           ListEmptyComponent={EmptyList}
           refreshing={refreshing}
@@ -65,8 +67,8 @@ function HomePresentational({ notebooks, refreshing, onRefresh }) {
   );
 }
 
-const Tile = ({ item: { id, title }, tileSize }) => (
-  <TileContainer tileSize={tileSize}>
+const Tile = ({ item: { id, title }, tileSize, openCaderno }) => (
+  <TileContainer tileSize={tileSize} onPress={() => openCaderno(id)}>
     <TileHeader>
       <TileHeaderText>{title}</TileHeaderText>
     </TileHeader>

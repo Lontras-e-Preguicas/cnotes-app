@@ -14,13 +14,14 @@ import {
   SignupScreen,
   HomeScreen,
   ProfileScreen,
-  TelaDoCaderno,
+  CadernoScreen,
 } from "./screens";
 import { applyOpacity } from "./config/colors";
 
 const MainStack = createStackNavigator();
 const AuthStack = createStackNavigator();
 const HomeTabs = createBottomTabNavigator();
+const CadernoStack = createStackNavigator();
 
 export function AuthRoutes(props) {
   return (
@@ -83,6 +84,14 @@ export function HomeRoutes(props) {
   );
 }
 
+export function CadernoRoutes(props) {
+  return (
+    <CadernoStack.Navigator headerMode="none" initialRouteName="Caderno">
+      <CadernoStack.Screen name="Caderno" component={CadernoScreen} />
+    </CadernoStack.Navigator>
+  );
+}
+
 export function MainRoutes(props) {
   return (
     <MainStack.Navigator headerMode="none" initialRouteName="AuthStack">
@@ -90,7 +99,7 @@ export function MainRoutes(props) {
       <MainStack.Screen name="HomeTabs" component={HomeRoutes} />
 
       <MainStack.Screen name="Profile" component={ProfileScreen} />
-      <MainStack.Screen name="Caderno" component={TelaDoCaderno} />
+      <MainStack.Screen name="CadernoStack" component={CadernoRoutes} />
     </MainStack.Navigator>
   );
 }

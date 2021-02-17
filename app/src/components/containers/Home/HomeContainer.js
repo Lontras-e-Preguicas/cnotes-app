@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-// import { useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 // import Api from "../../../utils/api";
 
 import HomePresentational from "../../presentational/Home";
 
 function HomeContainer(props) {
-  // const navigation = useNavigation();
+  const navigation = useNavigation();
 
   const sample_data = [
     {
@@ -37,10 +37,15 @@ function HomeContainer(props) {
     setTimeout(() => setRefreshing(false), 2500);
   };
 
+  const openCaderno = (id) => {
+    navigation.navigate("CadernoStack");
+  };
+
   const presentationalProps = {
     notebooks,
     refreshing,
     onRefresh,
+    openCaderno,
   };
 
   return <HomePresentational {...presentationalProps} />;
