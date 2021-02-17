@@ -35,7 +35,11 @@ function LoginContainer(props) {
         index: 0,
         routes: [{ name: "HomeTabs" }],
       });
-    } catch {}
+    } catch {
+      try {
+        await api.logout();
+      } catch {}
+    }
     setLoading(false);
   };
 
