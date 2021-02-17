@@ -28,7 +28,8 @@ function HomeContainer(props) {
 
   useEffect(() => {
     setRefreshing(true);
-    setTimeout(() => setRefreshing(false), 5000);
+    const timeout = setTimeout(() => setRefreshing(false), 5000);
+    return () => clearTimeout(timeout);
   }, []);
 
   const onRefresh = () => {

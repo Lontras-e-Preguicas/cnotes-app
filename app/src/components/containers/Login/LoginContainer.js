@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Keyboard, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
@@ -11,6 +11,10 @@ function LoginContainer(props) {
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
 
+  useEffect(() => {
+    autoRedirect();
+  }, []);
+
   const setEmail = (email = "") => {
     setFormData({ ...formData, email });
   };
@@ -20,6 +24,19 @@ function LoginContainer(props) {
 
   const clearCredentials = () => {
     setFormData({ email: "", password: "" });
+  };
+
+  const autoRedirect = async () => {
+    setLoading(true);
+    const api = new Api();
+    try {
+      const info = await api.me();
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "HomeTabs" }],
+      });
+    } catch {}
+    setLoading(false);
   };
 
   const doLogin = async () => {
