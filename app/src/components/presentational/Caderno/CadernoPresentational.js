@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Dimensions } from "react-native";
 
 import {
+  AddIcon,
   Container,
   EmptyListText,
   EmptyListTitle,
@@ -98,7 +99,7 @@ function CadernoPresentational({ goBack, openTile }) {
         />
         <FABContainer>
           <FABElement>
-            <FABIcon name="add" />
+            <AddIcon />
           </FABElement>
         </FABContainer>
       </Wrapper>

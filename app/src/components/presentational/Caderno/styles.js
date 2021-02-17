@@ -1,10 +1,10 @@
 import styled from "styled-components/native";
 
-import { Ionicons } from "@expo/vector-icons";
-
 import { Colors, Typography, Spacing } from "../../../config";
 import { applyOpacity } from "../../../config/colors";
 import DefaultTouchable from "../../core/DefaultTouchable";
+
+import AddSVG from "../.../../../../assets/icons/add.svg";
 
 // Containers
 
@@ -136,13 +136,9 @@ export const FABElement = styled(DefaultTouchable)`
   justify-content: center;
 `;
 
-// TO-DO: Change icons to SVGs
-export const FABIcon = styled(Ionicons)`
-  font-size: 24px;
-  text-align: center;
-  line-height: 24px;
-  color: ${Colors.primaryLight};
-
-  width: 24px;
+export const AddIcon = styled(AddSVG).attrs({
+  fill: Colors.primaryLight,
+})`
   height: 24px;
+  width: 24px;
 `;
