@@ -6,7 +6,7 @@ import PerfilContainer from "../components/containers/Perfil";
 
 const ProfileScreen = (props) => (
   <>
-    <StatusBar style="light" />
+    <StatusBar style="dark" />
     <PerfilContainer />
   </>
 );

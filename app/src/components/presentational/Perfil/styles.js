@@ -91,3 +91,21 @@ export const BottomTextAlt = styled(BottomText)`
   color: ${Colors.secondaryAlt};
   text-decoration-color: ${Colors.secondaryAlt};
 `;
+
+export const LoadingWrapper = styled.View`
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const LoadingText = styled.Text`
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
+  font-size: ${Typography.FONT_SIZES.extraLarge};
+  color: ${Colors.secondary};
+  margin-top: ${Spacing.getSpacing(8)};
+`;
+
+export const LoadingIndicator = styled.ActivityIndicator.attrs({
+  color: Colors.secondary,
+  size: "large",
+})``;

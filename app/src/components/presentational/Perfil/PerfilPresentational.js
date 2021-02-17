@@ -16,6 +16,9 @@ import {
   BottomRow,
   BottomText,
   BottomTextAlt,
+  LoadingWrapper,
+  LoadingIndicator,
+  LoadingText,
 } from "./styles.js";
 
 const Info = ({ name, data }) => (
@@ -25,37 +28,59 @@ const Info = ({ name, data }) => (
   </InfoWrapper>
 );
 
-const PerfilPresentational = (props) => {
+const PerfilPresentational = ({
+  loading,
+  userData,
+  onEdit,
+  onChangePassword,
+  onLogout,
+}) => {
   const rightButtons = [
     {
       icon: "pencil",
-      onPress: () => console.warn("editar"),
+      onPress: onEdit,
     },
   ];
+
+  let content = (
+    <Content>
+      <ProfilePictureWrapper>
+        <ProfilePicture
+          source={{
+            uri: userData.profile_picture,
+          }}
+          defaultSource={require("../../../assets/images/default_user_image.png")}
+        />
+      </ProfilePictureWrapper>
+      <ProfileName>{userData.name}</ProfileName>
+      <InfoContainer>
+        <Info name="Bio" data={userData.bio || ""} />
+        <Info name="E-mail" data={userData.email} />
+      </InfoContainer>
+      <BottomRow>
+        <DefaultTouchable onPress={onChangePassword}>
+          <BottomText>Alterar senha</BottomText>
+        </DefaultTouchable>
+        <DefaultTouchable onPress={onLogout}>
+          <BottomTextAlt>Sair</BottomTextAlt>
+        </DefaultTouchable>
+      </BottomRow>
+    </Content>
+  );
+
+  if (loading) {
+    content = (
+      <LoadingWrapper>
+        <LoadingIndicator />
+        <LoadingText>Carregando</LoadingText>
+      </LoadingWrapper>
+    );
+  }
 
   return (
     <Wrapper>
       <Header title="Perfil" rightButtons={rightButtons} />
-      <Content>
-        <ProfilePictureWrapper>
-          <ProfilePicture
-            source={require("../../../assets/images/ednaldoPereira.png")}
-          />
-        </ProfilePictureWrapper>
-        <ProfileName>Ednaldo Pereira</ProfileName>
-        <InfoContainer>
-          <Info name="Bio" data="Sr. Dr. Professor em Audiovisual 😎" />
-          <Info name="E-mail" data="ednaldo.pereira@ednaldoproducoes.com" />
-        </InfoContainer>
-        <BottomRow>
-          <DefaultTouchable>
-            <BottomText>Alterar senha</BottomText>
-          </DefaultTouchable>
-          <DefaultTouchable>
-            <BottomTextAlt>Sair</BottomTextAlt>
-          </DefaultTouchable>
-        </BottomRow>
-      </Content>
+      {content}
     </Wrapper>
   );
 };

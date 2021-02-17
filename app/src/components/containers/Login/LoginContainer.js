@@ -18,6 +18,10 @@ function LoginContainer(props) {
     setFormData({ ...formData, password });
   };
 
+  const clearCredentials = () => {
+    setFormData({ email: "", password: "" });
+  };
+
   const doLogin = async () => {
     Keyboard.dismiss();
 
@@ -29,19 +33,20 @@ function LoginContainer(props) {
     setLoading(true);
     try {
       await api.login(formData.email, formData.password);
-      navigation.navigate("HomeTabs");
-
-      // Clear credentials
-      setEmail();
-      setPassword();
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "HomeTabs" }],
+      });
     } catch (ex) {
       Alert.alert(ex.message);
     }
     setLoading(false);
   };
+
   const doSignup = () => {
     Keyboard.dismiss();
     navigation.navigate("Signup");
+    clearCredentials();
   };
   const doForgotPassword = () => {
     Keyboard.dismiss();
