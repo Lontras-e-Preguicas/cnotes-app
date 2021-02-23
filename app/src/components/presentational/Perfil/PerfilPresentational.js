@@ -1,6 +1,8 @@
 import React from "react";
-import DefaultTouchable from "../../core/DefaultTouchable";
 
+import { Images } from "../../../config";
+
+import DefaultTouchable from "../../core/DefaultTouchable";
 import Header from "../../core/Header";
 
 import {
@@ -49,7 +51,7 @@ const PerfilPresentational = ({
           source={{
             uri: userData.profile_picture,
           }}
-          defaultSource={require("../../../assets/images/default_user_image.png")}
+          defaultSource={Images.defaultUser}
         />
       </ProfilePictureWrapper>
       <ProfileName>{userData.name}</ProfileName>

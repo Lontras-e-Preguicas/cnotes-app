@@ -9,7 +9,10 @@ function CadernoContainer(props) {
   const openTile = ({ folder }) => {
     if (folder) {
       navigation.push("Caderno");
+      return;
     }
+
+    navigation.navigate("Conjunto");
   };
 
   const presentationalProps = {

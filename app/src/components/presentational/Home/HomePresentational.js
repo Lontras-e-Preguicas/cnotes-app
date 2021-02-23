@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { Dimensions } from "react-native";
+import React from "react";
 
 import { Ionicons } from "@expo/vector-icons";
 
 import { Colors } from "../../../config";
 
 import Header from "../../core/Header";
+import useDimensions from "../../hooks/useDimensions";
 
 import {
   StyledFlatList,
@@ -19,22 +19,8 @@ import {
   EmptyListText,
 } from "./styles.js";
 
-const window = Dimensions.get("window");
-const screen = Dimensions.get("screen");
-
 function HomePresentational({ notebooks, refreshing, onRefresh, openCaderno }) {
-  const [dimensions, setDimensions] = useState({ window, screen });
-
-  const onChange = ({ window, screen }) => {
-    setDimensions({ window, screen });
-  };
-
-  useEffect(() => {
-    Dimensions.addEventListener("change", onChange);
-    return () => {
-      Dimensions.removeEventListener("change", onChange);
-    };
-  });
+  const dimensions = useDimensions();
 
   const tileSize = dimensions.window.width / 2 - 16 - 12;
 

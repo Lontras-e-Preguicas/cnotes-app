@@ -42,7 +42,7 @@ export const PathText = styled.Text`
 
 // Notebooks
 
-export const TileContainer = styled.TouchableOpacity`
+export const TileContainer = styled(DefaultTouchable)`
   border-radius: ${Spacing.getSpacing(10)};
 
   width: ${({ tileSize }) => tileSize}px;
