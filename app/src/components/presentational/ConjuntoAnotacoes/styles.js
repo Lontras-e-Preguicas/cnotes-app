@@ -23,7 +23,7 @@ export const Wrapper = styled.SafeAreaView`
 export const StyledFlatList = styled.FlatList`
   margin-left: ${Spacing.getSpacing(16)};
   margin-right: ${Spacing.getSpacing(16)};
-  padding-top: ${Spacing.getSpacing(8)};
+  padding-top: ${Spacing.getSpacing(32)};
   flex-grow: 1;
 `;
 
