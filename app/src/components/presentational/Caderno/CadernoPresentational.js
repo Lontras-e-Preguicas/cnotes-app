@@ -23,36 +23,21 @@ import {
   Wrapper,
 } from "./styles";
 
-function CadernoPresentational({ goBack, openTile }) {
+function CadernoPresentational({
+  goBack,
+  openTile,
+  data,
+  loading,
+  retrieveData,
+  title,
+  path,
+}) {
   const dimensions = useDimensions();
 
   const tileSize = dimensions.window.width / 2 - 16 - 12;
 
-  const data = [
-    {
-      title: "Pasta 1",
-      folder: true,
-    },
-    {
-      title: "Pasta 2",
-      folder: true,
-    },
-    {
-      title: "Pasta 3",
-      folder: true,
-    },
-    {
-      title: "Conjunto 1",
-      folder: false,
-    },
-    {
-      title: "Conjunto 2",
-      folder: false,
-    },
-  ];
-
   const headerProps = {
-    title: "INF 3A",
+    title: title,
     leftButtons: [
       {
         icon: "chevron-back",
@@ -74,13 +59,15 @@ function CadernoPresentational({ goBack, openTile }) {
     <Container>
       <Wrapper>
         <Header {...headerProps} />
-        <PathText>/Raiz</PathText>
+        <PathText>{path}</PathText>
         <StyledFlatList
           data={data}
           renderItem={(props) => (
             <Tile tileSize={tileSize} openTile={openTile} {...props} />
           )}
           keyExtractor={(data, index) => index.toString()}
+          refreshing={loading}
+          onRefresh={retrieveData}
           ListEmptyComponent={EmptyList}
         />
         <FABContainer>
