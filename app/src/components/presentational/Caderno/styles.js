@@ -1,11 +1,8 @@
-import styled, { css } from "styled-components/native";
+import styled from "styled-components/native";
 
 import { Colors, Typography, Spacing } from "../../../config";
 import { applyOpacity } from "../../../config/colors";
 import DefaultTouchable from "../../core/DefaultTouchable";
-
-import AddSVG from "../../../assets/icons/add.svg";
-import { Ionicons } from "@expo/vector-icons";
 
 // Containers
 
@@ -110,81 +107,4 @@ export const EmptyListText = styled.Text`
   align-self: center;
   text-align: center;
   max-width: 60%;
-`;
-
-// FAB
-
-const shadowCSS = css`
-  elevation: 1;
-  shadow-color: black;
-  shadow-opacity: 0.2;
-  shadow-offset: 1px 1px;
-  shadow-radius: 2px;
-`;
-
-export const FABContainer = styled.View`
-  position: absolute;
-  right: ${Spacing.getSpacing(16)};
-  bottom: ${Spacing.getSpacing(24)};
-
-  flex-direction: column-reverse;
-  align-items: flex-end; /* Align to end, then later correct centering because of captions */
-
-  max-width: 50%;
-
-  z-index: 1;
-
-  ${shadowCSS}
-`;
-
-export const FABElement = styled(DefaultTouchable)`
-  width: 56px;
-  height: 56px;
-  border-radius: 28px;
-
-  background-color: ${Colors.primaryDark};
-
-  border: 2px solid ${Colors.secondary};
-  align-items: center;
-  justify-content: center;
-`;
-
-export const FABGenericIcon = styled(Ionicons)`
-  font-size: 20px;
-  color: ${Colors.primaryLight};
-  text-align: center;
-`;
-
-export const AddIcon = styled(AddSVG).attrs({
-  fill: Colors.primaryLight,
-})`
-  height: 24px;
-  width: 24px;
-  transform: rotate(${({ rotation = 0 }) => rotation}deg);
-`;
-
-export const FABSubElement = styled(FABElement)`
-  width: 48px;
-  height: 48px;
-  border-radius: 24px;
-`;
-
-export const FABSubElementContainer = styled.View`
-  margin-bottom: ${Spacing.getSpacing(12)}; /* Bottom spacing */
-  margin-right: 4px; /* Element centering */
-
-  flex-direction: row;
-  align-items: center;
-`;
-
-export const FABDescription = styled.Text`
-  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
-  font-size: ${Typography.FONT_SIZES.medium};
-  flex-grow: 1;
-
-  color: ${Colors.primaryDark};
-
-  text-align: right;
-
-  margin-right: ${Spacing.getSpacing(8)};
 `;

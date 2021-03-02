@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 
 import { Colors } from "../../../config";
@@ -7,16 +7,9 @@ import Header from "../../core/Header";
 import useDimensions from "../../hooks/useDimensions";
 
 import {
-  AddIcon,
   Container,
   EmptyListText,
   EmptyListTitle,
-  FABContainer,
-  FABDescription,
-  FABElement,
-  FABGenericIcon,
-  FABSubElement,
-  FABSubElementContainer,
   PathText,
   StyledFlatList,
   TileContainer,
@@ -26,6 +19,7 @@ import {
   TileHeaderText,
   Wrapper,
 } from "./styles";
+import FAB from "./FAB";
 
 function CadernoPresentational({
   goBack,
@@ -104,35 +98,5 @@ const EmptyList = () => (
     </EmptyListText>
   </>
 );
-
-const FAB = () => {
-  const [extended, setExtended] = useState(false);
-
-  let subElements = <></>;
-
-  const toggleElements = () => {
-    setExtended(!extended);
-  };
-
-  if (extended) {
-    subElements = (
-      <FABSubElementContainer>
-        <FABDescription>Foda que texto longo</FABDescription>
-        <FABSubElement>
-          <FABGenericIcon name="close" />
-        </FABSubElement>
-      </FABSubElementContainer>
-    );
-  }
-
-  return (
-    <FABContainer>
-      <FABElement onPress={toggleElements}>
-        <AddIcon rotation={extended * 45} />
-      </FABElement>
-      {subElements}
-    </FABContainer>
-  );
-};
 
 export default CadernoPresentational;
