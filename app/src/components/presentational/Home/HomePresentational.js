@@ -54,7 +54,7 @@ function HomePresentational({ notebooks, refreshing, onRefresh, openCaderno }) {
 }
 
 const Tile = ({ item: { id, title }, tileSize, openCaderno }) => (
-  <TileContainer tileSize={tileSize} onPress={() => openCaderno(id)}>
+  <TileContainer tileSize={tileSize} onPress={() => openCaderno({ id, title })}>
     <TileHeader>
       <TileHeaderText>{title}</TileHeaderText>
     </TileHeader>

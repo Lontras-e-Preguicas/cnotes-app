@@ -29,6 +29,8 @@ function CadernoPresentational({
   retrieveData,
   title,
   path,
+  createFolder,
+  createConj,
 }) {
   const dimensions = useDimensions();
 
@@ -68,7 +70,7 @@ function CadernoPresentational({
           onRefresh={retrieveData}
           ListEmptyComponent={EmptyList}
         />
-        <FAB />
+        <FAB addFolder={createFolder} addConj={createConj} />
       </Wrapper>
     </Container>
   );

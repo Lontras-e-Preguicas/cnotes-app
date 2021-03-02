@@ -1,30 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
 
 import CadernoPresentational from "../../presentational/Caderno";
+import { pathJoin } from "../../../utils/format";
 
-function CadernoContainer(props) {
-  const navigation = useNavigation();
-
-  // ! Replace with navigation route prop passed from screen
-  const route = {
-    params: {
-      id: "test_id",
-      title: "Test Title",
-      path: "/Raiz",
-    },
-  };
-
+function CadernoContainer({ navigation, route }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const openTile = ({ folder, id }) => {
+  const openTile = ({ folder, id, title }) => {
     if (folder) {
-      navigation.push("Caderno", { id });
+      navigation.push("Caderno", {
+        id,
+        title,
+        path: pathJoin(route.params.path, title),
+      });
       return;
     }
 
-    navigation.navigate("Conjunto", { id });
+    navigation.navigate("Conjunto", { id, title });
   };
 
   const retrieveData = async () => {
@@ -61,6 +54,21 @@ function CadernoContainer(props) {
     setLoading(false);
   };
 
+  const createFolder = () => {
+    setData([
+      ...data.filter((e) => e.folder),
+      { id: Math.random().toString(), title: "New Folder", folder: true },
+      ...data.filter((e) => !e.folder),
+    ]);
+  };
+
+  const createConj = () => {
+    setData([
+      ...data,
+      { id: Math.random().toString(), title: "New Conj", folder: false },
+    ]);
+  };
+
   useEffect(() => {
     retrieveData();
   }, []);
@@ -73,6 +81,8 @@ function CadernoContainer(props) {
     retrieveData,
     title: route.params.title,
     path: route.params.path,
+    createFolder,
+    createConj,
   };
 
   return <CadernoPresentational {...presentationalProps} />;

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
-// import Api from "../../../utils/api";
-
 import HomePresentational from "../../presentational/Home";
 
 function HomeContainer(props) {
@@ -37,8 +35,11 @@ function HomeContainer(props) {
     setTimeout(() => setRefreshing(false), 2500);
   };
 
-  const openCaderno = (id) => {
-    navigation.navigate("CadernoStack");
+  const openCaderno = ({ id, title }) => {
+    navigation.navigate("CadernoStack", {
+      screen: "Caderno",
+      params: { id, title, path: "/Raiz", root: true },
+    });
   };
 
   const presentationalProps = {

@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import styled, { css } from "styled-components/native";
+import styled from "styled-components/native";
 import Animated, { Easing } from "react-native-reanimated";
 
 import DefaultTouchable from "../../core/DefaultTouchable";
@@ -10,7 +10,7 @@ import FolderSVG from "../../../assets/icons/folder.svg";
 
 import { Colors, Spacing, Typography } from "../../../config";
 
-export const FAB = () => {
+export const FAB = ({ addFolder, addConj }) => {
   const [extended, setExtended] = useState(false); // Sub-element state
   const extendAnimation = useRef(new Animated.Value(0)).current; // Animated value
 
@@ -42,13 +42,13 @@ export const FAB = () => {
     <>
       <FABSubElementContainer style={subElementStyle}>
         <FABDescription>Adicionar conjunto de anotações</FABDescription>
-        <FABSubElement>
+        <FABSubElement onPress={addConj}>
           <AddConjIcon />
         </FABSubElement>
       </FABSubElementContainer>
       <FABSubElementContainer style={subElementStyle}>
         <FABDescription>Adicionar pasta</FABDescription>
-        <FABSubElement>
+        <FABSubElement onPress={addFolder}>
           <AddFolderIcon />
         </FABSubElement>
       </FABSubElementContainer>
@@ -95,7 +95,7 @@ export const FABContainer = styled.View`
   elevation: 1;
   shadow-color: black;
   shadow-opacity: 0.2;
-  shadow-offset: 1px 1px;
+  shadow-offset: 0px 1px;
   shadow-radius: 2px;
 `;
 
@@ -132,7 +132,7 @@ export const FABDescription = styled.Text`
   font-size: ${Typography.FONT_SIZES.medium};
   flex-grow: 1;
 
-  color: ${Colors.primaryDark};
+  color: ${Colors.secondary}; /* Changed for better contrast */
 
   text-align: right;
 

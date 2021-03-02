@@ -4,10 +4,10 @@ import { StatusBar } from "expo-status-bar";
 
 import ConjuntoAnotacoesContainer from "../components/containers/ConjuntoAnotacoes";
 
-const ConjuntoAnotacoesScreen = (props) => (
+const ConjuntoAnotacoesScreen = ({ navigation, route }) => (
   <>
     <StatusBar style="dark" />
-    <ConjuntoAnotacoesContainer />
+    <ConjuntoAnotacoesContainer navigation={navigation} route={route} />
   </>
 );
 

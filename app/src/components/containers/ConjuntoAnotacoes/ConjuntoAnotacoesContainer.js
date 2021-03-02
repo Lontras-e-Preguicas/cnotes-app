@@ -1,19 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
 
 import { ConjuntoAnotacoesPresentational } from "../../presentational/ConjuntoAnotacoes/ConjuntoAnotacoesPresentational";
 
-function ConjuntoAnotacoesContainer(props) {
-  const navigation = useNavigation();
-
-  // ! Replace with navigation route prop passed from screen
-  const route = {
-    params: {
-      id: "test_id",
-      title: "🖤 El Caderno 🖤",
-    },
-  };
-
+function ConjuntoAnotacoesContainer({ navigation, route }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
