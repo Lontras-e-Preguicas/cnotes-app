@@ -23,7 +23,7 @@ import {
 } from "./styles";
 
 import { Images } from "../../../config";
-import { formatRating } from "../../../utils/format";
+import { formatRating, formatTitle } from "../../../utils/format";
 
 export function ConjuntoAnotacoesPresentational({
   goBack,
@@ -38,7 +38,7 @@ export function ConjuntoAnotacoesPresentational({
   const tileSize = dimensions.window.width / 2 - 16 - 12;
 
   const headerProps = {
-    title: title,
+    title: formatTitle(title),
     leftButtons: [
       {
         icon: "md-close",

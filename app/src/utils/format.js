@@ -15,3 +15,11 @@ export function pathJoin(old, title) {
 
   return tempPath;
 }
+
+export function formatTitle(title) {
+  if (title.length <= 10) {
+    return title;
+  }
+
+  return title.slice(0, 10).trimEnd() + " ...";
+}

@@ -20,6 +20,7 @@ import {
   Wrapper,
 } from "./styles";
 import FAB from "./FAB";
+import { formatTitle } from "../../../utils/format";
 
 function CadernoPresentational({
   goBack,
@@ -37,7 +38,7 @@ function CadernoPresentational({
   const tileSize = dimensions.window.width / 2 - 16 - 12;
 
   const headerProps = {
-    title: title,
+    title: formatTitle(title),
     leftButtons: [
       {
         icon: "chevron-back",
