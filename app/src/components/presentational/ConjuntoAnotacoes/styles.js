@@ -7,6 +7,8 @@ import { applyOpacity } from "../../../config/colors";
 
 import DefaultTouchable from "../../core/DefaultTouchable";
 
+import AddSVG from "../../../assets/icons/add.svg";
+
 // Containers
 
 export const Container = styled.SafeAreaView`
@@ -21,8 +23,8 @@ export const Wrapper = styled.SafeAreaView`
 `;
 
 export const StyledFlatList = styled.FlatList`
-  margin-left: ${Spacing.getSpacing(16)};
-  margin-right: ${Spacing.getSpacing(16)};
+  padding-left: ${Spacing.getSpacing(16)};
+  padding-right: ${Spacing.getSpacing(16)};
   padding-top: ${Spacing.getSpacing(32)};
   flex-grow: 1;
 `;
@@ -127,3 +129,19 @@ export const AuthorPicture = styled.Image`
 `;
 
 // Add tile
+
+export const AddTileContainer = styled(TileContainer)`
+  background-color: ${applyOpacity(Colors.primaryDark, 0.6)};
+
+  align-items: center;
+  justify-content: center;
+`;
+
+export const AddTileIcon = styled(AddSVG).attrs({
+  fill: Colors.primaryLight,
+})`
+  width: 64px;
+  height: 64px;
+`;
+
+export const AddTileText = styled(TileHeaderText)``;
