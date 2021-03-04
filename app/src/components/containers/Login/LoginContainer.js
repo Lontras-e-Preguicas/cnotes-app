@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Keyboard, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
@@ -11,11 +11,36 @@ function LoginContainer(props) {
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
 
+  useEffect(() => {
+    autoRedirect();
+  }, []);
+
   const setEmail = (email = "") => {
     setFormData({ ...formData, email });
   };
   const setPassword = (password = "") => {
     setFormData({ ...formData, password });
+  };
+
+  const clearCredentials = () => {
+    setFormData({ email: "", password: "" });
+  };
+
+  const autoRedirect = async () => {
+    setLoading(true);
+    const api = new Api();
+    try {
+      const info = await api.me();
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "HomeTabs" }],
+      });
+    } catch {
+      try {
+        await api.logout();
+      } catch {}
+    }
+    setLoading(false);
   };
 
   const doLogin = async () => {
@@ -29,19 +54,20 @@ function LoginContainer(props) {
     setLoading(true);
     try {
       await api.login(formData.email, formData.password);
-      navigation.navigate("Home");
-
-      // Clear credentials
-      setEmail();
-      setPassword();
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "HomeTabs" }],
+      });
     } catch (ex) {
       Alert.alert(ex.message);
     }
     setLoading(false);
   };
+
   const doSignup = () => {
     Keyboard.dismiss();
     navigation.navigate("Signup");
+    clearCredentials();
   };
   const doForgotPassword = () => {
     Keyboard.dismiss();

@@ -12,6 +12,10 @@ const getAuthToken = async () => {
   return await AsyncStorage.getItem(AUTH_TOKEN_PATH);
 };
 
+const clearAuthToken = async () => {
+  return await AsyncStorage.removeItem(AUTH_TOKEN_PATH);
+};
+
 async function fetchTimeout(input, { timeout = 10000, ...init }) {
   // Throws AbortError
   const controller = new AbortController();
@@ -60,7 +64,7 @@ class Api {
     try {
       response = await fetchTimeout(
         `${Constants.API_URL}/api/user/token/`,
-        params
+        params,
       );
       data = await response.json();
     } catch {
@@ -104,7 +108,7 @@ class Api {
     try {
       response = await fetchTimeout(
         `${Constants.API_URL}/api/user/create/`,
-        params
+        params,
       );
       data = await response.json();
     } catch {
@@ -134,6 +138,39 @@ class Api {
     }
 
     throw new Error("Falha ao realizar cadastro");
+  }
+
+  async me() {
+    const params = {
+      method: "GET",
+    };
+
+    let response;
+    let data = {};
+
+    try {
+      response = await authenticatedFetch(
+        `${Constants.API_URL}/api/user/me/`,
+        params,
+      );
+      data = await response.json();
+    } catch {
+      throw new Error("Falha ao fazer requisição");
+    }
+
+    if (response.status == 200) {
+      return data;
+    }
+
+    if (response.status == 401) {
+      throw new Error("Usuário não autenticado");
+    }
+
+    throw new Error("Falha ao recuperar informações do usuário");
+  }
+
+  async logout() {
+    await clearAuthToken();
   }
 }
 

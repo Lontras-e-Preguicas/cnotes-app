@@ -1,7 +1,15 @@
 import LoginScreen from "./Login";
 import SignupScreen from "./Signup";
-import HomeScreen from "./TelaPrincipal";
-import ProfileScreen from "./TelaPerfil";
-import TelaDoCaderno from "./TelaCaderno";
+import HomeScreen from "./Home";
+import ProfileScreen from "./Profile";
+import CadernoScreen from "./Caderno";
+import ConjuntoAnotacoesScreen from "./ConjuntoAnotacoes";
 
-export { LoginScreen, SignupScreen, HomeScreen, ProfileScreen, TelaDoCaderno };
+export {
+  LoginScreen,
+  SignupScreen,
+  HomeScreen,
+  ProfileScreen,
+  CadernoScreen,
+  ConjuntoAnotacoesScreen,
+};
