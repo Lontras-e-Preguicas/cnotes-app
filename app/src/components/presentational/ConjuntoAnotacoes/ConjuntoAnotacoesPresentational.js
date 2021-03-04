@@ -5,6 +5,9 @@ import useDimensions from "../../hooks/useDimensions";
 import Header from "../../core/Header";
 
 import {
+  AddTileContainer,
+  AddTileIcon,
+  AddTileText,
   AuthorContainer,
   AuthorPicture,
   AuthorText,
@@ -32,6 +35,7 @@ export function ConjuntoAnotacoesPresentational({
   loading,
   retrieveData,
   openTile,
+  addTile,
 }) {
   const dimensions = useDimensions();
 
@@ -63,6 +67,12 @@ export function ConjuntoAnotacoesPresentational({
           onRefresh={retrieveData}
           renderItem={(props) => (
             <Tile tileSize={tileSize} openTile={openTile} {...props} />
+          )}
+          ListFooterComponent={() => (
+            <AddTileContainer onPress={addTile} tileSize={tileSize}>
+              <AddTileIcon />
+              <AddTileText>Nova Anotação</AddTileText>
+            </AddTileContainer>
           )}
         />
       </Wrapper>

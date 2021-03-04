@@ -10,6 +10,22 @@ function ConjuntoAnotacoesContainer({ navigation, route }) {
     console.warn("Abrindo", id);
   };
 
+  const addTile = () => {
+    setData([
+      ...data,
+      {
+        id: Math.random().toString(),
+        title: "Test Tile",
+        description: "Esse é um caderno Bruh 1 sobre o mundo dos bruhs",
+        rating: 5,
+        author: {
+          name: "Eddy Pereira",
+          profile_picture: "https://bit.ly/3r7LHuK",
+        },
+      },
+    ]);
+  };
+
   const retrieveData = async () => {
     setLoading(true);
 
@@ -50,6 +66,7 @@ function ConjuntoAnotacoesContainer({ navigation, route }) {
     loading,
     retrieveData,
     openTile,
+    addTile,
     title: route.params.title,
   };
 
