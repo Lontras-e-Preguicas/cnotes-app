@@ -2,23 +2,12 @@ import React from "react";
 
 import { StatusBar } from "expo-status-bar";
 
-import { View, Text } from "react-native";
+import HomeContainer from "../components/containers/Home";
 
-// Home Screen Filler
 const HomeScreen = (props) => (
   <>
-    <StatusBar style="light" />
-    <View
-      style={{
-        backgroundColor: "#222",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "100%",
-      }}
-    >
-      <Text>Home screen test</Text>
-      <Text>🏳️‍⚧️🏳️‍⚧️</Text>
-    </View>
+    <StatusBar style="dark" />
+    <HomeContainer />
   </>
 );
 
