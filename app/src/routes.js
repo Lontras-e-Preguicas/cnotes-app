@@ -16,6 +16,7 @@ import {
   ProfileScreen,
   CadernoScreen,
   ConjuntoAnotacoesScreen,
+  AtividadesScreen
 } from "./screens";
 import { applyOpacity } from "./config/colors";
 
@@ -69,7 +70,7 @@ export function HomeRoutes(props) {
             <Ionicons name="md-notifications" color={color} size={size} />
           ),
         }}
-        component={HomeScreen}
+        component={AtividadesScreen}
       />
       <HomeTabs.Screen
         name="Profile"
@@ -100,9 +101,8 @@ export function CadernoRoutes(props) {
 export function MainRoutes(props) {
   return (
     <MainStack.Navigator headerMode="none" initialRouteName="AuthStack">
-      <MainStack.Screen name="AuthStack" component={AuthRoutes} />
       <MainStack.Screen name="HomeTabs" component={HomeRoutes} />
-
+      <MainStack.Screen name="Activity" component={AtividadesScreen} />
       <MainStack.Screen name="Profile" component={ProfileScreen} />
       <MainStack.Screen name="CadernoStack" component={CadernoRoutes} />
     </MainStack.Navigator>
