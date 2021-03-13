@@ -45,8 +45,8 @@ function LoginContainer(props) {
 
   const doLogin = async () => {
     Keyboard.dismiss();
-   navigation.navigate("HomeTabs");
-/*
+   //navigation.navigate("HomeTabs");
+
     if (loading) {
       return; // Prevent request stacking
     }
@@ -62,7 +62,7 @@ function LoginContainer(props) {
     } catch (ex) {
       Alert.alert(ex.message);
     }
-    setLoading(false);*/
+    setLoading(false);
   };
 
   const doSignup = () => {
