@@ -16,7 +16,9 @@ import {
   ProfileScreen,
   CadernoScreen,
   ConjuntoAnotacoesScreen,
+  AnotacaoScreen,
 } from "./screens";
+
 import { applyOpacity } from "./config/colors";
 
 const MainStack = createStackNavigator();
@@ -92,6 +94,11 @@ export function CadernoRoutes(props) {
       <CadernoStack.Screen
         name="Conjunto"
         component={ConjuntoAnotacoesScreen}
+      />
+
+      <CadernoStack.Screen
+        name="Anotacao"
+        component={AnotacaoScreen}
       />
     </CadernoStack.Navigator>
   );

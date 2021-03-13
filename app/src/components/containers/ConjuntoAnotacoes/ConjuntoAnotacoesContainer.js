@@ -7,7 +7,8 @@ function ConjuntoAnotacoesContainer({ navigation, route }) {
   const [loading, setLoading] = useState(false);
 
   const openTile = ({ id }) => {
-    console.warn("Abrindo", id);
+      navigation.navigate("Anotacao",{id});
+    //console.warn("Abrindo", id);
   };
 
   const addTile = () => {
