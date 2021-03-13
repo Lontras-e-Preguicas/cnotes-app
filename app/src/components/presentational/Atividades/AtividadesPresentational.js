@@ -1,5 +1,6 @@
 import React from "react";
-import styled from "styled-components";
+import styled from "styled-components/native";
+import { Colors, Spacing, Typography } from "../../../config";
 
 import {
   AlignBallNotification,
@@ -10,14 +11,13 @@ import {
   DateNotification,
   DescNotification,
   HeaderAtividades,
-  IconHeaderAtividades,
   ListNotification,
   TitleHeaderAtividades,
   TitleNotification,
   ScrollList,
   Wrapper } from "./styles.js";
 
-import { FontAwesome } from '@expo/vector-icons';
+import ModalAtividades from "./Modal";
 
 const ExemploNotificacoes = [
   {
@@ -32,14 +32,14 @@ const ExemploNotificacoes = [
   },
 ];
 
+//Testar  onPress={()=> Alert.alert('Teste')}
+
 const TelaAtividades = () => (
   <>
     <Wrapper>
     <HeaderAtividades>
       <TitleHeaderAtividades>Atividades Recentes</TitleHeaderAtividades>
-        <IconHeaderAtividades>
-        <FontAwesome name="envelope-o" size={24} color="black" />
-        </IconHeaderAtividades>
+        <ModalAtividades />
       </HeaderAtividades>
       <ScrollList>
       <ListNotification

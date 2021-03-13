@@ -8,6 +8,8 @@ export const Wrapper = styled.SafeAreaView`
   background-color: ${Colors.primaryLight};
 `;
 
+//Header
+
 export const HeaderAtividades = styled.View`
   background: ${Colors.primaryLight};
   width: 100%;
@@ -28,14 +30,7 @@ export const TitleHeaderAtividades = styled.Text`
   margin-right: ${Spacing.getSpacing(25)};
 `;
 
-export const IconHeaderAtividades = styled.TouchableOpacity`
-	align-self: flex-end;
-  position: absolute;
-  bottom:0;
-  right: 0;
-  margin-bottom: ${Spacing.getSpacing(10)};
-  margin-right: ${Spacing.getSpacing(25)};
-`;
+//Secoes e Listas
 
 export const ListNotification = styled.SectionList`
   flex: 1;
@@ -66,6 +61,8 @@ export const ContainerNotification = styled.View`
   flex-direction: row;
 `;
 
+//Balls Notification
+
 export const AlignBallNotification = styled.View`
   background: ${Colors.primaryLight};
   justify-content: center;
@@ -79,6 +76,8 @@ export const BallNotification = styled.View`
   height: 15px;
   borderRadius: 15px;
 `;
+
+//Conteudos
 
 export const ContainerInfoNotification = styled.View`
   background: ${Colors.primaryLight};
