@@ -8,28 +8,37 @@ import Header from "../../core/Header";
 import useDimensions from "../../hooks/useDimensions";
 
 import {
-  Wrapper,  
+  Wrapper,
 } from "./styles.js";
 
 
-function AnotacaoPresentational({ notebooks, refreshing, onRefresh, openCaderno }) {
+function AnotacaoPresentational({ notebooks, refreshing, onRefresh, openCaderno, goBack }) {
 
-  const headerButtons = [
-    {
-      icon: "pencil",
-    },
-    {
-      icon: "star-outline",
-    },
-    {
-      icon: "chatbubble-ellipses-outline",
-    },
-  ];
+  const headerButtons = {
+    leftButtons: [
+      {
+        icon: "chevron-back",
+        label: "Voltar",
+        onPress: goBack,
+      },
+    ],
+    rightButtons: [
+      {
+        icon: "pencil",
+      },
+      {
+        icon: "chatbubble-ellipses-outline",
+      },
+      {
+        icon: "star-outline",
+      },
+    ],
+  };
 
   return (
     <>
       <Wrapper>
-        <Header rightButtons={headerButtons} />
+        <Header {...headerButtons} />
 
       </Wrapper>
     </>
