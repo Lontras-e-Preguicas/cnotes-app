@@ -28,9 +28,6 @@ function HomePresentational({ notebooks, refreshing, onRefresh, openCaderno }) {
     {
       icon: "add",
     },
-    {
-      icon: "search-outline",
-    },
   ];
 
   return (

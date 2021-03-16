@@ -1,12 +1,11 @@
 import React from "react";
 
-import { StatusBar } from "expo-status-bar";
-
 import HomeContainer from "../components/containers/Home";
+import { MainStatusBar } from "./styles";
 
 const HomeScreen = (props) => (
   <>
-    <StatusBar style="dark" />
+    <MainStatusBar />
     <HomeContainer />
   </>
 );

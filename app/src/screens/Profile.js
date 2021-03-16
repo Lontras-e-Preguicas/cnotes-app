@@ -1,12 +1,11 @@
 import React from "react";
 
-import { StatusBar } from "expo-status-bar";
-
 import PerfilContainer from "../components/containers/Perfil";
+import { MainStatusBar } from "./styles";
 
 const ProfileScreen = (props) => (
   <>
-    <StatusBar style="dark" />
+    <MainStatusBar />
     <PerfilContainer />
   </>
 );

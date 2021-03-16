@@ -1,12 +1,11 @@
 import React from "react";
 
-import { StatusBar } from "expo-status-bar";
-
 import ConjuntoAnotacoesContainer from "../components/containers/ConjuntoAnotacoes";
+import { MainStatusBar } from "./styles";
 
 const ConjuntoAnotacoesScreen = ({ navigation, route }) => (
   <>
-    <StatusBar style="dark" />
+    <MainStatusBar />
     <ConjuntoAnotacoesContainer navigation={navigation} route={route} />
   </>
 );
