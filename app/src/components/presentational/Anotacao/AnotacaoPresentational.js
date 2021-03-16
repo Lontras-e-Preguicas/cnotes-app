@@ -80,25 +80,26 @@ function AnotacaoPresentational({
           </AuthorContainer>
         </ContainerTitleAnotacao>
 
+        <ToolBarContainer>
+          <RichToolbar
+            editor={RichText}
+            disabled={false}
+            style={edit? {display: "none"} : {display:"flex"}}
+            iconTint={Colors.primaryDark}
+            selectedIconTint={Colors.secondary}
+            disabledIconTint={Colors.primaryDark}
+            iconSize={30}
+          />
+        </ToolBarContainer>
+
         <RichEditor
             disabled={edit}
             ref={RichText}
-            containerStyle= {{backgroundColor:"${Colors.primaryLight}", borderColor:"black"}}
+            containerStyle= {{backgroundColor:Colors.primaryLight, borderColor:Colors.primaryLight}}
             //placeholder={"Conteudo..."}
-            backgroundColor="${Colors.primaryLight}"
             onChange={(text) => setArticle(text)}
           />
-          <ToolBarContainer>
-            <RichToolbar
-              editor={RichText}
-              disabled={false}
-              style={edit? {display: "none"} : {display:"flex"}}
-              iconTint={"${Colors.primaryLight}"}
-              selectedIconTint={"${Colors.secondary}"}
-              disabledIconTint={"${Colors.primaryLight}"}
-              iconSize={30}
-            />
-          </ToolBarContainer>
+
       </Wrapper>
     </>
   );
