@@ -46,6 +46,7 @@ function AnotacaoPresentational({
     rightButtons: [
       {
         icon: "pencil",
+        onPress: ()=>setEdit(!edit),
       },
       {
         icon: "chatbubble-ellipses-outline",
@@ -59,6 +60,7 @@ function AnotacaoPresentational({
 
   const RichText = useRef(); //referencia ao componente RichEditor
   const [article, setArticle] = useState("");
+  const [edit, setEdit] = useState(true); //ativar ou desativar a edicao
 
   return (
     <>
@@ -79,7 +81,7 @@ function AnotacaoPresentational({
         </ContainerTitleAnotacao>
 
         <RichEditor
-            disabled={false}
+            disabled={edit}
             ref={RichText}
             containerStyle= {{backgroundColor:"${Colors.primaryLight}", borderColor:"black"}}
             //placeholder={"Conteudo..."}
@@ -90,6 +92,7 @@ function AnotacaoPresentational({
             <RichToolbar
               editor={RichText}
               disabled={false}
+              style={edit? {display: "none"} : {display:"flex"}}
               iconTint={"${Colors.primaryLight}"}
               selectedIconTint={"${Colors.secondary}"}
               disabledIconTint={"${Colors.primaryLight}"}
