@@ -34,7 +34,7 @@ export const FAB = ({ addFolder, addConj }) => {
 
   const subElementStyle = {
     // Styling for animating the sub-elements
-    display: extended ? "block" : "none",
+    //display: extended ? "block" : "none",
     opacity: extendAnimation,
   };
 

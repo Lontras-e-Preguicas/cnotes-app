@@ -44,19 +44,25 @@ const PerfilPresentational = ({
     },
   ];
 
+  let profile_picture = Images.defaultUser;
+
+  if (userData.profile_picture) {
+    profile_picture = {
+      uri: userData.profile_picture,
+    };
+  }
+
   let content = (
     <Content>
       <ProfilePictureWrapper>
         <ProfilePicture
-          source={{
-            uri: userData.profile_picture,
-          }}
+          source={profile_picture}
           defaultSource={Images.defaultUser}
         />
       </ProfilePictureWrapper>
       <ProfileName>{userData.name}</ProfileName>
       <InfoContainer>
-        <Info name="Bio" data={userData.bio || ""} />
+        <Info name="Bio" data={userData.bio} />
         <Info name="E-mail" data={userData.email} />
       </InfoContainer>
       <BottomRow>
