@@ -9,12 +9,11 @@ import DefaultTouchable from "../../core/DefaultTouchable";
 export const Container = styled.SafeAreaView`
   height: 100%;
   background-color: ${Colors.primaryLight};
-  position: relative;
 `;
 
 export const Wrapper = styled.SafeAreaView`
   height: 100%;
-  position: relative;
+  backgroundColor: ${Colors.primaryLight};
 `;
 
 /*Componentes Criados para teste do Titulo e Autoria que aparecem na Tela Anotacao*/
@@ -26,6 +25,8 @@ export const ContainerTitleAnotacao = styled.View`
   justify-content: center;
   width: 100%;
   height: 10%;
+  position: relative;
+  margin: ${Spacing.getSpacing(8)} ;
 `;
 
 export const ContainerAutorAnotacao = styled.View`
@@ -38,9 +39,32 @@ export const ContainerAutorAnotacao = styled.View`
 export const TitleAnotacao = styled.Text`
   flex-flow: row wrap;
   width: 100%;
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
+  font-size: ${Typography.FONT_SIZES.giant};
 `;
 
 export const AutorAnotacao = styled.Text`
-  flex-flow: row wrap;
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
+  font-size: ${Typography.FONT_SIZES.medium};
+  margin-left: ${Spacing.getSpacing(4)};
+`;
+
+export const AuthorContainer = styled.View`
+  align-items: center;
   width: 100%;
+  flex-direction: row;
+`;
+
+export const AuthorPicture = styled.Image`
+border-radius: 12px;
+width: 24px;
+height: 24px;
+margin: 0 ${Spacing.getSpacing(4)};
+`;
+
+export const ToolBarContainer = styled.View`
+  align-items: center;
+  width: 100%;
+  align-self: flex-end;
+  align-items: flex-end;
 `;

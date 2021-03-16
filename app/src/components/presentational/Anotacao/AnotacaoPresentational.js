@@ -11,16 +11,29 @@ import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "../../../config";
 import Header from "../../core/Header";
 import useDimensions from "../../hooks/useDimensions";
+import { formatTitle } from "../../../utils/format";
+import { Images } from "../../../config";
+
 import {
   AutorAnotacao,
   ContainerTitleAnotacao,
   ContainerAutorAnotacao,
   Title,
   TitleAnotacao,
-  Wrapper
+  Wrapper,
+  AuthorPicture,
+  ToolBarContainer,
+  AuthorContainer
 } from "./styles.js";
 
-function AnotacaoPresentational({ notebooks, refreshing, onRefresh, openCaderno, goBack }) {
+function AnotacaoPresentational({
+  notebooks,
+  refreshing,
+  onRefresh,
+  goBack,
+  title,
+  author,
+     }) {
 
   const headerButtons = {
     leftButtons: [
@@ -43,6 +56,7 @@ function AnotacaoPresentational({ notebooks, refreshing, onRefresh, openCaderno,
     ],
   };
 
+
   const RichText = useRef(); //referencia ao componente RichEditor
   const [article, setArticle] = useState("");
 
@@ -51,28 +65,37 @@ function AnotacaoPresentational({ notebooks, refreshing, onRefresh, openCaderno,
       <Wrapper>
         <Header {...headerButtons} />
         <ContainerTitleAnotacao>
-          <TitleAnotacao>Aplicações do Eletromagnetismo</TitleAnotacao>
-          <ContainerAutorAnotacao>
-            <AutorAnotacao>Por: Ednaldo Pereira</AutorAnotacao>
-          </ContainerAutorAnotacao>
+          <TitleAnotacao >{title}</TitleAnotacao>
+          <AuthorContainer>
+            <AutorAnotacao>Por: </AutorAnotacao>
+            <AuthorPicture
+              source={{
+                uri: author.profile_picture,
+              }}
+              defaultSource={Images.defaultUser}
+            />
+            <AutorAnotacao>{author.name}</AutorAnotacao>
+          </AuthorContainer>
         </ContainerTitleAnotacao>
 
         <RichEditor
             disabled={false}
             ref={RichText}
-            containerStyle= {{backgroundColor:"black", borderColor:"black"}}
+            containerStyle= {{backgroundColor:"${Colors.primaryLight}", borderColor:"black"}}
             //placeholder={"Conteudo..."}
+            backgroundColor="${Colors.primaryLight}"
             onChange={(text) => setArticle(text)}
           />
-
-          <RichToolbar
-            editor={RichText}
-            disabled={false}
-            iconTint={"${Colors.primaryLight}"}
-            selectedIconTint={"${Colors.secondary}"}
-            disabledIconTint={"${Colors.primaryLight}"}
-            iconSize={30}
-          />
+          <ToolBarContainer>
+            <RichToolbar
+              editor={RichText}
+              disabled={false}
+              iconTint={"${Colors.primaryLight}"}
+              selectedIconTint={"${Colors.secondary}"}
+              disabledIconTint={"${Colors.primaryLight}"}
+              iconSize={30}
+            />
+          </ToolBarContainer>
       </Wrapper>
     </>
   );

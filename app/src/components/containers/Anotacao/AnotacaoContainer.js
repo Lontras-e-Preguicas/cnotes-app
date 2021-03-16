@@ -22,6 +22,8 @@ function AnotacaoContainer({ navigation, route }) {
 */
   const presentationalProps = {
     goBack: navigation.goBack,
+    title: route.params.title,
+    author: route.params.author,
   };
 
   return <AnotacaoPresentational {...presentationalProps} />;

@@ -6,8 +6,8 @@ function ConjuntoAnotacoesContainer({ navigation, route }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const openTile = ({ id }) => {
-      navigation.navigate("Anotacao",{id});
+  const openTile = ({ id , title,author}) => {
+      navigation.navigate("Anotacao",{id, title,author});
     //console.warn("Abrindo", id);
   };
 
