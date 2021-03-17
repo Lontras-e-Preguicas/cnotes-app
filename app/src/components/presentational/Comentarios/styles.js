@@ -52,7 +52,7 @@ export const TileHeader = styled.View`
   flex-direction: row;
   align-items: center;
 
-  border-color: ${Colors.tertiary};
+  border-color: ${"#9975E4"};
   border-bottom-width: 2px;
 `;
 
@@ -113,11 +113,9 @@ export const AuthorContainer = styled.View`
   flex-direction: row;
   align-items: center;
 `;
-
 export const AuthorText = styled.Text`
   font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
   font-size: ${Typography.FONT_SIZES.large};
-
   color: ${Colors.primaryLight};
 `;
 
@@ -132,7 +130,6 @@ export const AuthorPicture = styled.Image`
 
 export const AddTileContainer = styled(TileContainer)`
   background-color: ${applyOpacity(Colors.primaryDark, 0.6)};
-
   align-items: center;
   justify-content: center;
 `;
@@ -140,8 +137,8 @@ export const AddTileContainer = styled(TileContainer)`
 export const AddTileIcon = styled(AddSVG).attrs({
   fill: Colors.primaryLight,
 })`
-  width: 64px;
-  height: 64px;
+  width: 30px;
+  height: 30px;
 `;
 
 export const AddTileText = styled(TileHeaderText)``;
