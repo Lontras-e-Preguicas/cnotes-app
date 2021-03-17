@@ -6,24 +6,16 @@ import { pathJoin } from "../../../utils/format";
 function AnotacaoContainer({ navigation, route }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-/*
-  const openTile = ({ folder, id, title }) => {
-    if (folder) {
-      navigation.push("Caderno", {
-        id,
-        title,
-        path: pathJoin(route.params.path, title),
-      });
-      return;
-    }
-
-    navigation.navigate("Anotacao", { id, title });
+  const openComentarios = () => {
+      navigation.navigate("Comentarios");
+    //console.warn("Abrindo");
   };
-*/
+
   const presentationalProps = {
     goBack: navigation.goBack,
     title: route.params.title,
     author: route.params.author,
+    openComentarios,
   };
 
   return <AnotacaoPresentational {...presentationalProps} />;

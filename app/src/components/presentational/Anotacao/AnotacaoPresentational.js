@@ -33,6 +33,7 @@ function AnotacaoPresentational({
   goBack,
   title,
   author,
+  openComentarios
      }) {
 
   const headerButtons = {
@@ -50,6 +51,7 @@ function AnotacaoPresentational({
       },
       {
         icon: "chatbubble-ellipses-outline",
+        onPress: openComentarios,
       },
       {
         icon: "star-outline",
