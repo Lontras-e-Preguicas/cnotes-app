@@ -25,6 +25,7 @@ import {
   ToolBarContainer,
   AuthorContainer
 } from "./styles.js";
+import ModalAvaliacao from "./ModalAvaliacao";
 
 function AnotacaoPresentational({
   notebooks,
@@ -55,14 +56,15 @@ function AnotacaoPresentational({
       },
       {
         icon: "star-outline",
+        onPress: ()=> {setModal(true)},
       },
     ],
   };
 
-
   const RichText = useRef(); //referencia ao componente RichEditor
   const [article, setArticle] = useState("");
   const [edit, setEdit] = useState(true); //ativar ou desativar a edicao
+  const [modal, setModal] = useState(false);
 
   return (
     <>
@@ -101,7 +103,7 @@ function AnotacaoPresentational({
             //placeholder={"Conteudo..."}
             onChange={(text) => setArticle(text)}
           />
-
+          {modal ? <ModalAvaliacao/> : <></>}
       </Wrapper>
     </>
   );
