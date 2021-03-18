@@ -112,9 +112,8 @@ export const ContentModal = styled(Content)`
 `;
 export const InputModal = styled.TextInput`
   width: 100%;
-  height:30%;
+  height:35%;
   margin-top: ${Spacing.getSpacing(5)};
-  margin-bottom: ${Spacing.getSpacing(5)};
   border: 1px solid ${applyOpacity(Colors.primaryDark, 0.3)};
   flex-flow: row wrap;
   font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};

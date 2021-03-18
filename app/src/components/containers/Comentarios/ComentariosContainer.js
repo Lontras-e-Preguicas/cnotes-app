@@ -5,6 +5,7 @@ import ComentariosPresentational from "../../presentational/Comentarios";
 function ComentariosContainer({ navigation, route }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+
   const addTile = () => {
     setData([
       ...data,
