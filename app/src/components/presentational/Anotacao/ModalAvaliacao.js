@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Colors, Typography, Spacing } from "../../../config";
+import { Rating } from 'react-native-ratings';
 
 export function ModalAvaliacao() {
 
@@ -21,6 +22,13 @@ export function ModalAvaliacao() {
           <ContainerText>
               <ContentModal>Avalie a anotação :</ContentModal>
           </ContainerText>
+          <ContainerStar>
+            <Rating
+              ratingCount={5}
+              startingValue={0}
+              minValue={1}
+              />
+          </ContainerStar>
           <ContainerButtons>
             <ButtonCancel
               onPress={()=> {setModalVisible(false)}}
@@ -67,6 +75,11 @@ export const ContainerButtons = styled.View`
   flex-flow: row nowrap;
   padding: ${Spacing.getSpacing(25)};
   width: 100%;
+`;
+
+export const ContainerStar = styled.View`
+  width: 100%;
+  padding: 10%;
 `;
 
 //Conteudo Modal
