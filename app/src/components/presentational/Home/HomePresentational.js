@@ -19,7 +19,13 @@ import {
   EmptyListText,
 } from "./styles.js";
 
-function HomePresentational({ notebooks, refreshing, onRefresh, openCaderno }) {
+function HomePresentational({
+  notebooks,
+  refreshing,
+  onRefresh,
+  openCaderno,
+  addCaderno,
+ }) {
   const dimensions = useDimensions();
 
   const tileSize = dimensions.window.width / 2 - 16 - 12;
@@ -27,6 +33,7 @@ function HomePresentational({ notebooks, refreshing, onRefresh, openCaderno }) {
   const headerButtons = [
     {
       icon: "add",
+      onPress: addCaderno,
     },
   ];
 
@@ -37,13 +44,13 @@ function HomePresentational({ notebooks, refreshing, onRefresh, openCaderno }) {
 
         <StyledFlatList
           data={notebooks}
-          renderItem={(props) => (
-            <Tile tileSize={tileSize} openCaderno={openCaderno} {...props} />
-          )}
           keyExtractor={(data, index) => index.toString()}
           ListEmptyComponent={EmptyList}
           refreshing={refreshing}
           onRefresh={onRefresh}
+          renderItem={(props) => (
+            <Tile tileSize={tileSize} openCaderno={openCaderno} {...props} />
+          )}
         />
       </Wrapper>
     </>
