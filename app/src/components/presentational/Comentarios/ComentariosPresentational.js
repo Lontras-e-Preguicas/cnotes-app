@@ -34,7 +34,8 @@ import {
   Wrapper,
 } from "./styles";
 
-import FAB from "./FAB";
+import Modal from "./Modal";
+
 
 import { formatRating, formatTitle } from "../../../utils/format";
 
@@ -60,7 +61,6 @@ function ComentariosPresentational({
     ],
   };
 
-
   return (
     <>
       <Wrapper>
@@ -74,7 +74,7 @@ function ComentariosPresentational({
             <Tile tileSize={tileSize} {...props} />
           )}
         />
-        <FAB addTile={addTile}/>
+        <Modal />
       </Wrapper>
     </>
   );
