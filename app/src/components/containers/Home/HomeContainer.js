@@ -23,6 +23,7 @@ function HomeContainer(props) {
 
   const [notebooks, setNotebooks] = useState(sample_data);
   const [refreshing, setRefreshing] = useState(false);
+//  const [data, setData] = useState([]);
 
   useEffect(() => {
     setRefreshing(true);
@@ -42,11 +43,23 @@ function HomeContainer(props) {
     });
   };
 
+  const addCaderno = () => {
+    setNotebooks([
+      ...notebooks,
+      {
+        id: Math.random().toString(),
+        title: "New Caderno",
+      },
+    ]);
+  };
+
+
   const presentationalProps = {
     notebooks,
     refreshing,
     onRefresh,
     openCaderno,
+    addCaderno,
   };
 
   return <HomePresentational {...presentationalProps} />;
