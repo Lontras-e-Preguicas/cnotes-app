@@ -1,42 +1,32 @@
 import React, { useRef, useState } from "react";
-import styled from "styled-components/native";
 
-import {
-  RichEditor,
-  RichToolbar,
-} from "react-native-pell-rich-editor";
-import  {  WebView  }  from 'react-native-webview' ;
+import { RichEditor, RichToolbar } from "react-native-pell-rich-editor";
 
-import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "../../../config";
 import Header from "../../core/Header";
-import useDimensions from "../../hooks/useDimensions";
-import { formatTitle } from "../../../utils/format";
 import { Images } from "../../../config";
 
 import {
-  AutorAnotacao,
-  ContainerTitleAnotacao,
-  ContainerAutorAnotacao,
-  Title,
-  TitleAnotacao,
+  AuthorText,
+  TitleContainer,
+  TitleText,
   Wrapper,
   AuthorPicture,
   ToolBarContainer,
-  AuthorContainer
+  AuthorContainer,
+  ContentWrapper,
+  EditorContainer,
 } from "./styles.js";
 import ModalAvaliacao from "./ModalAvaliacao";
 
 function AnotacaoPresentational({
-  notebooks,
   refreshing,
   onRefresh,
   goBack,
   title,
   author,
-  openComentarios
-     }) {
-
+  openComentarios,
+}) {
   const headerButtons = {
     leftButtons: [
       {
@@ -48,7 +38,7 @@ function AnotacaoPresentational({
     rightButtons: [
       {
         icon: "pencil",
-        onPress: ()=>setEdit(!edit),
+        onPress: () => setEdit(!edit),
       },
       {
         icon: "chatbubble-ellipses-outline",
@@ -56,57 +46,72 @@ function AnotacaoPresentational({
       },
       {
         icon: "star-outline",
-        onPress: ()=> {setModal(true)},
+        onPress: () => {
+          setModal(true);
+        },
       },
     ],
   };
 
-  const RichText = useRef(); //referencia ao componente RichEditor
+  const richText = useRef(); //referencia ao componente RichEditor
   const [article, setArticle] = useState("");
-  const [edit, setEdit] = useState(true); //ativar ou desativar a edicao
+  const [edit, setEdit] = useState(false); //ativar ou desativar a edicao
   const [modal, setModal] = useState(false);
+
+  const toolbarStyle = {
+    display: edit ? "flex" : "none",
+    width: "100%",
+    backgroundColor: "transparent",
+  };
 
   return (
     <>
       <Wrapper>
         <Header {...headerButtons} />
-        <ContainerTitleAnotacao>
-          <TitleAnotacao >{title}</TitleAnotacao>
-          <AuthorContainer>
-            <AutorAnotacao>Por: </AutorAnotacao>
-            <AuthorPicture
-              source={{
-                uri: author.profile_picture,
+        <ContentWrapper>
+          <NoteTitle author={author} title={title} />
+          <EditorContainer>
+            <RichEditor
+              disabled={!edit}
+              ref={richText}
+              editorStyle={{
+                backgroundColor: Colors.primaryLight,
               }}
-              defaultSource={Images.defaultUser}
+              onChange={(text) => setArticle(text)}
             />
-            <AutorAnotacao>{author.name}</AutorAnotacao>
-          </AuthorContainer>
-        </ContainerTitleAnotacao>
-
+          </EditorContainer>
+        </ContentWrapper>
         <ToolBarContainer>
           <RichToolbar
-            editor={RichText}
+            editor={richText}
             disabled={false}
-            style={edit? {display: "none"} : {display:"flex"}}
             iconTint={Colors.primaryDark}
             selectedIconTint={Colors.secondary}
             disabledIconTint={Colors.primaryDark}
-            iconSize={30}
+            iconSize={24}
+            style={toolbarStyle}
           />
         </ToolBarContainer>
-
-        <RichEditor
-            disabled={edit}
-            ref={RichText}
-            containerStyle= {{backgroundColor:Colors.primaryLight, borderColor:Colors.primaryLight}}
-            //placeholder={"Conteudo..."}
-            onChange={(text) => setArticle(text)}
-          />
-          {modal ? <ModalAvaliacao/> : <></>}
+        {modal ? <ModalAvaliacao /> : <></>}
       </Wrapper>
     </>
   );
 }
+
+const NoteTitle = ({ title, author }) => (
+  <TitleContainer>
+    <TitleText>{title}</TitleText>
+    <AuthorContainer>
+      <AuthorText>Por:</AuthorText>
+      <AuthorPicture
+        source={{
+          uri: author.profile_picture,
+        }}
+        defaultSource={Images.defaultUser}
+      />
+      <AuthorText>{author.name}</AuthorText>
+    </AuthorContainer>
+  </TitleContainer>
+);
 
 export default AnotacaoPresentational;

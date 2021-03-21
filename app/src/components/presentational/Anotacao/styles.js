@@ -1,55 +1,44 @@
 import styled from "styled-components/native";
 
 import { Colors, Typography, Spacing } from "../../../config";
-import { applyOpacity } from "../../../config/colors";
-import DefaultTouchable from "../../core/DefaultTouchable";
 
-// Containers
-
-export const Container = styled.View`
-  height: 100%;
-  background-color: ${Colors.primaryLight};
-`;
+// Main Wrappers
 
 export const Wrapper = styled.View`
   height: 100%;
   background-color: ${Colors.primaryLight};
 `;
 
-/*Componentes Criados para teste do Titulo e Autoria que aparecem na Tela Anotacao*/
+export const ContentWrapper = styled.View`
+  padding: ${Spacing.getSpacing(8)} ${Spacing.getSpacing(16)};
+  flex-grow: 1;
+`;
 
-//Containers
+// Title section
 
-export const ContainerTitleAnotacao = styled.View`
+export const TitleContainer = styled.View`
   flex-direction: column;
   justify-content: center;
   width: 100%;
   position: relative;
-  margin: ${Spacing.getSpacing(8)};
+  margin-bottom: ${Spacing.getSpacing(16)};
 `;
 
-export const ContainerAutorAnotacao = styled.View`
-  width: 100%;
-`;
-
-//Contents
-
-export const TitleAnotacao = styled.Text`
+export const TitleText = styled.Text`
   flex-flow: row wrap;
-  width: 100%;
+  max-width: 60%;
   font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
   font-size: ${Typography.FONT_SIZES.giant};
+  margin-bottom: ${Spacing.getSpacing(8)};
 `;
 
-export const AutorAnotacao = styled.Text`
+export const AuthorText = styled.Text`
   font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
   font-size: ${Typography.FONT_SIZES.medium};
-  margin-left: ${Spacing.getSpacing(4)};
 `;
 
 export const AuthorContainer = styled.View`
   align-items: center;
-  width: 100%;
   flex-direction: row;
 `;
 
@@ -60,9 +49,15 @@ export const AuthorPicture = styled.Image`
   margin: 0 ${Spacing.getSpacing(4)};
 `;
 
-export const ToolBarContainer = styled.View`
+// Text section
+
+export const ToolBarContainer = styled.KeyboardAvoidingView`
   align-items: center;
   width: 100%;
   align-self: flex-end;
   align-items: flex-end;
+`;
+
+export const EditorContainer = styled.ScrollView`
+  width: 100%;
 `;
