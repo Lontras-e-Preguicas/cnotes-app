@@ -70,8 +70,7 @@ export const ContainerText = styled.View`
 `;
 
 export const ContainerButtons = styled.View`
-  justify-content: center;
-  align-items: flex-end;
+  justify-content: space-around;
   flex-flow: row nowrap;
   padding: ${Spacing.getSpacing(25)};
   width: 100%;
@@ -99,8 +98,9 @@ export const ContentModal = styled(Content)`
 export const ButtonsModal = styled.TouchableOpacity`
   justify-content: center;
   flex-flow: row nowrap;
+  flex-grow: 1;
+  flex-basis: 0;
   border-radius: 15px;
-  width: 55%;
 `;
 
 export const ButtonCancel = styled(ButtonsModal)`

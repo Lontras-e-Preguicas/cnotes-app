@@ -88,14 +88,15 @@ export const ContainerModal = styled.View`
 
 export const ContainerText = styled.View`
   width: 100%;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
 `;
 
 export const ContainerButtons = styled.View`
-  justify-content: center;
-  align-items: flex-end;
+  justify-content: space-around;
   flex-flow: row nowrap;
-  padding-left: ${Spacing.getSpacing(10)};
-  padding-right: ${Spacing.getSpacing(10)};
+  padding: ${Spacing.getSpacing(20)};
   width: 100%;
 `;
 
@@ -120,7 +121,7 @@ export const InputModal = styled.TextInput`
   font-size: ${Typography.FONT_SIZES.extraLarge};
   color: ${applyOpacity(Colors.primaryDark, 0.3)};
   border-radius: ${Spacing.getSpacing(10)};
-
+  align-self: center;
 `;
 // Buttons
 
@@ -139,8 +140,9 @@ export const OpenModal = styled.TouchableOpacity`
 export const ButtonsModal = styled.TouchableOpacity`
   justify-content: center;
   flex-flow: row nowrap;
+  flex-grow: 1;
+  flex-basis: 0;
   border-radius: ${Spacing.getSpacing(15)};
-  width: 55%;
 `;
 
 export const ButtonCancel = styled(ButtonsModal)`
@@ -148,7 +150,7 @@ export const ButtonCancel = styled(ButtonsModal)`
 `;
 
 export const ButtonConfirm = styled(ButtonsModal)`
-  margin-left: ${Spacing.getSpacing(15)};
+  margin-left: 5%;
   background-color: ${Colors.tertiary};
 `;
 
