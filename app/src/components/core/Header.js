@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import DefaultTouchable from "./DefaultTouchable";
 
@@ -9,6 +9,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { Colors, Typography, Spacing } from "../../config";
 
 export function Header({ title, rightButtons, leftButtons }) {
+  const insets = useSafeAreaInsets();
+
   /*
   rightButtons: [
     {
@@ -52,7 +54,7 @@ export function Header({ title, rightButtons, leftButtons }) {
 
   if (!leftButtons) {
     return (
-      <HeaderContainer>
+      <HeaderContainer insets={insets}>
         <HeaderContent>
           <HeaderTitle>{title}</HeaderTitle>
           {rightButtonsComponent}
@@ -77,7 +79,7 @@ export function Header({ title, rightButtons, leftButtons }) {
   );
 
   return (
-    <HeaderContainer>
+    <HeaderContainer insets={insets}>
       <HeaderContent>
         <HeaderCenterWrapper>
           <HeaderTitle>{title}</HeaderTitle>
@@ -89,9 +91,10 @@ export function Header({ title, rightButtons, leftButtons }) {
   );
 }
 
-export const HeaderContainer = styled(SafeAreaView)`
+export const HeaderContainer = styled.View`
   width: 100%;
   align-self: flex-start;
+  padding-top: ${({ insets }) => insets.top}px;
 `;
 
 export const HeaderContent = styled.View`
