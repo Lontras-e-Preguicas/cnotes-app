@@ -1,7 +1,7 @@
 import React from "react";
 
-import { MainStatusBar } from "./styles";
 import CadernoContainer from "../components/containers/Caderno";
+import { MainStatusBar } from "./styles";
 
 const CadernoScreen = ({ navigation, route }) => (
   <>

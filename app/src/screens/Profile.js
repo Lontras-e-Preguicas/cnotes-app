@@ -1,7 +1,7 @@
 import React from "react";
 
-import { MainStatusBar } from "./styles";
 import PerfilContainer from "../components/containers/Perfil";
+import { MainStatusBar } from "./styles";
 
 const ProfileScreen = (props) => (
   <>

@@ -1,6 +1,5 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
-import { Colors } from "../config";
 
 export const AuthStatusBar = () => (
   <StatusBar style={"light"} translucent={true} />

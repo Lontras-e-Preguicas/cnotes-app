@@ -1,7 +1,7 @@
 import React from "react";
 
-import { MainStatusBar } from "./styles";
 import ConjuntoAnotacoesContainer from "../components/containers/ConjuntoAnotacoes";
+import { MainStatusBar } from "./styles";
 
 const ConjuntoAnotacoesScreen = ({ navigation, route }) => (
   <>

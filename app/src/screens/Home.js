@@ -1,7 +1,7 @@
 import React from "react";
 
-import { MainStatusBar } from "./styles";
 import HomeContainer from "../components/containers/Home";
+import { MainStatusBar } from "./styles";
 
 const HomeScreen = (props) => (
   <>

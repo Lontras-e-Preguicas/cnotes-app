@@ -1,7 +1,7 @@
 import React from "react";
 
-import { AuthStatusBar } from "./styles";
 import LoginContainer from "../components/containers/Login";
+import { AuthStatusBar } from "./styles";
 
 const LoginScreen = (props) => (
   <>
