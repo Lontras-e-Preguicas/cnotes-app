@@ -6,14 +6,14 @@ import DefaultTouchable from "../../core/DefaultTouchable";
 
 // Containers
 
-export const Container = styled.SafeAreaView`
+export const Container = styled.View`
   height: 100%;
   background-color: ${Colors.primaryLight};
 `;
 
-export const Wrapper = styled.SafeAreaView`
+export const Wrapper = styled.View`
   height: 100%;
-  backgroundColor: ${Colors.primaryLight};
+  background-color: ${Colors.primaryLight};
 `;
 
 /*Componentes Criados para teste do Titulo e Autoria que aparecem na Tela Anotacao*/
@@ -26,7 +26,7 @@ export const ContainerTitleAnotacao = styled.View`
   width: 100%;
   height: 10%;
   position: relative;
-  margin: ${Spacing.getSpacing(8)} ;
+  margin: ${Spacing.getSpacing(8)};
 `;
 
 export const ContainerAutorAnotacao = styled.View`
@@ -56,10 +56,10 @@ export const AuthorContainer = styled.View`
 `;
 
 export const AuthorPicture = styled.Image`
-border-radius: 12px;
-width: 24px;
-height: 24px;
-margin: 0 ${Spacing.getSpacing(4)};
+  border-radius: 12px;
+  width: 24px;
+  height: 24px;
+  margin: 0 ${Spacing.getSpacing(4)};
 `;
 
 export const ToolBarContainer = styled.View`

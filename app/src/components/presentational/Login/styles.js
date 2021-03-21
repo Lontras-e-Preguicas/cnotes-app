@@ -4,6 +4,8 @@ import getSpacing from "../../../config/spacing";
 import Button from "../../core/Button";
 import DefaultTouchable from "../../core/DefaultTouchable";
 
+import { SafeAreaView } from "react-native-safe-area-context";
+
 import { HintedInputWrapper } from "../../core/HintedInput";
 
 // Containers
@@ -13,7 +15,7 @@ export const Background = styled.ImageBackground`
   background-color: ${Colors.primaryDark};
 `;
 
-export const SafeAreaView = styled.SafeAreaView`
+export const StyledSafeAreaView = styled(SafeAreaView)`
   height: 100%;
   align-items: center;
   justify-content: center;

@@ -7,9 +7,5 @@ export const AuthStatusBar = () => (
 );
 
 export const MainStatusBar = () => (
-  <StatusBar
-    style={"dark"}
-    translucent={false}
-    backgroundColor={Colors.primaryLight}
-  />
+  <StatusBar style={"dark"} translucent={true} />
 );

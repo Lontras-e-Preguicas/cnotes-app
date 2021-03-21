@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import DefaultTouchable from "./DefaultTouchable";
 
@@ -88,7 +89,7 @@ export function Header({ title, rightButtons, leftButtons }) {
   );
 }
 
-export const HeaderContainer = styled.SafeAreaView`
+export const HeaderContainer = styled(SafeAreaView)`
   width: 100%;
   align-self: flex-start;
 `;

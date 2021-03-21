@@ -2,6 +2,7 @@ import styled from "styled-components/native";
 import { Colors, Spacing, Typography } from "../../../config";
 import getSpacing from "../../../config/spacing";
 import Button from "../../core/Button";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { HintedInputWrapper } from "../../core/HintedInput";
 
@@ -12,7 +13,7 @@ export const Background = styled.ImageBackground`
   background-color: ${Colors.primaryDark};
 `;
 
-export const SafeAreaView = styled.SafeAreaView`
+export const StyledSafeAreaView = styled(SafeAreaView)`
   height: 100%;
   align-items: center;
   justify-content: center;

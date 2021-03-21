@@ -2,7 +2,7 @@ import React from "react";
 
 import {
   Background,
-  SafeAreaView,
+  StyledSafeAreaView,
   FormWrapper,
   Title,
   StyledInputWrapper,
@@ -28,7 +28,7 @@ const SignupPresentational = ({
   loading,
 }) => (
   <Background source={BackgroundSource}>
-    <SafeAreaView>
+    <StyledSafeAreaView>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
@@ -75,7 +75,7 @@ const SignupPresentational = ({
           </FormWrapper>
         </StyledScrollView>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+    </StyledSafeAreaView>
   </Background>
 );
 
