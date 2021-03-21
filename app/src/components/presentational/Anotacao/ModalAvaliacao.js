@@ -58,7 +58,7 @@ export const ContainerModal = styled.View`
   justify-content: center;
   align-items: center;
   align-content: space-around;
-  margin-top: 15%;
+  margin-top: ${Spacing.getSpacing(45)};
   margin-left: ${Spacing.getSpacing(15)};
   margin-right: ${Spacing.getSpacing(15)};
   padding: ${Spacing.getSpacing(40)};

@@ -52,7 +52,7 @@ export const TileHeader = styled.View`
   flex-direction: row;
   align-items: center;
 
-  border-color: ${"#9975E4"};
+  border-color: #9975E4;
   border-bottom-width: 2px;
 `;
 

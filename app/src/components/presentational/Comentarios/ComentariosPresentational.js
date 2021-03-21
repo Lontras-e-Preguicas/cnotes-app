@@ -1,29 +1,14 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import styled from "styled-components/native";
 
-import {
-  RichEditor,
-  RichToolbar,
-} from "react-native-pell-rich-editor";
-import  {  WebView  }  from 'react-native-webview' ;
-
-import { Ionicons } from "@expo/vector-icons";
-import { Colors } from "../../../config";
 import Header from "../../core/Header";
 import useDimensions from "../../hooks/useDimensions";
-import { Images } from "../../../config";
 
 import {
   AddTileContainer,
   AddTileIcon,
   AddTileText,
-  AuthorContainer,
-  AuthorPicture,
-  AuthorText,
   Container,
-  RatingIcon,
-  RatingTextContainer,
-  RatingValue,
   StyledFlatList,
   TileContainer,
   TileContent,

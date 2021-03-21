@@ -8,7 +8,6 @@ function ConjuntoAnotacoesContainer({ navigation, route }) {
 
   const openTile = ({ id , title, author}) => {
       navigation.navigate("Anotacao",{id, title, author});
-    //console.warn("Abrindo", id);
   };
 
   const addTile = () => {
