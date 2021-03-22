@@ -19,18 +19,16 @@ import {
   EditorContainer,
   EditorScroll,
   ScrollWrapper,
+  RatingWrapper,
+  StarIcon,
+  ModalButtonRow,
+  RateModalButton,
+  CancelModalButton,
 } from "./styles.js";
-import ModalAvaliacao from "./ModalAvaliacao";
-import { View, ScrollView } from "react-native";
+import Modal from "../../core/Modal";
+import DefaultTouchable from "../../core/DefaultTouchable";
 
-function AnotacaoPresentational({
-  refreshing,
-  onRefresh,
-  goBack,
-  title,
-  author,
-  openComentarios,
-}) {
+function AnotacaoPresentational({ goBack, title, author, openComentarios }) {
   const insets = useSafeAreaInsets();
 
   const headerButtons = {
@@ -53,7 +51,7 @@ function AnotacaoPresentational({
       {
         icon: "star-outline",
         onPress: () => {
-          setModal(true);
+          setModalVisible(true);
         },
       },
     ],
@@ -62,7 +60,9 @@ function AnotacaoPresentational({
   const richText = useRef(); //referencia ao componente RichEditor
   const [article, setArticle] = useState("");
   const [edit, setEdit] = useState(false); //ativar ou desativar a edicao
-  const [modal, setModal] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [rating, setRating] = useState(0);
+  const [currentTitle, setCurrentTitle] = useState(title);
 
   const toolbarStyle = {
     display: edit ? "flex" : "none",
@@ -75,13 +75,20 @@ function AnotacaoPresentational({
       <Wrapper insets={insets}>
         <Header {...headerButtons} />
         <ContentWrapper>
-          <NoteTitle author={author} title={title} />
+          <NoteTitle
+            editable={edit}
+            author={author}
+            title={currentTitle}
+            setTitle={setCurrentTitle}
+            submitTitle={setCurrentTitle}
+          />
           <ScrollWrapper>
             <EditorScroll>
               <EditorContainer>
                 <RichEditor
                   disabled={!edit}
                   ref={richText}
+                  placeholder="Sem conteúdo por enquanto..."
                   useContainer
                   editorStyle={{
                     backgroundColor: Colors.primaryLight,
@@ -103,15 +110,26 @@ function AnotacaoPresentational({
             style={toolbarStyle}
           />
         </ToolBarContainer>
-        {modal ? <ModalAvaliacao /> : <></>}
+        <RatingModal
+          modalVisible={modalVisible}
+          close={() => setModalVisible(false)}
+          value={rating}
+          setValue={setRating}
+        />
       </Wrapper>
     </>
   );
 }
 
-const NoteTitle = ({ title, author }) => (
+const NoteTitle = ({ title, setTitle, submitTitle, author, editable }) => (
   <TitleContainer>
-    <TitleText>{title}</TitleText>
+    <TitleText
+      editable={editable}
+      multiline
+      value={title}
+      onChangeText={(v) => setTitle(v)}
+      onBlur={() => submitTitle(title)}
+    />
     <AuthorContainer>
       <AuthorText>Por:</AuthorText>
       <AuthorPicture
@@ -124,5 +142,33 @@ const NoteTitle = ({ title, author }) => (
     </AuthorContainer>
   </TitleContainer>
 );
+
+const RatingModal = ({
+  modalVisible,
+  close,
+  value,
+  setValue,
+  submitRating,
+}) => {
+  const ratingStars = [];
+
+  for (let i = 1; i <= 5; i++) {
+    ratingStars.push(
+      <DefaultTouchable key={i.toString()} onPressIn={() => setValue(i)}>
+        <StarIcon fill={value >= i} />
+      </DefaultTouchable>,
+    );
+  }
+
+  return (
+    <Modal visible={modalVisible} close={close} title="Avaliar Anotação">
+      <RatingWrapper>{ratingStars}</RatingWrapper>
+      <ModalButtonRow>
+        <CancelModalButton onPress={close}>Cancelar</CancelModalButton>
+        <RateModalButton onPress={submitRating}>Avaliar</RateModalButton>
+      </ModalButtonRow>
+    </Modal>
+  );
+};
 
 export default AnotacaoPresentational;

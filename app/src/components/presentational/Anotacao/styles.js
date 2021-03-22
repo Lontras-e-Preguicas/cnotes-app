@@ -1,7 +1,9 @@
 import { Platform, View, KeyboardAvoidingView } from "react-native";
 import styled from "styled-components/native";
+import { Ionicons } from "@expo/vector-icons";
 
 import { Colors, Typography, Spacing } from "../../../config";
+import Button from "../../core/Button";
 
 // Main Wrappers
 
@@ -26,12 +28,14 @@ export const TitleContainer = styled.View`
   margin-bottom: ${Spacing.getSpacing(16)};
 `;
 
-export const TitleText = styled.Text`
+export const TitleText = styled.TextInput`
   flex-flow: row wrap;
   max-width: 60%;
   font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
   font-size: ${Typography.FONT_SIZES.giant};
+  color: ${Colors.primaryDark};
   margin-bottom: ${Spacing.getSpacing(8)};
+  opacity: 1;
 `;
 
 export const AuthorText = styled.Text`
@@ -71,3 +75,38 @@ export const EditorScroll = styled.ScrollView``;
 export const ScrollWrapper = styled.View`
   flex: 1;
 `;
+
+// Rating modal
+
+export const RatingWrapper = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: ${Spacing.getSpacing(16)};
+`;
+
+export const StarIcon = styled(Ionicons).attrs(({ fill = true }) => ({
+  name: fill ? "star" : "star-outline",
+}))`
+  color: gold;
+  font-size: 40px;
+  margin: 0 ${Spacing.getSpacing(8)};
+`;
+
+export const ModalButtonRow = styled.View`
+  flex-direction: row;
+  margin-top: ${Spacing.getSpacing(16)};
+`;
+
+export const RateModalButton = styled(Button).attrs({
+  fill: true,
+  color: Colors.tertiaryAlt,
+  textColor: Colors.primaryLight,
+})`
+  flex: 1;
+  margin: 0 ${Spacing.getSpacing(8)};
+`;
+
+export const CancelModalButton = styled(RateModalButton).attrs({
+  color: Colors.secondaryAlt,
+})``;
