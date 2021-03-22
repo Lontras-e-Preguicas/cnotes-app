@@ -11,9 +11,13 @@ function ComentariosContainer({ navigation, route }) {
       ...data,
       {
         id: Math.random().toString(),
-        title: "",
-        description: "Esse é um teste de descrição, descricao de teste, ou seja, o comentario mesmo",
-
+        commenter: {
+          name: "Eddyzinho",
+          profile_picture: "https://bit.ly/315W8DK",
+        },
+        message:
+          "Esse é um teste de descrição, descricao de teste, ou seja, o comentario mesmo",
+        creation_date: "2019-08-24T14:15:22Z",
       },
     ]);
   };
@@ -24,15 +28,23 @@ function ComentariosContainer({ navigation, route }) {
     setData([
       {
         id: Math.random().toString(),
-        title: "",
-        description:
-        "Esse é um outro teste de descrição, descricao de teste, ou seja, o comentario mesmo",
+        commenter: {
+          name: "Eddyzinho",
+          profile_picture: "https://bit.ly/315W8DK",
+        },
+        message:
+          "Esse é um outro teste de descrição, descricao de teste, ou seja, o comentario mesmo",
+        creation_date: "2019-08-24T14:15:22Z",
       },
       {
         id: Math.random().toString(),
-        title: "",
-        description:
+        commenter: {
+          name: "Eddyzinho",
+          profile_picture: "https://bit.ly/315W8DK",
+        },
+        message:
           "Esse é mais um outro teste de descrição, ou seja, o comentario mesmo",
+        creation_date: "2019-08-24T14:15:22Z",
       },
     ]);
 

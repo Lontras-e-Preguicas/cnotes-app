@@ -1,38 +1,31 @@
 import React from "react";
 import styled from "styled-components/native";
+import { formatTimeStamp } from "../../../utils/format";
 
 import Header from "../../core/Header";
 import useDimensions from "../../hooks/useDimensions";
 
 import {
-  AddTileContainer,
-  AddTileIcon,
-  AddTileText,
-  Container,
+  AuthorPicture,
+  AuthorPictureWrapper,
   StyledFlatList,
   TileContainer,
   TileContent,
   TileDescription,
   TileFooter,
+  TileFooterTimeStamp,
   TileHeader,
   TileHeaderText,
   Wrapper,
 } from "./styles";
 
-import Modal from "./Modal";
-
-
-import { formatRating, formatTitle } from "../../../utils/format";
-
 function ComentariosPresentational({
   goBack,
   data,
-  title,
   loading,
   retrieveData,
   addTile,
-     }) {
-
+}) {
   const dimensions = useDimensions();
 
   const tileSize = dimensions.window.width / 2 - 16 - 12;
@@ -44,35 +37,47 @@ function ComentariosPresentational({
         onPress: goBack,
       },
     ],
+    rightButtons: [
+      {
+        icon: "md-add",
+        onPress: addTile,
+      },
+    ],
   };
 
   return (
     <>
       <Wrapper>
-        <Header {...headerButtons} />
+        <Header title="Comentários" {...headerButtons} />
         <StyledFlatList
           data={data}
           keyExtractor={(item, index) => index.toString()}
           refreshing={loading}
           onRefresh={retrieveData}
-          renderItem={(props) => (
-            <Tile tileSize={tileSize} {...props} />
-          )}
+          renderItem={(props) => <Tile tileSize={tileSize} {...props} />}
         />
-        <Modal />
       </Wrapper>
     </>
   );
 }
 
-const Tile = ({item, tileSize}) => (
+const Tile = ({ item, tileSize }) => (
   <TileContainer tileSize={tileSize}>
     <TileHeader>
       <TileHeaderText>Comentário por:</TileHeaderText>
+      <AuthorPictureWrapper>
+        <AuthorPicture source={{ uri: item.commenter.profile_picture }} />
+      </AuthorPictureWrapper>
+      <TileHeaderText>{item.commenter.name}</TileHeaderText>
     </TileHeader>
     <TileContent>
-      <TileDescription>{item.description}</TileDescription>
+      <TileDescription>{item.message}</TileDescription>
     </TileContent>
+    <TileFooter>
+      <TileFooterTimeStamp>
+        {formatTimeStamp(item.creation_date)}
+      </TileFooterTimeStamp>
+    </TileFooter>
   </TileContainer>
 );
 

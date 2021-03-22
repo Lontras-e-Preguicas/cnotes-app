@@ -133,6 +133,7 @@ export const HeaderRightButtons = styled.View`
 
 export const HeaderLeftButtons = styled.View`
   flex-direction: row;
+  margin-left: ${Spacing.getSpacing(-8)};
 `;
 
 export const StyledHeaderIcon = styled(Ionicons).attrs({

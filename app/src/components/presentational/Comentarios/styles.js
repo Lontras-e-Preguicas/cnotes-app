@@ -11,15 +11,10 @@ import AddSVG from "../../../assets/icons/add.svg";
 
 // Containers
 
-export const Container = styled.View`
-  height: 100%;
-  background-color: ${Colors.primaryLight};
-  position: relative;
-`;
-
 export const Wrapper = styled.View`
   height: 100%;
   position: relative;
+  background-color: ${Colors.primaryLight};
 `;
 
 export const StyledFlatList = styled.FlatList`
@@ -52,7 +47,7 @@ export const TileHeader = styled.View`
   flex-direction: row;
   align-items: center;
 
-  border-color: #9975E4;
+  border-color: #9975e4;
   border-bottom-width: 2px;
 `;
 
@@ -72,7 +67,7 @@ export const TileDescription = styled.Text`
   font-size: ${Typography.FONT_SIZES.medium};
   text-align: justify;
 
-  color: ${applyOpacity(Colors.primaryLight, 0.8)};
+  color: ${Colors.primaryLight};
 
   padding: ${Spacing.getSpacing(10)} ${Spacing.getSpacing(8)};
 `;
@@ -89,6 +84,12 @@ export const TileFooter = styled.View`
   padding: ${Spacing.getSpacing(10)};
 `;
 
+export const TileFooterTimeStamp = styled.Text`
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
+  font-size: ${Typography.FONT_SIZES.medium};
+  text-align: right;
+  color: ${applyOpacity(Colors.primaryLight, 0.8)};
+`;
 
 export const AuthorContainer = styled.View`
   flex-direction: row;
@@ -101,25 +102,14 @@ export const AuthorText = styled.Text`
 `;
 
 export const AuthorPicture = styled.Image`
+  width: 24px;
+  height: 24px;
+`;
+
+export const AuthorPictureWrapper = styled.View`
   border-radius: 12px;
   width: 24px;
   height: 24px;
+  overflow: hidden;
   margin: 0 ${Spacing.getSpacing(4)};
 `;
-
-// Add tile
-
-export const AddTileContainer = styled(TileContainer)`
-  background-color: ${applyOpacity(Colors.primaryDark, 0.6)};
-  align-items: center;
-  justify-content: center;
-`;
-
-export const AddTileIcon = styled(AddSVG).attrs({
-  fill: Colors.primaryLight,
-})`
-  width: 30px;
-  height: 30px;
-`;
-
-export const AddTileText = styled(TileHeaderText)``;

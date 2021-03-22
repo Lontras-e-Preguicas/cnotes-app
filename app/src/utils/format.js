@@ -23,3 +23,10 @@ export function formatTitle(title) {
 
   return title.slice(0, 10).trimEnd() + " ...";
 }
+
+export function formatTimeStamp(ts) {
+  let date = new Date(ts);
+  return `${date.getDate()}/${
+    date.getMonth() + 1
+  }/${date.getFullYear()} ${date.toLocaleTimeString()}`;
+}

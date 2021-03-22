@@ -107,3 +107,5 @@ const Tile = ({ item, tileSize, openTile }) => (
     </TileFooter>
   </TileContainer>
 );
+
+export default ConjuntoAnotacoesPresentational;
