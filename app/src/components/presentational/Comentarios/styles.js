@@ -89,25 +89,6 @@ export const TileFooter = styled.View`
   padding: ${Spacing.getSpacing(10)};
 `;
 
-export const RatingTextContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
-`;
-
-export const RatingIcon = styled(Ionicons).attrs({
-  name: "star",
-})`
-  font-size: 20px;
-  color: ${Colors.primaryLight};
-  margin-right: ${Spacing.getSpacing(4)};
-`;
-
-export const RatingValue = styled.Text`
-  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
-  font-size: ${Typography.FONT_SIZES.large};
-
-  color: ${Colors.primaryLight};
-`;
 
 export const AuthorContainer = styled.View`
   flex-direction: row;

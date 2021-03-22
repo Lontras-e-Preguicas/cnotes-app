@@ -65,13 +65,13 @@ function ComentariosPresentational({
   );
 }
 
-const Tile = ({tileSize}) => (
+const Tile = ({item, tileSize}) => (
   <TileContainer tileSize={tileSize}>
     <TileHeader>
       <TileHeaderText>Comentário por:</TileHeaderText>
     </TileHeader>
     <TileContent>
-      <TileDescription>Teste descricao</TileDescription>
+      <TileDescription>{item.description}</TileDescription>
     </TileContent>
   </TileContainer>
 );

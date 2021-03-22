@@ -11,13 +11,9 @@ function ComentariosContainer({ navigation, route }) {
       ...data,
       {
         id: Math.random().toString(),
-        title: "Test Tile",
-        description: "Esse é um caderno Bruh 1 sobre o mundo dos bruhs",
-        rating: 5,
-        author: {
-          name: "Eddy Pereira",
-          profile_picture: "https://bit.ly/3r7LHuK",
-        },
+        title: "",
+        description: "Esse é um teste de descrição, descricao de teste, ou seja, o comentario mesmo",
+
       },
     ]);
   };
@@ -27,25 +23,16 @@ function ComentariosContainer({ navigation, route }) {
 
     setData([
       {
-        id: "1",
-        title: "Bruh 1",
-        description: "Esse é um caderno Bruh 1 sobre o mundo dos bruhs",
-        rating: 4.98,
-        author: {
-          name: "Eddy Pereira",
-          profile_picture: "https://bit.ly/3r7LHuK",
-        },
+        id: Math.random().toString(),
+        title: "",
+        description:
+        "Esse é um outro teste de descrição, descricao de teste, ou seja, o comentario mesmo",
       },
       {
-        id: "2",
-        title: "Bruh 2",
+        id: Math.random().toString(),
+        title: "",
         description:
-          "Esse é outro caderno da classe Bruh sobre o mundo dos bruhs",
-        rating: 4.5,
-        author: {
-          name: "Eddy Pereira",
-          profile_picture: "https://bit.ly/3r7LHuK",
-        },
+          "Esse é mais um outro teste de descrição, ou seja, o comentario mesmo",
       },
     ]);
 

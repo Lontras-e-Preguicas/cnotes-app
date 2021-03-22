@@ -36,7 +36,7 @@ export function Modal() {
               </ContainerText>
              <ContainerButtons>
                <ButtonCancel
-                  onPress={()=> {setModalVisible(false)}}
+                  onPress={() => {setModalVisible(false);}}
                  >
                     <ContentButtons>Cancelar</ContentButtons>
                 </ButtonCancel>
