@@ -8,28 +8,6 @@ export const Wrapper = styled.SafeAreaView`
   background-color: ${Colors.primaryLight};
 `;
 
-//Header
-
-export const HeaderAtividades = styled.View`
-  background: ${Colors.primaryLight};
-  width: 100%;
-  height:10%;
-  padding: ${Spacing.getSpacing(30)};
-`;
-
-export const TitleHeaderAtividades = styled.Text`
-  color: ${Colors.primaryDark};
-  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
-  font-size: ${Typography.FONT_SIZES.huge};
-  align-self: flex-start;
-  padding-top: ${Spacing.getSpacing(15)};
-  padding-left: ${Spacing.getSpacing(15)};
-  position: absolute;
-  bottom: 0;
-  margin-bottom: ${Spacing.getSpacing(10)};
-  margin-right: ${Spacing.getSpacing(25)};
-`;
-
 //Secoes e Listas
 
 export const ListNotification = styled.SectionList`
@@ -52,7 +30,7 @@ export const DateNotification = styled.Text`
   background: ${Colors.primaryLight};
   font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
   font-size: ${Typography.FONT_SIZES.medium};
-  padding: 20px;
+  padding: ${Spacing.getSpacing(20)};
   margin-left: ${Spacing.getSpacing(50)};
 `;
 

@@ -2,11 +2,9 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Colors, Typography, Spacing } from "../../../config";
 
-import { FontAwesome } from '@expo/vector-icons';
-
 export function ModalAtividades() {
 
-  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(true);
 
   return(
     <>
@@ -36,11 +34,6 @@ export function ModalAtividades() {
               </ContainerButtons>
             </ContainerModal>
           </ModalDelete>
-          <OpenModal
-            onPress={()=> {setModalVisible(true)}}
-          >
-            <FontAwesome name="envelope-o" size={24} color="black" />
-          </OpenModal>
         </ContainerButtonModal>
       </>
     );
@@ -101,10 +94,6 @@ export const ContentModal = styled(Content)`
 `;
 
 // Buttons
-
-export const OpenModal = styled.TouchableOpacity`
-	align-self: flex-end;
-`;
 
 export const ButtonsModal = styled.TouchableOpacity`
   justify-content: center;

@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components/native";
-import { Colors, Spacing, Typography } from "../../../config";
+import React, { useState } from "react";
+
+import Header from "../../core/Header";
 
 import {
   AlignBallNotification,
@@ -10,9 +10,7 @@ import {
   ContainerDateNotification,
   DateNotification,
   DescNotification,
-  HeaderAtividades,
   ListNotification,
-  TitleHeaderAtividades,
   TitleNotification,
   ScrollList,
   Wrapper } from "./styles.js";
@@ -34,15 +32,23 @@ const ExemploNotificacoes = [
 
 //Testar  onPress={()=> Alert.alert('Teste')}
 
-const TelaAtividades = () => (
+const TelaAtividades = () => {
+
+const rightButtons = [
+  {
+    icon: "mail",
+    onPress: ()=> {setModal(true)},
+  },
+];
+
+const [modal, setModal] = useState(false);
+
+return(
   <>
     <Wrapper>
-    <HeaderAtividades>
-      <TitleHeaderAtividades>Atividades Recentes</TitleHeaderAtividades>
-        <ModalAtividades />
-      </HeaderAtividades>
+      <Header title="Atividades recentes" rightButtons={rightButtons} />
       <ScrollList>
-      <ListNotification
+        <ListNotification
             sections={ExemploNotificacoes}
             keyExtractor={(item, index) => item + index}
             renderItem= {({section:{desc,data}}) => (
@@ -55,17 +61,19 @@ const TelaAtividades = () => (
                   <DescNotification>{desc}</DescNotification>
                 </ContainerInfoNotification>
               </ContainerNotification>)
-            }
+              }
             renderSectionHeader={({ section: { title } }) =>
-            (
-              <ContainerDateNotification>
-                <DateNotification>{title}</DateNotification>
-              </ContainerDateNotification>
-            )}
+              (
+                <ContainerDateNotification>
+                  <DateNotification>{title}</DateNotification>
+                </ContainerDateNotification>
+              )}
           />
         </ScrollList>
-     </Wrapper>
-  </>
-);
+        {modal ? <ModalAtividades/> : <></>}
+      </Wrapper>
+    </>
+  );
+}
 
 export default TelaAtividades;

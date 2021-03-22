@@ -11,7 +11,7 @@ export function Header({ title, rightButtons, leftButtons }) {
   /*
   rightButtons: [
     {
-      icon: [str], 
+      icon: [str],
       label: [str],
       onPress: [function],
       ...props
@@ -21,7 +21,7 @@ export function Header({ title, rightButtons, leftButtons }) {
 
   leftButtons: [
     {
-      icon: [str], 
+      icon: [str],
       label: [str],
       onPress: [function],
       ...props
