@@ -37,6 +37,8 @@ export const TileContainer = styled(DefaultTouchable)`
 
   background-color: ${Colors.primaryDark};
 
+  opacity: ${({ solved }) => (solved ? 0.6 : 1)};
+
   overflow: hidden;
 `;
 
@@ -91,16 +93,6 @@ export const TileFooterTimeStamp = styled.Text`
   color: ${applyOpacity(Colors.primaryLight, 0.8)};
 `;
 
-export const AuthorContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
-`;
-export const AuthorText = styled.Text`
-  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
-  font-size: ${Typography.FONT_SIZES.large};
-  color: ${Colors.primaryLight};
-`;
-
 export const AuthorPicture = styled.Image`
   width: 24px;
   height: 24px;
@@ -111,5 +103,5 @@ export const AuthorPictureWrapper = styled.View`
   width: 24px;
   height: 24px;
   overflow: hidden;
-  margin: 0 ${Spacing.getSpacing(4)};
+  margin-right: ${Spacing.getSpacing(8)};
 `;

@@ -23,7 +23,7 @@ export const HintedInputHintText = styled.Text`
 export const HintedInputInput = styled.TextInput.attrs(
   ({ placeholderTextColor, color }) => ({
     placeholderTextColor: placeholderTextColor || applyOpacity(color, 0.6),
-  })
+  }),
 )`
   background-color: transparent;
   border: 1px solid ${({ color }) => color};

@@ -1,5 +1,4 @@
-import React from "react";
-import styled from "styled-components/native";
+import React, { useState } from "react";
 import { formatTimeStamp } from "../../../utils/format";
 
 import Header from "../../core/Header";
@@ -18,6 +17,8 @@ import {
   TileHeaderText,
   Wrapper,
 } from "./styles";
+
+import Modal from "../../core/Modal";
 
 function ComentariosPresentational({
   goBack,
@@ -40,10 +41,12 @@ function ComentariosPresentational({
     rightButtons: [
       {
         icon: "md-add",
-        onPress: addTile,
+        onPress: () => setModalVisible(true),
       },
     ],
   };
+
+  const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <>
@@ -56,6 +59,11 @@ function ComentariosPresentational({
           onRefresh={retrieveData}
           renderItem={(props) => <Tile tileSize={tileSize} {...props} />}
         />
+        <Modal
+          title="Comentar"
+          visible={modalVisible}
+          setVisible={setModalVisible}
+        ></Modal>
       </Wrapper>
     </>
   );
@@ -64,7 +72,6 @@ function ComentariosPresentational({
 const Tile = ({ item, tileSize }) => (
   <TileContainer tileSize={tileSize}>
     <TileHeader>
-      <TileHeaderText>Comentário por:</TileHeaderText>
       <AuthorPictureWrapper>
         <AuthorPicture source={{ uri: item.commenter.profile_picture }} />
       </AuthorPictureWrapper>
