@@ -1,3 +1,4 @@
+import { Platform, View, KeyboardAvoidingView } from "react-native";
 import styled from "styled-components/native";
 
 import { Colors, Typography, Spacing } from "../../../config";
@@ -7,6 +8,7 @@ import { Colors, Typography, Spacing } from "../../../config";
 export const Wrapper = styled.View`
   height: 100%;
   background-color: ${Colors.primaryLight};
+  padding-bottom: ${({ insets }) => insets.bottom}px;
 `;
 
 export const ContentWrapper = styled.View`
@@ -51,13 +53,29 @@ export const AuthorPicture = styled.Image`
 
 // Text section
 
-export const ToolBarContainer = styled.KeyboardAvoidingView`
+export const ToolBarContainer = styled(KeyboardAvoidingView).attrs({
+  behavior: "padding",
+  enabled: Platform.OS !== "android",
+})`
   align-items: center;
   width: 100%;
-  align-self: flex-end;
-  align-items: flex-end;
 `;
 
-export const EditorContainer = styled.ScrollView`
+export const EditorContainer = styled.View`
   width: 100%;
+  flex: 1;
+  /* background-color: ${Colors.tertiary}; */
+`;
+
+export const EditorScroll = styled.ScrollView.attrs({
+  contentContainerStyle: {
+    flexGrow: 1,
+    backgroundColor: Colors.primaryDark,
+  },
+})`
+  overflow: hidden;
+`;
+
+export const ScrollWrapper = styled.View`
+  flex: 1;
 `;

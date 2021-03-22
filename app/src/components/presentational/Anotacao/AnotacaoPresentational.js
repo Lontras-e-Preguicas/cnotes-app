@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { RichEditor, RichToolbar } from "react-native-pell-rich-editor";
 
 import { Colors } from "../../../config";
@@ -16,6 +17,8 @@ import {
   AuthorContainer,
   ContentWrapper,
   EditorContainer,
+  EditorScroll,
+  ScrollWrapper,
 } from "./styles.js";
 import ModalAvaliacao from "./ModalAvaliacao";
 
@@ -27,6 +30,8 @@ function AnotacaoPresentational({
   author,
   openComentarios,
 }) {
+  const insets = useSafeAreaInsets();
+
   const headerButtons = {
     leftButtons: [
       {
@@ -66,20 +71,25 @@ function AnotacaoPresentational({
 
   return (
     <>
-      <Wrapper>
+      <Wrapper insets={insets}>
         <Header {...headerButtons} />
         <ContentWrapper>
           <NoteTitle author={author} title={title} />
-          <EditorContainer>
-            <RichEditor
-              disabled={!edit}
-              ref={richText}
-              editorStyle={{
-                backgroundColor: Colors.primaryLight,
-              }}
-              onChange={(text) => setArticle(text)}
-            />
-          </EditorContainer>
+          <ScrollWrapper>
+            <EditorScroll>
+              <EditorContainer>
+                <RichEditor
+                  disabled={!edit}
+                  ref={richText}
+                  useContainer
+                  editorStyle={{
+                    backgroundColor: Colors.secondary,
+                  }}
+                  onChange={(text) => setArticle(text)}
+                />
+              </EditorContainer>
+            </EditorScroll>
+          </ScrollWrapper>
         </ContentWrapper>
         <ToolBarContainer>
           <RichToolbar
