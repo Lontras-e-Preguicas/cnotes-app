@@ -3,6 +3,9 @@ import { useNavigation } from "@react-navigation/native";
 
 import HomePresentational from "../../presentational/Home";
 
+import { authenticatedFetch, API_URLS } from "../../../utils/api";
+import { Alert } from "react-native";
+
 function HomeContainer(props) {
   const navigation = useNavigation();
 
@@ -23,17 +26,54 @@ function HomeContainer(props) {
 
   const [notebooks, setNotebooks] = useState(sample_data);
   const [refreshing, setRefreshing] = useState(false);
-//  const [data, setData] = useState([]);
 
-  useEffect(() => {
-    setRefreshing(true);
-    const timeout = setTimeout(() => setRefreshing(false), 5000);
-    return () => clearTimeout(timeout);
-  }, []);
+  const retrieveNotebooks = async () => {
+    try {
+      const res = await authenticatedFetch(API_URLS.notebook);
 
-  const onRefresh = () => {
+      if (res.status != 200) {
+        throw new Error();
+      }
+
+      const data = await res.json();
+      setNotebooks(data);
+    } catch (err) {
+      Alert.alert("Falha ao obter cadernos");
+    }
+  };
+
+  const createNotebook = async (title = "Documento sem título") => {
+    try {
+      const payload = {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title,
+        }),
+      };
+
+      const res = await authenticatedFetch(API_URLS.notebook, payload);
+
+      if (res.status != 201) {
+        throw Error();
+      }
+
+      // const data = await res.json();
+
+      await onRefresh();
+    } catch (err) {
+      Alert.alert("Um erro ocorreu");
+    }
+  };
+
+  const onRefresh = async () => {
     setRefreshing(true);
-    setTimeout(() => setRefreshing(false), 2500);
+
+    await retrieveNotebooks();
+
+    setRefreshing(false);
   };
 
   const openCaderno = ({ id, title }) => {
@@ -44,15 +84,12 @@ function HomeContainer(props) {
   };
 
   const addCaderno = () => {
-    setNotebooks([
-      ...notebooks,
-      {
-        id: Math.random().toString(),
-        title: "New Caderno",
-      },
-    ]);
+    createNotebook();
   };
 
+  useEffect(() => {
+    onRefresh();
+  }, []);
 
   const presentationalProps = {
     notebooks,
