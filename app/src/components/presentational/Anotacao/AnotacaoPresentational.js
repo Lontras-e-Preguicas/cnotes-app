@@ -21,6 +21,7 @@ import {
   ScrollWrapper,
 } from "./styles.js";
 import ModalAvaliacao from "./ModalAvaliacao";
+import { View, ScrollView } from "react-native";
 
 function AnotacaoPresentational({
   refreshing,
@@ -83,7 +84,7 @@ function AnotacaoPresentational({
                   ref={richText}
                   useContainer
                   editorStyle={{
-                    backgroundColor: Colors.secondary,
+                    backgroundColor: Colors.primaryLight,
                   }}
                   onChange={(text) => setArticle(text)}
                 />

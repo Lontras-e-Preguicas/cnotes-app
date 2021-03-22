@@ -64,17 +64,9 @@ export const ToolBarContainer = styled(KeyboardAvoidingView).attrs({
 export const EditorContainer = styled.View`
   width: 100%;
   flex: 1;
-  /* background-color: ${Colors.tertiary}; */
 `;
 
-export const EditorScroll = styled.ScrollView.attrs({
-  contentContainerStyle: {
-    flexGrow: 1,
-    backgroundColor: Colors.primaryDark,
-  },
-})`
-  overflow: hidden;
-`;
+export const EditorScroll = styled.ScrollView``;
 
 export const ScrollWrapper = styled.View`
   flex: 1;
