@@ -5,7 +5,6 @@ import {
   StyledSafeAreaView,
   FormWrapper,
   Title,
-  StyledInputWrapper,
   LoginButton,
   ForgotPasswordWrapper,
   ForgotPasswordText,
@@ -14,6 +13,7 @@ import {
   KeyboardAvoidingView,
   StyledScrollView,
   StyledActivityIndicator,
+  StyledInput,
 } from "./styles";
 import { HintedInputHintText, HintedInputInput } from "../../core/HintedInput";
 import { View, Platform } from "react-native";
@@ -41,27 +41,23 @@ const LoginPresentational = ({
             <View>
               <Title>Login</Title>
             </View>
-            <StyledInputWrapper>
-              <HintedInputHintText>E-mail</HintedInputHintText>
-              <HintedInputInput
-                placeholder="E-mail..."
-                autoCapitalize="none"
-                autoCompleteType="email"
-                value={email}
-                onChangeText={setEmail}
-              />
-            </StyledInputWrapper>
-            <StyledInputWrapper>
-              <HintedInputHintText>Senha</HintedInputHintText>
-              <HintedInputInput
-                placeholder="Senha..."
-                autoCapitalize="none"
-                autoCompleteType="password"
-                secureTextEntry={true}
-                value={password}
-                onChangeText={setPassword}
-              />
-            </StyledInputWrapper>
+            <StyledInput
+              hint="E-mail"
+              placeholder="E-mail..."
+              autoCapitalize="none"
+              autoCompleteType="email"
+              value={email}
+              onChangeText={setEmail}
+            />
+            <StyledInput
+              hint="Senha"
+              placeholder="Senha..."
+              autoCapitalize="none"
+              autoCompleteType="password"
+              secureTextEntry={true}
+              value={password}
+              onChangeText={setPassword}
+            />
 
             <FormBottomRow>
               <ForgotPasswordWrapper onPress={doForgotPassword}>

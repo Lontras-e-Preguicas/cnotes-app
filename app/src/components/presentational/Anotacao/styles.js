@@ -58,8 +58,7 @@ export const AuthorPicture = styled.Image`
 // Text section
 
 export const ToolBarContainer = styled(KeyboardAvoidingView).attrs({
-  behavior: "padding",
-  enabled: Platform.OS !== "android",
+  behavior: Platform.OS === "ios" ? "padding" : "height",
 })`
   align-items: center;
   width: 100%;

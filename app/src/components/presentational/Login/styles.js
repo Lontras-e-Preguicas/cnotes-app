@@ -6,7 +6,7 @@ import DefaultTouchable from "../../core/DefaultTouchable";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { HintedInputWrapper } from "../../core/HintedInput";
+import { HintedInput, HintedInputWrapper } from "../../core/HintedInput";
 
 // Containers
 
@@ -57,9 +57,8 @@ export const Title = styled.Text`
   margin-bottom: ${Spacing.getSpacing(4)};
 `;
 
-export const StyledInputWrapper = styled(HintedInputWrapper)`
+export const StyledInput = styled(HintedInput)`
   width: 80%;
-
   margin-top: ${getSpacing(12)};
 `;
 
