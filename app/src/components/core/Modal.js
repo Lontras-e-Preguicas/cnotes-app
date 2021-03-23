@@ -51,8 +51,7 @@ const Backdrop = styled(DefaultTouchable).attrs({
 `;
 
 const ContainerModal = styled(KeyboardAvoidingView).attrs({
-  behavior: "padding",
-  enabled: Platform.OS !== "android",
+  behavior: Platform.OS === "ios" ? "padding" : "height",
 })`
   background-color: ${Colors.primaryLight};
   border-top-left-radius: 24px;

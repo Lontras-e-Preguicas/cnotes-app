@@ -110,7 +110,9 @@ export const HeaderContent = styled.View`
   position: relative; /* Later center the text */
 `;
 
-export const HeaderTitle = styled.Text`
+export const HeaderTitle = styled.Text.attrs({
+  allowFontScaling: false,
+})`
   font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
   font-size: ${Typography.FONT_SIZES.giant};
   color: ${Colors.primaryDark};
@@ -143,7 +145,9 @@ export const StyledHeaderIcon = styled(Ionicons).attrs({
   margin-left: ${Spacing.getSpacing(8)};
 `;
 
-export const HeaderIconLabel = styled.Text`
+export const HeaderIconLabel = styled.Text.attrs({
+  allowFontScaling: false,
+})`
   font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
   font-size: ${Typography.FONT_SIZES.large};
   color: ${Colors.primaryDark};
