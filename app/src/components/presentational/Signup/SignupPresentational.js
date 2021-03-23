@@ -2,10 +2,10 @@ import React from "react";
 
 import {
   Background,
-  SafeAreaView,
+  StyledSafeAreaView,
   FormWrapper,
   Title,
-  StyledInputWrapper,
+  StyledInput,
   SignupButton,
   KeyboardAvoidingView,
   StyledScrollView,
@@ -28,7 +28,7 @@ const SignupPresentational = ({
   loading,
 }) => (
   <Background source={BackgroundSource}>
-    <SafeAreaView>
+    <StyledSafeAreaView>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
@@ -37,37 +37,31 @@ const SignupPresentational = ({
             <View>
               <Title>Cadastro</Title>
             </View>
-            <StyledInputWrapper>
-              <HintedInputHintText>Nome</HintedInputHintText>
-              <HintedInputInput
-                placeholder="Nome..."
-                autoCapitalize="words"
-                autoCompleteType="name"
-                value={name}
-                onChangeText={setName}
-              />
-            </StyledInputWrapper>
-            <StyledInputWrapper>
-              <HintedInputHintText>E-mail</HintedInputHintText>
-              <HintedInputInput
-                placeholder="E-mail..."
-                autoCapitalize="none"
-                autoCompleteType="email"
-                value={email}
-                onChangeText={setEmail}
-              />
-            </StyledInputWrapper>
-            <StyledInputWrapper>
-              <HintedInputHintText>Senha</HintedInputHintText>
-              <HintedInputInput
-                placeholder="Senha..."
-                autoCapitalize="none"
-                autoCompleteType="password"
-                secureTextEntry={true}
-                value={password}
-                onChangeText={setPassword}
-              />
-            </StyledInputWrapper>
+            <StyledInput
+              hint="Nome"
+              placeholder="Nome..."
+              autoCapitalize="words"
+              autoCompleteType="name"
+              value={name}
+              onChangeText={setName}
+            />
+            <StyledInput
+              hint="E-mail"
+              placeholder="E-mail..."
+              autoCapitalize="none"
+              autoCompleteType="email"
+              value={email}
+              onChangeText={setEmail}
+            />
+            <StyledInput
+              hint="Senha"
+              placeholder="Senha..."
+              autoCapitalize="none"
+              autoCompleteType="password"
+              secureTextEntry={true}
+              value={password}
+              onChangeText={setPassword}
+            />
 
             <SignupButton onPress={doSignup}>
               {loading ? <StyledActivityIndicator /> : "Cadastrar-se"}
@@ -75,7 +69,7 @@ const SignupPresentational = ({
           </FormWrapper>
         </StyledScrollView>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+    </StyledSafeAreaView>
   </Background>
 );
 

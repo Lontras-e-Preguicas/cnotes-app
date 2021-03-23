@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import MainRoutes from "./routes";
 import { lockAsync, OrientationLock } from "expo-screen-orientation";
@@ -29,9 +30,11 @@ const App = () => {
   }
 
   return (
-    <NavigationContainer>
-      <MainRoutes />
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <MainRoutes />
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 };
 

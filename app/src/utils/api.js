@@ -1,6 +1,12 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Constants } from "../config";
 
+// URLs
+
+export const API_URLS = {
+  notebook: `${Constants.API_URL}/api/notebook/notebook/`,
+};
+
 // Storage
 const AUTH_TOKEN_PATH = "@authToken";
 
@@ -31,10 +37,12 @@ async function fetchTimeout(input, { timeout = 10000, ...init }) {
 }
 
 async function authenticatedFetch(input, init = {}, fetcher = fetch) {
-  let headers = new Headers();
   let authToken = await getAuthToken();
 
-  headers.append("Authorization", `Token ${authToken}`);
+  let headers = {
+    ...init.headers,
+    Authorization: `Token ${authToken}`,
+  };
 
   let params = {
     ...init,

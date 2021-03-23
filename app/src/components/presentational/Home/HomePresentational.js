@@ -25,7 +25,7 @@ function HomePresentational({
   onRefresh,
   openCaderno,
   addCaderno,
- }) {
+}) {
   const dimensions = useDimensions();
 
   const tileSize = dimensions.window.width / 2 - 16 - 12;

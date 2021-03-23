@@ -4,7 +4,7 @@ import { applyOpacity } from "../../../config/colors";
 
 // Containers
 
-export const Wrapper = styled.SafeAreaView`
+export const Wrapper = styled.View`
   height: 100%;
   background-color: ${Colors.primaryLight};
 `;

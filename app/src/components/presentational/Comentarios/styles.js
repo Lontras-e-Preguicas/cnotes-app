@@ -8,18 +8,15 @@ import { applyOpacity } from "../../../config/colors";
 import DefaultTouchable from "../../core/DefaultTouchable";
 
 import AddSVG from "../../../assets/icons/add.svg";
+import { HintedInput } from "../../core/HintedInput";
+import Button from "../../core/Button";
 
 // Containers
-
-export const Container = styled.View`
-  height: 100%;
-  background-color: ${Colors.primaryLight};
-  position: relative;
-`;
 
 export const Wrapper = styled.View`
   height: 100%;
   position: relative;
+  background-color: ${Colors.primaryLight};
 `;
 
 export const StyledFlatList = styled.FlatList`
@@ -42,6 +39,8 @@ export const TileContainer = styled(DefaultTouchable)`
 
   background-color: ${Colors.primaryDark};
 
+  opacity: ${({ solved }) => (solved ? 0.6 : 1)};
+
   overflow: hidden;
 `;
 
@@ -52,7 +51,7 @@ export const TileHeader = styled.View`
   flex-direction: row;
   align-items: center;
 
-  border-color: ${Colors.tertiary};
+  border-color: #9975e4;
   border-bottom-width: 2px;
 `;
 
@@ -72,7 +71,7 @@ export const TileDescription = styled.Text`
   font-size: ${Typography.FONT_SIZES.medium};
   text-align: justify;
 
-  color: ${applyOpacity(Colors.primaryLight, 0.8)};
+  color: ${Colors.primaryLight};
 
   padding: ${Spacing.getSpacing(10)} ${Spacing.getSpacing(8)};
 `;
@@ -89,59 +88,57 @@ export const TileFooter = styled.View`
   padding: ${Spacing.getSpacing(10)};
 `;
 
-export const RatingTextContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
-`;
-
-export const RatingIcon = styled(Ionicons).attrs({
-  name: "star",
-})`
-  font-size: 20px;
-  color: ${Colors.primaryLight};
-  margin-right: ${Spacing.getSpacing(4)};
-`;
-
-export const RatingValue = styled.Text`
+export const TileFooterTimeStamp = styled.Text`
   font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
-  font-size: ${Typography.FONT_SIZES.large};
-
-  color: ${Colors.primaryLight};
-`;
-
-export const AuthorContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
-`;
-
-export const AuthorText = styled.Text`
-  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
-  font-size: ${Typography.FONT_SIZES.large};
-
-  color: ${Colors.primaryLight};
+  font-size: ${Typography.FONT_SIZES.medium};
+  text-align: right;
+  color: ${applyOpacity(Colors.primaryLight, 0.8)};
 `;
 
 export const AuthorPicture = styled.Image`
+  width: 24px;
+  height: 24px;
+`;
+
+export const AuthorPictureWrapper = styled.View`
   border-radius: 12px;
   width: 24px;
   height: 24px;
-  margin: 0 ${Spacing.getSpacing(4)};
+  overflow: hidden;
+  margin-right: ${Spacing.getSpacing(8)};
 `;
 
-// Add tile
-
-export const AddTileContainer = styled(TileContainer)`
-  background-color: ${applyOpacity(Colors.primaryDark, 0.6)};
-
+export const CommentModalContent = styled.View`
+  width: 100%;
   align-items: center;
-  justify-content: center;
+  margin-top: ${Spacing.getSpacing(8)};
 `;
 
-export const AddTileIcon = styled(AddSVG).attrs({
-  fill: Colors.primaryLight,
+export const DescriptionText = styled.Text`
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
+  font-size: ${Typography.FONT_SIZES.medium};
+  max-width: 80%;
+  color: ${applyOpacity(Colors.primaryDark, 0.8)};
+  text-align: center;
+`;
+
+export const StyledHintedInput = styled(HintedInput).attrs({
+  multiline: true,
+  color: Colors.primaryDark,
 })`
-  width: 64px;
-  height: 64px;
+  margin-top: ${Spacing.getSpacing(8)};
+  width: 100%;
 `;
 
-export const AddTileText = styled(TileHeaderText)``;
+export const CommentButton = styled(Button).attrs({
+  fill: true,
+  color: Colors.tertiaryAlt,
+  textColor: Colors.primaryLight,
+})`
+  flex: 1;
+  margin: 0 ${Spacing.getSpacing(8)};
+`;
+
+export const CancelButton = styled(CommentButton).attrs({
+  color: Colors.secondaryAlt,
+})``;

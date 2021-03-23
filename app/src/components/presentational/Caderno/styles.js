@@ -6,13 +6,13 @@ import DefaultTouchable from "../../core/DefaultTouchable";
 
 // Containers
 
-export const Container = styled.SafeAreaView`
+export const Container = styled.View`
   height: 100%;
   background-color: ${Colors.primaryLight};
   position: relative;
 `;
 
-export const Wrapper = styled.SafeAreaView`
+export const Wrapper = styled.View`
   height: 100%;
   position: relative;
 `;

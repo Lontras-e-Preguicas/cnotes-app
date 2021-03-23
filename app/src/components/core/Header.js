@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import DefaultTouchable from "./DefaultTouchable";
 
@@ -8,10 +9,12 @@ import { Ionicons } from "@expo/vector-icons";
 import { Colors, Typography, Spacing } from "../../config";
 
 export function Header({ title, rightButtons, leftButtons }) {
+  const insets = useSafeAreaInsets();
+
   /*
   rightButtons: [
     {
-      icon: [str], 
+      icon: [str],
       label: [str],
       onPress: [function],
       ...props
@@ -21,7 +24,7 @@ export function Header({ title, rightButtons, leftButtons }) {
 
   leftButtons: [
     {
-      icon: [str], 
+      icon: [str],
       label: [str],
       onPress: [function],
       ...props
@@ -51,7 +54,7 @@ export function Header({ title, rightButtons, leftButtons }) {
 
   if (!leftButtons) {
     return (
-      <HeaderContainer>
+      <HeaderContainer insets={insets}>
         <HeaderContent>
           <HeaderTitle>{title}</HeaderTitle>
           {rightButtonsComponent}
@@ -76,7 +79,7 @@ export function Header({ title, rightButtons, leftButtons }) {
   );
 
   return (
-    <HeaderContainer>
+    <HeaderContainer insets={insets}>
       <HeaderContent>
         <HeaderCenterWrapper>
           <HeaderTitle>{title}</HeaderTitle>
@@ -88,9 +91,10 @@ export function Header({ title, rightButtons, leftButtons }) {
   );
 }
 
-export const HeaderContainer = styled.SafeAreaView`
+export const HeaderContainer = styled.View`
   width: 100%;
   align-self: flex-start;
+  padding-top: ${({ insets }) => insets.top}px;
 `;
 
 export const HeaderContent = styled.View`
@@ -106,7 +110,9 @@ export const HeaderContent = styled.View`
   position: relative; /* Later center the text */
 `;
 
-export const HeaderTitle = styled.Text`
+export const HeaderTitle = styled.Text.attrs({
+  allowFontScaling: false,
+})`
   font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
   font-size: ${Typography.FONT_SIZES.giant};
   color: ${Colors.primaryDark};
@@ -129,6 +135,7 @@ export const HeaderRightButtons = styled.View`
 
 export const HeaderLeftButtons = styled.View`
   flex-direction: row;
+  margin-left: ${Spacing.getSpacing(-8)};
 `;
 
 export const StyledHeaderIcon = styled(Ionicons).attrs({
@@ -138,7 +145,9 @@ export const StyledHeaderIcon = styled(Ionicons).attrs({
   margin-left: ${Spacing.getSpacing(8)};
 `;
 
-export const HeaderIconLabel = styled.Text`
+export const HeaderIconLabel = styled.Text.attrs({
+  allowFontScaling: false,
+})`
   font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
   font-size: ${Typography.FONT_SIZES.large};
   color: ${Colors.primaryDark};
