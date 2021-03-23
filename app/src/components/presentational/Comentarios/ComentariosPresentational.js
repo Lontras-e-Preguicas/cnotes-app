@@ -7,7 +7,12 @@ import useDimensions from "../../hooks/useDimensions";
 import {
   AuthorPicture,
   AuthorPictureWrapper,
+  CancelButton,
+  CommentButton,
+  CommentModalContent,
+  DescriptionText,
   StyledFlatList,
+  StyledHintedInput,
   TileContainer,
   TileContent,
   TileDescription,
@@ -19,6 +24,7 @@ import {
 } from "./styles";
 
 import Modal from "../../core/Modal";
+import { ModalButtonRow } from "../Anotacao/styles";
 
 function ComentariosPresentational({
   goBack,
@@ -63,7 +69,23 @@ function ComentariosPresentational({
           title="Comentar"
           visible={modalVisible}
           setVisible={setModalVisible}
-        ></Modal>
+        >
+          <CommentModalContent>
+            <DescriptionText>
+              Seu comentário será visível para todos membros do caderno.
+            </DescriptionText>
+            <StyledHintedInput
+              hint={"Comentário"}
+              placeholder={"Seu comentário"}
+            />
+            <ModalButtonRow>
+              <CancelButton onPress={() => setModalVisible(false)}>
+                Cancelar
+              </CancelButton>
+              <CommentButton>Comentar</CommentButton>
+            </ModalButtonRow>
+          </CommentModalContent>
+        </Modal>
       </Wrapper>
     </>
   );

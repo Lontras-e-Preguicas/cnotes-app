@@ -8,6 +8,8 @@ import { applyOpacity } from "../../../config/colors";
 import DefaultTouchable from "../../core/DefaultTouchable";
 
 import AddSVG from "../../../assets/icons/add.svg";
+import { HintedInput } from "../../core/HintedInput";
+import Button from "../../core/Button";
 
 // Containers
 
@@ -105,3 +107,38 @@ export const AuthorPictureWrapper = styled.View`
   overflow: hidden;
   margin-right: ${Spacing.getSpacing(8)};
 `;
+
+export const CommentModalContent = styled.View`
+  width: 100%;
+  align-items: center;
+  margin-top: ${Spacing.getSpacing(8)};
+`;
+
+export const DescriptionText = styled.Text`
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
+  font-size: ${Typography.FONT_SIZES.medium};
+  max-width: 80%;
+  color: ${applyOpacity(Colors.primaryDark, 0.8)};
+  text-align: center;
+`;
+
+export const StyledHintedInput = styled(HintedInput).attrs({
+  multiline: true,
+  color: Colors.primaryDark,
+})`
+  margin-top: ${Spacing.getSpacing(8)};
+  width: 100%;
+`;
+
+export const CommentButton = styled(Button).attrs({
+  fill: true,
+  color: Colors.tertiaryAlt,
+  textColor: Colors.primaryLight,
+})`
+  flex: 1;
+  margin: 0 ${Spacing.getSpacing(8)};
+`;
+
+export const CancelButton = styled(CommentButton).attrs({
+  color: Colors.secondaryAlt,
+})``;

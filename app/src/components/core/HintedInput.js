@@ -21,7 +21,7 @@ export const HintedInput = ({
 
   return (
     <WrapperComponent style={style}>
-      {hint && <HintComponent>{hint}</HintComponent>}
+      {hint && <HintComponent color={color}>{hint}</HintComponent>}
       <InputContainerComponent color={color}>
         <InputComponent color={color} {...props} />
       </InputContainerComponent>
