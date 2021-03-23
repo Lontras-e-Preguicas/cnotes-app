@@ -9,22 +9,7 @@ import { Alert } from "react-native";
 function HomeContainer(props) {
   const navigation = useNavigation();
 
-  const sample_data = [
-    {
-      id: "id-goes-bruh",
-      title: "INF 3A",
-    },
-    {
-      id: "id-to-the-moon",
-      title: "Lontras e Preguiças",
-    },
-    {
-      id: "id-🦍",
-      title: "Gurila 🦍",
-    },
-  ];
-
-  const [notebooks, setNotebooks] = useState(sample_data);
+  const [notebooks, setNotebooks] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 
   const retrieveNotebooks = async () => {
