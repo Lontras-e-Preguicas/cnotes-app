@@ -2,6 +2,7 @@ import styled from "styled-components/native";
 import { Colors, Spacing, Typography } from "../../../config";
 import getSpacing from "../../../config/spacing";
 import Button from "../../core/Button";
+
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { HintedInput } from "../../core/HintedInput";
@@ -70,10 +71,4 @@ export const SignupButton = styled(Button).attrs({
   margin-top: ${getSpacing(32)};
   width: 75%;
   height: 48px;
-`;
-
-export const StyledActivityIndicator = styled.ActivityIndicator.attrs({
-  color: Colors.primaryLight,
-})`
-  height: 100%;
 `;

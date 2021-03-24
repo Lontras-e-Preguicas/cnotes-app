@@ -9,9 +9,8 @@ import {
   SignupButton,
   KeyboardAvoidingView,
   StyledScrollView,
-  StyledActivityIndicator,
 } from "./styles";
-import { HintedInputHintText, HintedInputInput } from "../../core/HintedInput";
+
 import { View, Platform } from "react-native";
 import { Images } from "../../../config";
 
@@ -63,8 +62,8 @@ const SignupPresentational = ({
               onChangeText={setPassword}
             />
 
-            <SignupButton onPress={doSignup}>
-              {loading ? <StyledActivityIndicator /> : "Cadastrar-se"}
+            <SignupButton onPress={doSignup} loading={loading}>
+              Cadastrar-se
             </SignupButton>
           </FormWrapper>
         </StyledScrollView>

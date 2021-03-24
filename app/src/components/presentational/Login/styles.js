@@ -6,7 +6,7 @@ import DefaultTouchable from "../../core/DefaultTouchable";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { HintedInput, HintedInputWrapper } from "../../core/HintedInput";
+import { HintedInput } from "../../core/HintedInput";
 
 // Containers
 
@@ -105,10 +105,4 @@ export const SignupButton = styled(Button).attrs({
   width: 75%;
   height: 48px;
   margin-top: ${getSpacing(16)};
-`;
-
-export const StyledActivityIndicator = styled.ActivityIndicator.attrs({
-  color: Colors.primaryLight,
-})`
-  height: 100%;
 `;
