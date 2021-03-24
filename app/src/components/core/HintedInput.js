@@ -6,24 +6,42 @@ import Colors, { applyOpacity } from "../../config/colors";
 
 export const HintedInput = ({
   hint,
+  error,
   wrapperComponent = HintedInputWrapper,
   hintComponent = HintedInputHintText,
   inputComponent = HintedInputInput,
   inputContainerComponent = InputContainer,
+  inputHeaderComponent = InputHeader,
   style,
   color = Colors.primaryLight,
+  frameColor,
+  errorColor = Colors.secondaryAlt,
+  changeColorOnError = false,
+  changeFrameColorOnError = true,
   ...props
 }) => {
   const WrapperComponent = wrapperComponent;
   const HintComponent = hintComponent;
   const InputComponent = inputComponent;
   const InputContainerComponent = inputContainerComponent;
+  const InputHeaderComponent = inputHeaderComponent;
+
+  const _color = (error && changeColorOnError && errorColor) || color;
+  const _frameColor =
+    (error && changeFrameColorOnError && errorColor) || frameColor || color;
 
   return (
     <WrapperComponent style={style}>
-      {hint && <HintComponent color={color}>{hint}</HintComponent>}
-      <InputContainerComponent color={color}>
-        <InputComponent color={color} {...props} />
+      <InputHeaderComponent>
+        {hint && <HintComponent color={_color}>{hint}</HintComponent>}
+        {error && (
+          <HintedInputErrorText errorColor={errorColor}>
+            {error}
+          </HintedInputErrorText>
+        )}
+      </InputHeaderComponent>
+      <InputContainerComponent color={_frameColor}>
+        <InputComponent color={_color} {...props} />
       </InputContainerComponent>
     </WrapperComponent>
   );
@@ -46,11 +64,15 @@ export const InputContainer = styled.View`
   width: 100%;
 `;
 
-export const HintedInputHintText = styled.Text`
-  margin-left: ${Spacing.getSpacing(10)};
-  margin-bottom: ${Spacing.getSpacing(4)};
-  align-self: flex-start;
+export const InputHeader = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 ${Spacing.getSpacing(10)} ${Spacing.getSpacing(8)}
+    ${Spacing.getSpacing(10)};
+`;
 
+export const HintedInputHintText = styled.Text`
   color: ${({ color }) => color};
 
   font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
@@ -71,12 +93,25 @@ export const HintedInputInput = styled.TextInput.attrs(
   width: 100%;
 `;
 
+export const HintedInputErrorText = styled.Text`
+  align-self: flex-end;
+
+  color: ${({ errorColor }) => errorColor};
+
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
+  font-size: ${Typography.FONT_SIZES.medium};
+`;
+
 HintedInputInput.defaultProps = {
   color: Colors.primaryLight,
 };
 
 HintedInputHintText.defaultProps = {
   color: Colors.primaryLight,
+};
+
+HintedInputErrorText.defaultProps = {
+  errorColor: Colors.secondaryAlt,
 };
 
 const emptyFunction = () => null;

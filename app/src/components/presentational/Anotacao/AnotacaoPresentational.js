@@ -3,9 +3,8 @@ import React, { useRef, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { RichEditor, RichToolbar } from "react-native-pell-rich-editor";
 
-import { Colors } from "../../../config";
+import { Colors, Images } from "../../../config";
 import Header from "../../core/Header";
-import { Images } from "../../../config";
 
 import {
   AuthorText,
@@ -21,11 +20,12 @@ import {
   ScrollWrapper,
   RatingWrapper,
   StarIcon,
-  ModalButtonRow,
-  RateModalButton,
-  CancelModalButton,
 } from "./styles.js";
-import Modal from "../../core/Modal";
+import Modal, {
+  CancelModalButton,
+  ConfirmModalButtom,
+  ModalButtonRow,
+} from "../../core/Modal";
 import DefaultTouchable from "../../core/DefaultTouchable";
 
 function AnotacaoPresentational({ goBack, title, author, openComentarios }) {
@@ -165,7 +165,7 @@ const RatingModal = ({
       <RatingWrapper>{ratingStars}</RatingWrapper>
       <ModalButtonRow>
         <CancelModalButton onPress={close}>Cancelar</CancelModalButton>
-        <RateModalButton onPress={submitRating}>Avaliar</RateModalButton>
+        <ConfirmModalButtom onPress={submitRating}>Avaliar</ConfirmModalButtom>
       </ModalButtonRow>
     </Modal>
   );
