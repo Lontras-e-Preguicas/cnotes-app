@@ -70,7 +70,7 @@ const Backdrop = styled(DefaultTouchable).attrs({
 `;
 
 const ContainerModal = styled(KeyboardAvoidingView).attrs({
-  behavior: Platform.OS === "ios" ? "padding" : "height",
+  behavior: Platform.OS === "ios" ? "padding" : "",
 })`
   background-color: ${Colors.primaryLight};
   border-top-left-radius: 24px;
