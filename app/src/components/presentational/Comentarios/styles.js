@@ -129,16 +129,3 @@ export const StyledHintedInput = styled(HintedInput).attrs({
   margin-top: ${Spacing.getSpacing(8)};
   width: 100%;
 `;
-
-export const CommentButton = styled(Button).attrs({
-  fill: true,
-  color: Colors.tertiaryAlt,
-  textColor: Colors.primaryLight,
-})`
-  flex: 1;
-  margin: 0 ${Spacing.getSpacing(8)};
-`;
-
-export const CancelButton = styled(CommentButton).attrs({
-  color: Colors.secondaryAlt,
-})``;

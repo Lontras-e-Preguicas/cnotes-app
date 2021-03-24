@@ -91,21 +91,3 @@ export const StarIcon = styled(Ionicons).attrs(({ fill = true }) => ({
   font-size: 40px;
   margin: 0 ${Spacing.getSpacing(8)};
 `;
-
-export const ModalButtonRow = styled.View`
-  flex-direction: row;
-  margin-top: ${Spacing.getSpacing(16)};
-`;
-
-export const RateModalButton = styled(Button).attrs({
-  fill: true,
-  color: Colors.tertiaryAlt,
-  textColor: Colors.primaryLight,
-})`
-  flex: 1;
-  margin: 0 ${Spacing.getSpacing(8)};
-`;
-
-export const CancelModalButton = styled(RateModalButton).attrs({
-  color: Colors.secondaryAlt,
-})``;
