@@ -33,7 +33,7 @@ const BaseToastWrapper = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  /* margin-top: 56px; */
+  margin-top: 24px;
 `;
 
 const ToastIcon = styled(Ionicons)`

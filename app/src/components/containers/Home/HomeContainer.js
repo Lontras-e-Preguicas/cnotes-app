@@ -3,7 +3,13 @@ import { useNavigation } from "@react-navigation/native";
 
 import HomePresentational from "../../presentational/Home";
 
-import { authenticatedFetch, API_URLS } from "../../../utils/api";
+import {
+  API_URLS,
+  authenticatedFetchWithRedirect,
+  extractFailureInfo,
+} from "../../../utils/api";
+
+import Toast from "react-native-toast-message";
 import { Alert } from "react-native";
 
 function HomeContainer(props) {
@@ -14,20 +20,33 @@ function HomeContainer(props) {
 
   const retrieveNotebooks = async () => {
     try {
-      const res = await authenticatedFetch(API_URLS.notebook);
+      const res = await authenticatedFetchWithRedirect(
+        navigation,
+        API_URLS.notebook,
+      );
 
-      if (res.status != 200) {
-        throw new Error();
+      if (res.status !== 200) {
+        const fInfo = await extractFailureInfo(res);
+        if (fInfo.fail) {
+          Toast.show({
+            type: "error",
+            text1: fInfo.message,
+          });
+        }
+        return;
       }
 
       const data = await res.json();
       setNotebooks(data);
     } catch (err) {
-      Alert.alert("Falha ao obter cadernos");
+      Toast.show({
+        type: "error",
+        text1: "Falha ao recuperar cadernos",
+      });
     }
   };
 
-  const createNotebook = async (title = "Documento sem título") => {
+  const createNotebook = async (title) => {
     try {
       const payload = {
         method: "post",
@@ -39,17 +58,35 @@ function HomeContainer(props) {
         }),
       };
 
-      const res = await authenticatedFetch(API_URLS.notebook, payload);
+      const res = await authenticatedFetchWithRedirect(
+        navigation,
+        API_URLS.notebook,
+        payload,
+      );
 
-      if (res.status != 201) {
-        throw Error();
+      if (res.status !== 201) {
+        const fInfo = await extractFailureInfo(res);
+
+        if (fInfo.fail) {
+          Toast.show({
+            type: "error",
+            text1: fInfo.fields.title ? "Título inválido" : fInfo.message,
+          });
+        }
+        return;
       }
 
-      // const data = await res.json();
+      Toast.show({
+        type: "success",
+        text1: "Caderno criado com sucesso",
+      });
 
       await onRefresh();
     } catch (err) {
-      Alert.alert("Um erro ocorreu");
+      Toast.show({
+        type: "error",
+        text1: "Falha ao criar caderno",
+      });
     }
   };
 
@@ -68,10 +105,6 @@ function HomeContainer(props) {
     });
   };
 
-  const addCaderno = () => {
-    createNotebook();
-  };
-
   useEffect(() => {
     onRefresh();
   }, []);
@@ -81,7 +114,7 @@ function HomeContainer(props) {
     refreshing,
     onRefresh,
     openCaderno,
-    addCaderno,
+    createNotebook,
   };
 
   return <HomePresentational {...presentationalProps} />;

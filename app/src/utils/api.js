@@ -22,6 +22,48 @@ const clearAuthToken = async () => {
   return await AsyncStorage.removeItem(AUTH_TOKEN_PATH);
 };
 
+// Get error
+export async function extractFailureInfo(res) {
+  if (res.status >= 200 && res.status < 400) {
+    return { fail: false };
+  }
+
+  const data = await res.json();
+
+  let result = {
+    fail: true,
+    message: "Falha ao realizar requisição",
+    fields: {},
+    data,
+  };
+
+  const extractErrorFromField = (field) => {
+    if (field instanceof Array) {
+      return field[0];
+    }
+    return field;
+  };
+
+  if (typeof data === "string") {
+    result.message = data;
+  } else if (data instanceof Array) {
+    //  non_field_errors
+    if (data.length !== 0 && typeof data[0] === "string") {
+      result.message = data[0];
+    }
+  } else {
+    result.message =
+      extractErrorFromField(data.non_field_errors) || result.message;
+    result.message = extractErrorFromField(data.detail) || result.message;
+
+    for (let key of Object.keys(data)) {
+      result.fields[key] = extractErrorFromField(data[key]);
+    }
+  }
+
+  return result;
+}
+
 async function fetchTimeout(input, { timeout = 10000, ...init }) {
   // Throws AbortError
   const controller = new AbortController();
@@ -50,6 +92,24 @@ async function authenticatedFetch(input, init = {}, fetcher = fetch) {
   };
 
   return await fetcher(input, params);
+}
+
+async function authenticatedFetchWithRedirect(
+  navigation,
+  input,
+  init,
+  fetcher = fetch,
+) {
+  const res = await authenticatedFetch(input, init, fetcher);
+
+  if (res.status === 401) {
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "AuthStack" }],
+    });
+  }
+
+  return res;
 }
 
 // Requests
@@ -182,6 +242,12 @@ class Api {
   }
 }
 
-export { setAuthToken, getAuthToken, authenticatedFetch, Api };
+export {
+  setAuthToken,
+  getAuthToken,
+  authenticatedFetch,
+  authenticatedFetchWithRedirect,
+  Api,
+};
 
 export default Api;
