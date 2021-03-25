@@ -94,6 +94,24 @@ async function authenticatedFetch(input, init = {}, fetcher = fetch) {
   return await fetcher(input, params);
 }
 
+async function authenticatedFetchWithRedirect(
+  navigation,
+  input,
+  init,
+  fetcher = fetch,
+) {
+  const res = await authenticatedFetch(input, init, fetcher);
+
+  if (res.status === 401) {
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "AuthStack" }],
+    });
+  }
+
+  return res;
+}
+
 // Requests
 const JSON_CONTENT_TYPE = "application/json";
 
@@ -224,6 +242,12 @@ class Api {
   }
 }
 
-export { setAuthToken, getAuthToken, authenticatedFetch, Api };
+export {
+  setAuthToken,
+  getAuthToken,
+  authenticatedFetch,
+  authenticatedFetchWithRedirect,
+  Api,
+};
 
 export default Api;
