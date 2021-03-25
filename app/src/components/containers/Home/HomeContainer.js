@@ -8,8 +8,9 @@ import {
   authenticatedFetchWithRedirect,
   extractFailureInfo,
 } from "../../../utils/api";
-import { Alert } from "react-native";
+
 import Toast from "react-native-toast-message";
+import { Alert } from "react-native";
 
 function HomeContainer(props) {
   const navigation = useNavigation();
@@ -45,7 +46,7 @@ function HomeContainer(props) {
     }
   };
 
-  const createNotebook = async (title = "Documento sem título") => {
+  const createNotebook = async (title) => {
     try {
       const payload = {
         method: "post",
@@ -65,14 +66,20 @@ function HomeContainer(props) {
 
       if (res.status !== 201) {
         const fInfo = await extractFailureInfo(res);
+
         if (fInfo.fail) {
           Toast.show({
             type: "error",
-            text1: fInfo.fields.title || fInfo.message,
+            text1: fInfo.fields.title ? "Título inválido" : fInfo.message,
           });
         }
         return;
       }
+
+      Toast.show({
+        type: "success",
+        text1: "Caderno criado com sucesso",
+      });
 
       await onRefresh();
     } catch (err) {

@@ -24,7 +24,7 @@ const clearAuthToken = async () => {
 
 // Get error
 export async function extractFailureInfo(res) {
-  if (res.status < 200 || res.status >= 400) {
+  if (res.status >= 200 && res.status < 400) {
     return { fail: false };
   }
 
@@ -56,7 +56,7 @@ export async function extractFailureInfo(res) {
       extractErrorFromField(data.non_field_errors) || result.message;
     result.message = extractErrorFromField(data.detail) || result.message;
 
-    for (let key in Object.keys(data)) {
+    for (let key of Object.keys(data)) {
       result.fields[key] = extractErrorFromField(data[key]);
     }
   }

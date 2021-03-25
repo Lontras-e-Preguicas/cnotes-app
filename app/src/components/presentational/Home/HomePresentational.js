@@ -35,6 +35,7 @@ function HomePresentational({
   const dimensions = useDimensions();
   const [createModalVisible, setCreateModalVisible] = useState(false);
   const [newNotebookTitle, setNewNotebookTitle] = useState("");
+  const [creating, setCreating] = useState(false);
 
   const tileSize = dimensions.window.width / 2 - 16 - 12;
 
@@ -44,6 +45,14 @@ function HomePresentational({
       onPress: () => setCreateModalVisible(true),
     },
   ];
+
+  const handleCreation = async () => {
+    setCreating(true);
+    await createNotebook(newNotebookTitle);
+    setCreating(false);
+    setNewNotebookTitle("");
+    setCreateModalVisible(false);
+  };
 
   return (
     <>
@@ -66,7 +75,8 @@ function HomePresentational({
           setVisible={setCreateModalVisible}
           value={newNotebookTitle}
           setValue={setNewNotebookTitle}
-          onSubmit={() => createNotebook(newNotebookTitle)}
+          onSubmit={handleCreation}
+          loading={creating}
         />
       </Wrapper>
     </>
@@ -100,6 +110,7 @@ const CreateNotebookModal = ({
   value,
   setValue,
   onSubmit,
+  loading,
 }) => (
   <Modal visible={visible} setVisible={setVisible} title={"Criar caderno"}>
     <StyledHintedInput
@@ -112,7 +123,9 @@ const CreateNotebookModal = ({
       <CancelModalButton onPress={() => setVisible(false)}>
         Cancelar
       </CancelModalButton>
-      <ConfirmModalButtom onPress={onSubmit}>Criar</ConfirmModalButtom>
+      <ConfirmModalButtom loading={loading} onPress={onSubmit}>
+        Criar
+      </ConfirmModalButtom>
     </ModalButtonRow>
   </Modal>
 );
