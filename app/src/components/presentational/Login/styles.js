@@ -106,3 +106,12 @@ export const SignupButton = styled(Button).attrs({
   height: 48px;
   margin-top: ${getSpacing(16)};
 `;
+
+// Modal
+
+export const StyledModalHintedInput = styled(HintedInput).attrs({
+  color: Colors.primaryDark,
+})`
+  margin-top: ${Spacing.getSpacing(8)};
+  width: 100%;
+`;

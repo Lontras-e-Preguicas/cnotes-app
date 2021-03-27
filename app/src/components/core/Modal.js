@@ -5,6 +5,7 @@ import DefaultTouchable from "./DefaultTouchable";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { KeyboardAvoidingView, Platform } from "react-native";
 import Button from "./Button";
+import { applyOpacity } from "../../config/colors";
 
 export function Modal({ visible, setVisible, children, title, close }) {
   const insets = useSafeAreaInsets();
@@ -52,6 +53,16 @@ export const ConfirmModalButtom = styled(Button).attrs({
 export const CancelModalButton = styled(ConfirmModalButtom).attrs({
   color: Colors.secondaryAlt,
 })``;
+
+export const ModalDescription = styled.Text`
+  margin-top: ${Spacing.getSpacing(8)};
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
+  font-size: ${Typography.FONT_SIZES.medium};
+  max-width: 80%;
+  color: ${applyOpacity(Colors.primaryDark, 0.8)};
+  text-align: center;
+  align-self: center;
+`;
 
 /* Styles */
 

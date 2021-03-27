@@ -8,6 +8,7 @@ export const API_URLS = {
   me: `${Constants.API_URL}/api/user/me/`,
   signup: `${Constants.API_URL}/api/user/create/`,
   login: `${Constants.API_URL}/api/user/token/`,
+  passwordReset: `${Constants.API_URL}/api/user/password_reset/`,
 };
 
 // Storage

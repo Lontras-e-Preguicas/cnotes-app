@@ -36,14 +36,16 @@ function LoginContainer(props) {
   const autoRedirect = async () => {
     setLoading(true);
 
-    const res = await authenticatedFetch(API_URLS.me);
+    try {
+      const res = await authenticatedFetch(API_URLS.me);
 
-    if (res.status === 200) {
-      navigation.reset({
-        index: 0,
-        routes: [{ name: "HomeTabs" }],
-      });
-    }
+      if (res.status === 200) {
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "HomeTabs" }],
+        });
+      }
+    } catch {}
 
     setLoading(false);
   };
@@ -109,9 +111,39 @@ function LoginContainer(props) {
     navigation.navigate("Signup");
     clearCredentials();
   };
-  const doForgotPassword = () => {
-    Keyboard.dismiss();
-    console.warn("Esqueci senha não implementado");
+  const doForgotPassword = async (email) => {
+    try {
+      const payload = {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+        }),
+      };
+      const res = await fetch(API_URLS.passwordReset, payload);
+
+      if (res.status === 200) {
+        Toast.show({
+          type: "success",
+          text1: "Solicitação criada com sucesso",
+        });
+      } else {
+        const fInfo = await extractFailureInfo(res);
+        Toast.show({
+          type: "error",
+          text1:
+            (fInfo.fields.email && `E-mail: ${fInfo.fields.email}`) ||
+            fInfo.message,
+        });
+      }
+    } catch {
+      Toast.show({
+        type: "error",
+        text1: "Falha ao realizar requisição",
+      });
+    }
   };
 
   const presentationalProps = {
