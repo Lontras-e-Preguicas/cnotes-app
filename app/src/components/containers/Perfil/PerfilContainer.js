@@ -1,21 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
-import { logout } from "../../../utils/api";
+import {
+  API_URLS,
+  authenticatedFetchWithRedirect,
+  logout,
+} from "../../../utils/api";
 
 import PerfilPresentational from "../../presentational/Perfil";
+import Toast from "react-native-toast-message";
 
 function PerfilContainer(props) {
   const navigation = useNavigation();
-  /*
-  {
-    "id": "5ff7a70f-0951-46aa-bf0f-4d8775000d64",
-    "email": "eddy@pereira.silva",
-    "name": "Ednaldo Pereira",
-    "bio": null,
-    "profile_picture": null
-  }
-  */
 
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState({});
@@ -23,13 +19,23 @@ function PerfilContainer(props) {
   const retrieveData = async () => {
     setLoading(true);
 
-    const api = new Api();
-
     try {
-      const data = await api.me();
-      setUserData(data);
-    } catch {
-      // Handle error
+      const res = await authenticatedFetchWithRedirect(navigation, API_URLS.me);
+
+      if (res.status === 200) {
+        const data = await res.json();
+        setUserData(data);
+      } else {
+        Toast.show({
+          type: "error",
+          text1: "Um erro ocorreu ao recuperar os dados",
+        });
+      }
+    } catch (err) {
+      Toast.show({
+        type: "error",
+        text1: "Falha ao realizar requisição",
+      });
     }
 
     setLoading(false);

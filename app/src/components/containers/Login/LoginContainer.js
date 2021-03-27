@@ -2,9 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Keyboard, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-import { API_URLS, authenticatedFetch, login } from "../../../utils/api";
+import {
+  API_URLS,
+  authenticatedFetch,
+  extractFailureInfo,
+  fetchTimeout,
+  setAuthToken,
+} from "../../../utils/api";
 
 import LoginPresentational from "../../presentational/Login";
+import Toast from "react-native-toast-message";
 
 function LoginContainer(props) {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -50,13 +57,49 @@ function LoginContainer(props) {
 
     setLoading(true);
     try {
-      await login(formData.email, formData.password);
-      navigation.reset({
-        index: 0,
-        routes: [{ name: "HomeTabs" }],
-      });
+      const payload = {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      };
+
+      const res = await fetchTimeout(API_URLS.login, payload);
+
+      if (res.status === 200) {
+        const data = await res.json();
+        await setAuthToken(data.token);
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "HomeTabs" }],
+        });
+      } else {
+        const fInfo = await extractFailureInfo(res);
+        if (fInfo.fail) {
+          if ("email" in fInfo.fields) {
+            Toast.show({
+              type: "error",
+              text1: `E-mail: ${fInfo.fields.email}`,
+            });
+          } else if ("password" in fInfo.fields) {
+            Toast.show({
+              type: "error",
+              text1: `Senha: ${fInfo.fields.password}`,
+            });
+          } else {
+            Toast.show({
+              type: "error",
+              text1: fInfo.message,
+            });
+          }
+        }
+      }
     } catch (ex) {
-      Alert.alert(ex.message);
+      Toast.show({
+        type: "error",
+        text1: "Falha ao realizar requisição",
+      });
     }
     setLoading(false);
   };
