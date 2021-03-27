@@ -7,7 +7,6 @@ import ConjuntoAnotacoesScreen from "./ConjuntoAnotacoes";
 import AnotacaoScreen from "./Anotacao";
 import ComentariosScreen from "./Comentarios";
 
-
 export {
   LoginScreen,
   SignupScreen,
