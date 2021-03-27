@@ -18,6 +18,7 @@ export const HintedInput = ({
   errorColor = Colors.secondaryAlt,
   changeColorOnError = false,
   changeFrameColorOnError = true,
+  inputRef,
   ...props
 }) => {
   const WrapperComponent = wrapperComponent;
@@ -41,7 +42,7 @@ export const HintedInput = ({
         )}
       </InputHeaderComponent>
       <InputContainerComponent color={_frameColor}>
-        <InputComponent color={_color} {...props} />
+        <InputComponent color={_color} ref={inputRef} {...props} />
       </InputContainerComponent>
     </WrapperComponent>
   );
@@ -113,5 +114,3 @@ HintedInputHintText.defaultProps = {
 HintedInputErrorText.defaultProps = {
   errorColor: Colors.secondaryAlt,
 };
-
-const emptyFunction = () => null;

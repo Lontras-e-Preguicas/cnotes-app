@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
-import Api from "../../../utils/api";
+import { logout } from "../../../utils/api";
 
 import PerfilPresentational from "../../presentational/Perfil";
 
@@ -42,8 +42,7 @@ function PerfilContainer(props) {
   const onEdit = () => {};
   const onChangePassword = () => {};
   const onLogout = async () => {
-    const api = new Api();
-    await api.logout();
+    await logout();
     navigation.reset({
       index: 0,
       routes: [{ name: "AuthStack" }],

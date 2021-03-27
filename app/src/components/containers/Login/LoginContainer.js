@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Keyboard, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-import Api from "../../../utils/api";
+import { API_URLS, authenticatedFetch, login } from "../../../utils/api";
 
 import LoginPresentational from "../../presentational/Login";
 
@@ -28,33 +28,29 @@ function LoginContainer(props) {
 
   const autoRedirect = async () => {
     setLoading(true);
-    const api = new Api();
-    try {
-      const info = await api.me();
+
+    const res = await authenticatedFetch(API_URLS.me);
+
+    if (res.status === 200) {
       navigation.reset({
         index: 0,
         routes: [{ name: "HomeTabs" }],
       });
-    } catch {
-      try {
-        await api.logout();
-      } catch {}
     }
+
     setLoading(false);
   };
 
   const doLogin = async () => {
     Keyboard.dismiss();
-    //navigation.navigate("HomeTabs");
 
     if (loading) {
       return; // Prevent request stacking
     }
 
-    const api = new Api();
     setLoading(true);
     try {
-      await api.login(formData.email, formData.password);
+      await login(formData.email, formData.password);
       navigation.reset({
         index: 0,
         routes: [{ name: "HomeTabs" }],

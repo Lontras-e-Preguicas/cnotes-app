@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Keyboard, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-import Api from "../../../utils/api";
+import { signup } from "../../../utils/api";
 
 import SignupPresentational from "../../presentational/Signup";
 
@@ -28,10 +28,9 @@ function SignupContainer(props) {
   const doSignup = async () => {
     Keyboard.dismiss();
 
-    const api = new Api();
     setLoading(true);
     try {
-      await api.signup(formData.name, formData.email, formData.password);
+      await signup(formData.name, formData.email, formData.password);
       navigation.goBack();
     } catch (ex) {
       Alert.alert(ex.message);
