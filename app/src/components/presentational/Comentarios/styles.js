@@ -114,14 +114,6 @@ export const CommentModalContent = styled.View`
   margin-top: ${Spacing.getSpacing(8)};
 `;
 
-export const DescriptionText = styled.Text`
-  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
-  font-size: ${Typography.FONT_SIZES.medium};
-  max-width: 80%;
-  color: ${applyOpacity(Colors.primaryDark, 0.8)};
-  text-align: center;
-`;
-
 export const StyledHintedInput = styled(HintedInput).attrs({
   multiline: true,
   color: Colors.primaryDark,

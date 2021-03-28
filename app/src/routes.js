@@ -97,15 +97,9 @@ export function CadernoRoutes(props) {
         component={ConjuntoAnotacoesScreen}
       />
 
-      <CadernoStack.Screen
-        name="Anotacao"
-        component={AnotacaoScreen}
-      />
-      
-      <CadernoStack.Screen
-        name="Comentarios"
-        component={ComentariosScreen}
-      />
+      <CadernoStack.Screen name="Anotacao" component={AnotacaoScreen} />
+
+      <CadernoStack.Screen name="Comentarios" component={ComentariosScreen} />
     </CadernoStack.Navigator>
   );
 }

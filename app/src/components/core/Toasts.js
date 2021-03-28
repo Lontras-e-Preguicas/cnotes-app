@@ -45,9 +45,9 @@ const ToastMessage = styled.Text`
   font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
   font-size: ${Typography.FONT_SIZES.medium};
   color: ${Colors.primaryLight};
-  flex-grow: 1;
+  flex: 1;
   text-align: left;
-  padding: 0 ${Spacing.getSpacing(8)};
+  margin: 0 ${Spacing.getSpacing(8)};
 `;
 
 const ErrorToastWrapper = styled(BaseToastWrapper)`

@@ -8,7 +8,6 @@ import {
   AuthorPicture,
   AuthorPictureWrapper,
   CommentModalContent,
-  DescriptionText,
   StyledFlatList,
   StyledHintedInput,
   TileContainer,
@@ -25,6 +24,7 @@ import Modal, {
   CancelModalButton,
   ConfirmModalButtom,
   ModalButtonRow,
+  ModalDescription,
 } from "../../core/Modal";
 
 function ComentariosPresentational({
@@ -72,9 +72,9 @@ function ComentariosPresentational({
           setVisible={setModalVisible}
         >
           <CommentModalContent>
-            <DescriptionText>
+            <ModalDescription>
               Seu comentário será visível para todos membros do caderno.
-            </DescriptionText>
+            </ModalDescription>
             <StyledHintedInput
               hint={"Comentário"}
               placeholder={"Seu comentário"}
