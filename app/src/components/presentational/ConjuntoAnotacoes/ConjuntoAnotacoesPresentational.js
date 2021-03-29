@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 
+import { Ionicons } from "@expo/vector-icons";
+
+import { Colors } from "../../../config";
+
 import useDimensions from "../../hooks/useDimensions";
 
 import Header from "../../core/Header";
@@ -45,6 +49,8 @@ export function ConjuntoAnotacoesPresentational({
   openTile,
   createAnotacao,
   title,
+  canDelete,
+  deleteFolder,
 }) {
   const dimensions = useDimensions();
 
@@ -67,6 +73,13 @@ export function ConjuntoAnotacoesPresentational({
 
   const [anotacaoModalVisible, setAnotacaoModalVisible] = useState(false);
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+
+  if (canDelete) {
+    headerProps.rightButtons.push({
+      icon: "trash-outline",
+      onPress: () => setDeleteModalVisible(true),
+    });
+  }
 
   return (
     <Container>
@@ -93,6 +106,11 @@ export function ConjuntoAnotacoesPresentational({
         visible={anotacaoModalVisible}
         setVisible={setAnotacaoModalVisible}
         createElement={createAnotacao}
+      />
+      <ConifrmDeleteModal
+        visible={deleteModalVisible}
+        setVisible={setDeleteModalVisible}
+        doDelete={deleteFolder}
       />
     </Container>
   );
@@ -152,6 +170,38 @@ const AddModal = ({ name, visible, setVisible, createElement }) => {
         </CancelModalButton>
         <ConfirmModalButtom onPress={handleSubmit} loading={loading}>
           Criar
+        </ConfirmModalButtom>
+      </ModalButtonRow>
+    </Modal>
+  );
+};
+
+const ConifrmDeleteModal = ({ visible, setVisible, doDelete }) => {
+  const [loading, setLoading] = useState(false);
+  const handleConfirm = async () => {
+    setLoading(true);
+    await doDelete();
+    setLoading(false);
+    setVisible(false);
+  };
+
+  return (
+    <Modal title="Deletar pasta" visible={visible} setVisible={setVisible}>
+      <ModalDescription>
+        Tem certeza que deseja deletar este conjunto? Essa ação é irreversível!
+      </ModalDescription>
+      <ModalButtonRow>
+        <CancelModalButton onPress={() => setVisible(false)}>
+          Cancelar
+        </CancelModalButton>
+        <ConfirmModalButtom
+          onPress={handleConfirm}
+          loading={loading}
+          color={Colors.secondaryAlt}
+          fill={false}
+          textColor={Colors.secondaryAlt}
+        >
+          Deletar
         </ConfirmModalButtom>
       </ModalButtonRow>
     </Modal>

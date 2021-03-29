@@ -21,9 +21,6 @@ function ConjuntoAnotacoesContainer({ navigation, route }) {
         `${API_URLS.noteGroup}${route.params.id}/`
       );
 
-      console.warn(res.status);
-      console.warn(`${API_URLS.noteGroup}${route.params.id}/`);
-
       if (res.status != 200) {
         throw new Error();
       }
@@ -48,8 +45,7 @@ function ConjuntoAnotacoesContainer({ navigation, route }) {
         }),
       };
       const res = await authenticatedFetch(API_URLS.noteCreate, payload);
-      console.warn(res.status);
-      console.warn(API_URLS.noteCreate, payload);
+
       if (res.status === 201) {
         Toast.show({
           type: "success",
@@ -77,6 +73,41 @@ function ConjuntoAnotacoesContainer({ navigation, route }) {
     await retrieveData();
   };
 
+  const deleteFolder = async () => {
+    try {
+      const payload = {
+        method: "delete",
+      };
+      const res = await authenticatedFetch(
+        `${API_URLS.noteGroup}${route.params.id}/`,
+        payload,
+      );
+
+      if (res.status === 204) {
+        Toast.show({
+          type: "success",
+          text1: "Conjunto de anotações deletado com sucesso",
+        });
+        navigation.goBack();
+        await route.params.doRefresh();
+      } else {
+        const fInfo = await extractFailureInfo(res);
+
+        if (fInfo.fail) {
+          Toast.show({
+            type: "error",
+            text1: fInfo.message,
+          });
+        }
+      }
+    } catch {
+      Toast.show({
+        type: "error",
+        text1: "Falha ao realizar requisição",
+      });
+    }
+  };
+
   const openTile = ({ id , title, author }) => {
       navigation.navigate("Anotacao", { id, title, author } );
   };
@@ -88,6 +119,9 @@ function ConjuntoAnotacoesContainer({ navigation, route }) {
 
     setRefreshing(false);
   };
+
+  const canDelete = !route.params.root && data.length === 0;
+
   useEffect(() => {
     onRefresh();
   }, []);
@@ -100,6 +134,8 @@ function ConjuntoAnotacoesContainer({ navigation, route }) {
     openTile,
     createAnotacao,
     title: route.params.title,
+    canDelete,
+    deleteFolder,
   };
 
   return <ConjuntoAnotacoesPresentational {...presentationalProps} />;

@@ -177,8 +177,13 @@ function CadernoContainer({ navigation, route }) {
       });
       return;
     }
-
-    navigation.navigate("Conjunto", { id, title });
+    navigation.push("Conjunto", {
+      ...route.params,
+      root: false,
+      id: id,
+      title,
+      doRefresh: async () => retrieveData(),
+    });
   };
 
   const canDelete = !route.params.root && data.length === 0;
