@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 
-import { Ionicons } from "@expo/vector-icons";
-
-import { Colors } from "../../../config";
+import { Colors, Images } from "../../../config";
 
 import useDimensions from "../../hooks/useDimensions";
 
@@ -30,7 +28,6 @@ import {
   StyledHintedInput,
 } from "./styles";
 
-import { Images } from "../../../config";
 import { formatRating, formatTitle } from "../../../utils/format";
 
 import Modal, {
@@ -39,7 +36,6 @@ import Modal, {
   ModalButtonRow,
   ModalDescription,
 } from "../../core/Modal";
-
 
 export function ConjuntoAnotacoesPresentational({
   goBack,
@@ -94,7 +90,10 @@ export function ConjuntoAnotacoesPresentational({
             <Tile tileSize={tileSize} openTile={openTile} {...props} />
           )}
           ListFooterComponent={() => (
-            <AddTileContainer onPress={() => setAnotacaoModalVisible(true)} tileSize={tileSize}>
+            <AddTileContainer
+              onPress={() => setAnotacaoModalVisible(true)}
+              tileSize={tileSize}
+            >
               <AddTileIcon />
               <AddTileText>Nova Anotação</AddTileText>
             </AddTileContainer>
@@ -133,10 +132,13 @@ const Tile = ({ item, tileSize, openTile }) => (
         <AuthorText>Por:</AuthorText>
 
         <AuthorPicture
-          source={{
-            uri: item.author.profile_picture,
-          }}
-          defaultSource={Images.defaultUser}
+          source={
+            (item.author.profile_picture && {
+              uri: item.author.profile_picture,
+            }) ||
+            undefined
+          }
+          defaultSource={Images.defaultUserLight}
         />
         <AuthorText>{item.author.name}</AuthorText>
       </AuthorContainer>
@@ -186,7 +188,7 @@ const ConifrmDeleteModal = ({ visible, setVisible, doDelete }) => {
   };
 
   return (
-    <Modal title="Deletar pasta" visible={visible} setVisible={setVisible}>
+    <Modal title="Deletar conjunto" visible={visible} setVisible={setVisible}>
       <ModalDescription>
         Tem certeza que deseja deletar este conjunto? Essa ação é irreversível!
       </ModalDescription>

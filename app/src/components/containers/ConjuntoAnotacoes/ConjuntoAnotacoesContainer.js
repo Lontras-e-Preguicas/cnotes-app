@@ -15,21 +15,31 @@ function ConjuntoAnotacoesContainer({ navigation, route }) {
   const [refreshing, setRefreshing] = useState(false);
 
   const retrieveData = async () => {
+    setRefreshing(true);
     try {
-
       const res = await authenticatedFetch(
-        `${API_URLS.noteGroup}${route.params.id}/`
+        `${API_URLS.noteGroup}${route.params.id}/`,
       );
 
-      if (res.status != 200) {
-        throw new Error();
+      if (res.status === 200) {
+        const data = await res.json();
+        setData(data.notes);
+      } else {
+        const fInfo = await extractFailureInfo(res);
+        if (fInfo.fail) {
+          Toast.show({
+            type: "error",
+            text1: fInfo.message,
+          });
+        }
       }
-
-      const data = await res.json();
-      setData(data.notes);
     } catch (err) {
-      Alert.alert("Falha ao obter anotações");
+      Toast.show({
+        type: "error",
+        text1: "Falha ao realizar requisição",
+      });
     }
+    setRefreshing(false);
   };
 
   const createAnotacao = async (title) => {
@@ -108,8 +118,8 @@ function ConjuntoAnotacoesContainer({ navigation, route }) {
     }
   };
 
-  const openTile = ({ id , title, author }) => {
-      navigation.navigate("Anotacao", { id, title, author } );
+  const openTile = ({ id, title, author }) => {
+    navigation.navigate("Anotacao", { id, title, author });
   };
 
   const onRefresh = async () => {
