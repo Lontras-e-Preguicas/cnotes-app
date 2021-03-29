@@ -20,22 +20,7 @@ import {
 
 import Modal from "../../core/Modal";
 
-const ExemploNotificacoes = [
-  {
-    title: "01/12/2020",
-    data:  ["Uma anotação sua foi comentada"],
-    desc: ["Sua anotação “Arranjos e Contagens” do caderno “INF3 - Matemática” recebeu um comentário."]
-  },
-  {
-    title: "30/11/2020",
-    data:  ["Uma anotação sua foi comentada"],
-    desc: ["Sua anotação “Arranjos e Contagens” do caderno “INF3 - Matemática” recebeu um comentário."]
-  },
-];
-
-//Testar  onPress={()=> Alert.alert('Teste')}
-
-const TelaAtividades = () => {
+const AtividadesPresentational = ({ExemploNotificacoes}) => {
 
 const rightButtons = [
   {
@@ -53,7 +38,7 @@ return(
       <ScrollList>
         <ListNotification
             sections={ExemploNotificacoes}
-            keyExtractor={(item, index) => item + index}
+            keyExtractor={(item, index) => index.toString()}
             renderItem= {({section:{desc,data}}) => (
               <ContainerNotification>
                 <AlignBallNotification>
@@ -92,10 +77,10 @@ const ModalDelete = ({
     <Modal visible={modalVisible} close={close} title="Você deseja limpar as notificações?">
       <ModalButtonRow>
         <CancelModalButton onPress={close}>Cancelar</CancelModalButton>
-        <DeleteModalButton onPress={submitDeletion}>Confirmar</DeleteModalButton>
+        <DeleteModalButton> Confirmar</DeleteModalButton>
       </ModalButtonRow>
     </Modal>
   );
 };
 
-export default TelaAtividades;
+export default AtividadesPresentational;

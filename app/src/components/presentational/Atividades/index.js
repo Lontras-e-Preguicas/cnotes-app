@@ -1,3 +1,3 @@
-import TelaAtividades from "./AtividadesPresentational.js";
+import AtividadesPresentational from "./AtividadesPresentational.js";
 
-export default TelaAtividades;
+export default AtividadesPresentational;

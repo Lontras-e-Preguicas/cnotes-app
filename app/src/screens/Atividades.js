@@ -1,13 +1,12 @@
 import React from "react";
 
 import { StatusBar } from "expo-status-bar";
-
-import TelaAtividades from "../components/presentational/Atividades/AtividadesPresentational.js";
+import AtividadesContainer from "../components/containers/Atividades";
 
 const AtividadesScreen = (props) => (
   <>
     <StatusBar style="light" />
-    <TelaAtividades />
+    <AtividadesContainer />
   </>
 );
 
