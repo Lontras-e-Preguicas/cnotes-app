@@ -14,8 +14,8 @@ function CadernoContainer({ navigation, route }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const retrieveData = async () => {
-    setLoading(true);
+  const retrieveData = async (triggerLoading = true) => {
+    setLoading(triggerLoading);
 
     try {
       const res = await authenticatedFetch(
@@ -146,7 +146,6 @@ function CadernoContainer({ navigation, route }) {
           text1: "Pasta deletada com sucesso",
         });
         navigation.goBack();
-        await route.params.doRefresh();
       } else {
         const fInfo = await extractFailureInfo(res);
 
@@ -177,8 +176,13 @@ function CadernoContainer({ navigation, route }) {
       });
       return;
     }
-
-    navigation.navigate("Conjunto", { id, title });
+    navigation.push("Conjunto", {
+      ...route.params,
+      root: false,
+      id: id,
+      title,
+      doRefresh: async () => retrieveData(),
+    });
   };
 
   const openSettings = ({ folder, id, title }) => {
@@ -193,8 +197,11 @@ function CadernoContainer({ navigation, route }) {
   const canDelete = !route.params.root && data.length === 0;
 
   useEffect(() => {
-    retrieveData();
-  }, []);
+    const unsubscribe = navigation.addListener("focus", () => {
+      retrieveData();
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   const presentationalProps = {
     goBack: navigation.goBack,
