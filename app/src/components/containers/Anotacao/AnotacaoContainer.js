@@ -7,8 +7,9 @@ function AnotacaoContainer({ navigation, route }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const openComentarios = () => {
-    navigation.navigate("Comentarios");
-    //console.warn("Abrindo");
+    navigation.navigate("Comentarios", {
+      id: route.params.id,
+    });
   };
 
   const presentationalProps = {
