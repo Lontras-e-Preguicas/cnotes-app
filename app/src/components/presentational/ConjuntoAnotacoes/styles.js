@@ -9,6 +9,8 @@ import DefaultTouchable from "../../core/DefaultTouchable";
 
 import AddSVG from "../../../assets/icons/add.svg";
 
+import { HintedInput } from "../../core/HintedInput";
+
 // Containers
 
 export const Container = styled.View`
@@ -145,3 +147,10 @@ export const AddTileIcon = styled(AddSVG).attrs({
 `;
 
 export const AddTileText = styled(TileHeaderText)``;
+
+export const StyledHintedInput = styled(HintedInput).attrs({
+  color: Colors.primaryDark,
+})`
+  margin-top: ${Spacing.getSpacing(8)};
+  width: 100%;
+`;

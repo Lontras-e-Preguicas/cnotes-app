@@ -93,6 +93,7 @@ function AnotacaoPresentational({ goBack, title, author, openComentarios }) {
                   editorStyle={{
                     backgroundColor: Colors.primaryLight,
                   }}
+                  initialContentHTML={article}
                   onChange={(text) => setArticle(text)}
                 />
               </EditorContainer>
@@ -133,9 +134,12 @@ const NoteTitle = ({ title, setTitle, submitTitle, author, editable }) => (
     <AuthorContainer>
       <AuthorText>Por:</AuthorText>
       <AuthorPicture
-        source={{
-          uri: author.profile_picture,
-        }}
+        source={
+          (author.profile_picture && {
+            uri: author.profile_picture,
+          }) ||
+          undefined
+        }
         defaultSource={Images.defaultUser}
       />
       <AuthorText>{author.name}</AuthorText>
