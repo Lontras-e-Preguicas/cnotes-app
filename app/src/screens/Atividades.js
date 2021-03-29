@@ -5,7 +5,7 @@ import AtividadesContainer from "../components/containers/Atividades";
 
 const AtividadesScreen = (props) => (
   <>
-    <StatusBar style="light" />
+    <StatusBar style="dark" />
     <AtividadesContainer />
   </>
 );

@@ -102,7 +102,6 @@ export function MainRoutes(props) {
   return (
     <MainStack.Navigator headerMode="none" initialRouteName="AuthStack">
       <MainStack.Screen name="HomeTabs" component={HomeRoutes} />
-      <MainStack.Screen name="Activity" component={AtividadesScreen} />
       <MainStack.Screen name="Profile" component={ProfileScreen} />
       <MainStack.Screen name="CadernoStack" component={CadernoRoutes} />
     </MainStack.Navigator>
