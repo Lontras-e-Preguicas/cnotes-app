@@ -8,8 +8,6 @@ import {
   extractFailureInfo,
 } from "../../../utils/api";
 
-import { Alert } from "react-native";
-
 function ConjuntoAnotacoesContainer({ navigation, route }) {
   const [data, setData] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
@@ -99,7 +97,6 @@ function ConjuntoAnotacoesContainer({ navigation, route }) {
           text1: "Conjunto de anotações deletado com sucesso",
         });
         navigation.goBack();
-        await route.params.doRefresh();
       } else {
         const fInfo = await extractFailureInfo(res);
 
@@ -133,8 +130,11 @@ function ConjuntoAnotacoesContainer({ navigation, route }) {
   const canDelete = !route.params.root && data.length === 0;
 
   useEffect(() => {
-    onRefresh();
-  }, []);
+    const unsubscribe = navigation.addListener("focus", () => {
+      onRefresh();
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   const presentationalProps = {
     goBack: navigation.goBack,
