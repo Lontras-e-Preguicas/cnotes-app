@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { Colors, Typography, Spacing } from "../../../config";
+import Button from "../../core/Button";
 
 export const Wrapper = styled.SafeAreaView`
   height: 100%;
@@ -77,3 +78,23 @@ export const DescNotification = styled.Text`
   font-size: ${Typography.FONT_SIZES.regular};
 
 `;
+
+//  Modal excluir notificacoes
+
+export const ModalButtonRow = styled.View`
+  flex-direction: row;
+  margin-top: ${Spacing.getSpacing(16)};
+`;
+
+export const DeleteModalButton = styled(Button).attrs({
+  fill: true,
+  color: Colors.tertiaryAlt,
+  textColor: Colors.primaryLight,
+})`
+  flex: 1;
+  margin: 0 ${Spacing.getSpacing(8)};
+`;
+
+export const CancelModalButton = styled(DeleteModalButton).attrs({
+  color: Colors.secondaryAlt,
+})``;

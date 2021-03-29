@@ -13,9 +13,12 @@ import {
   ListNotification,
   TitleNotification,
   ScrollList,
+  ModalButtonRow,
+  DeleteModalButton,
+  CancelModalButton,
   Wrapper } from "./styles.js";
 
-import ModalAtividades from "./Modal";
+import Modal from "../../core/Modal";
 
 const ExemploNotificacoes = [
   {
@@ -37,11 +40,11 @@ const TelaAtividades = () => {
 const rightButtons = [
   {
     icon: "mail",
-    onPress: ()=> {setModal(true)},
+    onPress: ()=> {setModalVisible(true);},
   },
 ];
 
-const [modal, setModal] = useState(false);
+const [modalVisible, setModalVisible] = useState(false);
 
 return(
   <>
@@ -70,10 +73,29 @@ return(
               )}
           />
         </ScrollList>
-        {modal ? <ModalAtividades/> : <></>}
+        <ModalDelete
+          modalVisible={modalVisible}
+          close={() => setModalVisible(false)}
+        />
       </Wrapper>
     </>
   );
 }
+
+const ModalDelete = ({
+  modalVisible,
+  close,
+  submitDeletion,
+}) => {
+
+  return (
+    <Modal visible={modalVisible} close={close} title="Você deseja limpar as notificações?">
+      <ModalButtonRow>
+        <CancelModalButton onPress={close}>Cancelar</CancelModalButton>
+        <DeleteModalButton onPress={submitDeletion}>Confirmar</DeleteModalButton>
+      </ModalButtonRow>
+    </Modal>
+  );
+};
 
 export default TelaAtividades;
