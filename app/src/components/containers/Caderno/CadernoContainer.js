@@ -10,6 +10,7 @@ function CadernoContainer({ navigation, route }) {
   const openTile = ({ folder, id, title }) => {
     if (folder) {
       navigation.push("Caderno", {
+        folder,
         id,
         title,
         path: pathJoin(route.params.path, title),
@@ -18,6 +19,15 @@ function CadernoContainer({ navigation, route }) {
     }
 
     navigation.navigate("Conjunto", { id, title });
+  };
+
+  const openSettings = ({ folder, id, title })=>{
+    navigation.push("Gerenciamento", {
+      folder,
+      id,
+      title,
+      path: pathJoin(route.params.path, title),
+    });
   };
 
   const retrieveData = async () => {
@@ -76,10 +86,13 @@ function CadernoContainer({ navigation, route }) {
   const presentationalProps = {
     goBack: navigation.goBack,
     openTile,
+    openSettings,
     data,
     loading,
     retrieveData,
+    id: route.params.id,
     title: route.params.title,
+    folder: route.params.folder,
     path: route.params.path,
     createFolder,
     createConj,

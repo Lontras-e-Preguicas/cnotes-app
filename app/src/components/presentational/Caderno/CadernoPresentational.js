@@ -25,10 +25,13 @@ import { formatTitle } from "../../../utils/format";
 function CadernoPresentational({
   goBack,
   openTile,
+  openSettings,
   data,
   loading,
   retrieveData,
+  id,
   title,
+  folder,
   path,
   createFolder,
   createConj,
@@ -52,6 +55,11 @@ function CadernoPresentational({
       },
       {
         icon: "settings-outline",
+        onPress: ()=>{openSettings({
+          id,
+          title,
+          folder
+        })},
       },
     ],
   };
