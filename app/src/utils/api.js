@@ -9,6 +9,8 @@ export const API_URLS = {
   signup: `${Constants.API_URL}/api/user/create/`,
   login: `${Constants.API_URL}/api/user/token/`,
   passwordReset: `${Constants.API_URL}/api/user/password_reset/`,
+  folder: `${Constants.API_URL}/api/notebook/folder/`,
+  noteGroup: `${Constants.API_URL}/api/notebook/note_group/`,
 };
 
 // Storage

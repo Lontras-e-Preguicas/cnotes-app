@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 
 import { Colors } from "../../../config";
@@ -12,6 +12,7 @@ import {
   EmptyListTitle,
   PathText,
   StyledFlatList,
+  StyledHintedInput,
   TileContainer,
   TileContent,
   TileFooter,
@@ -21,6 +22,12 @@ import {
 } from "./styles";
 import FAB from "./FAB";
 import { formatTitle } from "../../../utils/format";
+import Modal, {
+  CancelModalButton,
+  ConfirmModalButtom,
+  ModalButtonRow,
+  ModalDescription,
+} from "../../core/Modal";
 
 function CadernoPresentational({
   goBack,
@@ -35,6 +42,8 @@ function CadernoPresentational({
   path,
   createFolder,
   createConj,
+  canDelete,
+  deleteFolder,
 }) {
   const dimensions = useDimensions();
 
@@ -64,6 +73,17 @@ function CadernoPresentational({
     ],
   };
 
+  const [folderModalVisible, setFolderModalVisible] = useState(false);
+  const [noteGroupModalVisible, setNoteGroupModalVisible] = useState(false);
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+
+  if (canDelete) {
+    headerProps.rightButtons.push({
+      icon: "trash-outline",
+      onPress: () => setDeleteModalVisible(true),
+    });
+  }
+
   return (
     <Container>
       <Wrapper>
@@ -79,8 +99,28 @@ function CadernoPresentational({
           onRefresh={retrieveData}
           ListEmptyComponent={EmptyList}
         />
-        <FAB addFolder={createFolder} addConj={createConj} />
+        <FAB
+          addFolder={() => setFolderModalVisible(true)}
+          addConj={() => setNoteGroupModalVisible(true)}
+        />
       </Wrapper>
+      <AddModal
+        name="Criar Pasta"
+        visible={folderModalVisible}
+        setVisible={setFolderModalVisible}
+        createElement={createFolder}
+      />
+      <AddModal
+        name="Criar Conjunto"
+        visible={noteGroupModalVisible}
+        setVisible={setNoteGroupModalVisible}
+        createElement={createConj}
+      />
+      <ConifrmDeleteModal
+        visible={deleteModalVisible}
+        setVisible={setDeleteModalVisible}
+        doDelete={deleteFolder}
+      />
     </Container>
   );
 }
@@ -103,11 +143,74 @@ const Tile = ({ item, openTile, tileSize }) => (
 
 const EmptyList = () => (
   <>
-    <EmptyListTitle>Lista vazia</EmptyListTitle>
+    <EmptyListTitle>Pasta vazia</EmptyListTitle>
     <EmptyListText>
       Cadernos a que você se juntar ou criar aparecerão aqui.
     </EmptyListText>
   </>
 );
+
+const AddModal = ({ visible, setVisible, createElement, name }) => {
+  const [title, setTitle] = useState("");
+  const [loading, setLoading] = useState(false);
+  const handleSubmit = async () => {
+    setLoading(true);
+    await createElement(title);
+    setLoading(false);
+    setTitle("");
+    setVisible(false);
+  };
+
+  return (
+    <Modal title={name} visible={visible} setVisible={setVisible}>
+      <StyledHintedInput
+        hint="Título"
+        placeholder="Título..."
+        value={title}
+        onChangeText={setTitle}
+      />
+      <ModalButtonRow>
+        <CancelModalButton onPress={() => setVisible(false)}>
+          Cancelar
+        </CancelModalButton>
+        <ConfirmModalButtom onPress={handleSubmit} loading={loading}>
+          Criar
+        </ConfirmModalButtom>
+      </ModalButtonRow>
+    </Modal>
+  );
+};
+
+const ConifrmDeleteModal = ({ visible, setVisible, doDelete }) => {
+  const [loading, setLoading] = useState(false);
+  const handleConfirm = async () => {
+    setLoading(true);
+    await doDelete();
+    setLoading(false);
+    setVisible(false);
+  };
+
+  return (
+    <Modal title="Deletar pasta" visible={visible} setVisible={setVisible}>
+      <ModalDescription>
+        Tem certeza que deseja deletar esta pasta? Essa ação é irreversível!
+      </ModalDescription>
+      <ModalButtonRow>
+        <CancelModalButton onPress={() => setVisible(false)}>
+          Cancelar
+        </CancelModalButton>
+        <ConfirmModalButtom
+          onPress={handleConfirm}
+          loading={loading}
+          color={Colors.secondaryAlt}
+          fill={false}
+          textColor={Colors.secondaryAlt}
+        >
+          Deletar
+        </ConfirmModalButtom>
+      </ModalButtonRow>
+    </Modal>
+  );
+};
 
 export default CadernoPresentational;

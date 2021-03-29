@@ -41,13 +41,23 @@ export const FAB = ({ addFolder, addConj }) => {
     <>
       <FABSubElementContainer style={subElementStyle}>
         <FABDescription>Adicionar conjunto de anotações</FABDescription>
-        <FABSubElement onPress={addConj}>
+        <FABSubElement
+          onPress={() => {
+            addConj();
+            toggleElements();
+          }}
+        >
           <AddConjIcon />
         </FABSubElement>
       </FABSubElementContainer>
       <FABSubElementContainer style={subElementStyle}>
         <FABDescription>Adicionar pasta</FABDescription>
-        <FABSubElement onPress={addFolder}>
+        <FABSubElement
+          onPress={() => {
+            addFolder();
+            toggleElements();
+          }}
+        >
           <AddFolderIcon />
         </FABSubElement>
       </FABSubElementContainer>
