@@ -1,6 +1,11 @@
 const PATH_SIZE = 30;
 
 export function formatRating(rating) {
+
+  if(rating == null){
+    return '-';
+  }
+
   let newRating = rating.toFixed(2);
 
   return newRating.toString().replace(/\./g, ",");
