@@ -6,7 +6,7 @@ import CadernoScreen from "./Caderno";
 import ConjuntoAnotacoesScreen from "./ConjuntoAnotacoes";
 import AnotacaoScreen from "./Anotacao";
 import ComentariosScreen from "./Comentarios";
-import GerenciamentoCadernoScreen from "./GerenciamentoCaderno"
+import GerenciamentoCadernoScreen from "./GerenciamentoCaderno";
 
 export {
   LoginScreen,
