@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import useDimensions from "../../hooks/useDimensions";
 
@@ -23,19 +23,28 @@ import {
   TileHeader,
   TileHeaderText,
   Wrapper,
+  StyledHintedInput,
 } from "./styles";
 
 import { Images } from "../../../config";
 import { formatRating, formatTitle } from "../../../utils/format";
 
+import Modal, {
+  CancelModalButton,
+  ConfirmModalButtom,
+  ModalButtonRow,
+  ModalDescription,
+} from "../../core/Modal";
+
+
 export function ConjuntoAnotacoesPresentational({
   goBack,
   data,
-  title,
-  loading,
-  retrieveData,
+  refreshing,
+  onRefresh,
   openTile,
-  addTile,
+  createAnotacao,
+  title,
 }) {
   const dimensions = useDimensions();
 
@@ -56,6 +65,9 @@ export function ConjuntoAnotacoesPresentational({
     ],
   };
 
+  const [anotacaoModalVisible, setAnotacaoModalVisible] = useState(false);
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+
   return (
     <Container>
       <Wrapper>
@@ -63,19 +75,25 @@ export function ConjuntoAnotacoesPresentational({
         <StyledFlatList
           data={data}
           keyExtractor={(item, index) => index.toString()}
-          refreshing={loading}
-          onRefresh={retrieveData}
+          refreshing={refreshing}
+          onRefresh={onRefresh}
           renderItem={(props) => (
             <Tile tileSize={tileSize} openTile={openTile} {...props} />
           )}
           ListFooterComponent={() => (
-            <AddTileContainer onPress={addTile} tileSize={tileSize}>
+            <AddTileContainer onPress={() => setAnotacaoModalVisible(true)} tileSize={tileSize}>
               <AddTileIcon />
               <AddTileText>Nova Anotação</AddTileText>
             </AddTileContainer>
           )}
         />
       </Wrapper>
+      <AddModal
+        name="Criar Anotação"
+        visible={anotacaoModalVisible}
+        setVisible={setAnotacaoModalVisible}
+        createElement={createAnotacao}
+      />
     </Container>
   );
 }
@@ -107,5 +125,37 @@ const Tile = ({ item, tileSize, openTile }) => (
     </TileFooter>
   </TileContainer>
 );
+
+const AddModal = ({ visible, setVisible, createElement, name }) => {
+  const [title, setTitle] = useState("");
+  const [loading, setLoading] = useState(false);
+  
+  const handleSubmit = async () => {
+    setLoading(true);
+    await createElement(title);
+    setLoading(false);
+    setTitle("");
+    setVisible(false);
+  };
+
+  return (
+    <Modal title={name} visible={visible} setVisible={setVisible}>
+      <StyledHintedInput
+        hint="Título"
+        placeholder="Título..."
+        value={title}
+        onChangeText={setTitle}
+      />
+      <ModalButtonRow>
+        <CancelModalButton onPress={() => setVisible(false)}>
+          Cancelar
+        </CancelModalButton>
+        <ConfirmModalButtom onPress={handleSubmit} loading={loading}>
+          Criar
+        </ConfirmModalButtom>
+      </ModalButtonRow>
+    </Modal>
+  );
+};
 
 export default ConjuntoAnotacoesPresentational;

@@ -1,72 +1,103 @@
 import React, { useEffect, useState } from "react";
 
 import { ConjuntoAnotacoesPresentational } from "../../presentational/ConjuntoAnotacoes/ConjuntoAnotacoesPresentational";
+import Toast from "react-native-toast-message";
+import {
+  API_URLS,
+  authenticatedFetch,
+  extractFailureInfo,
+} from "../../../utils/api";
+
+import { Alert } from "react-native";
 
 function ConjuntoAnotacoesContainer({ navigation, route }) {
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  const openTile = ({ id, title, author }) => {
-    navigation.navigate("Anotacao", { id, title, author });
-  };
-
-  const addTile = () => {
-    setData([
-      ...data,
-      {
-        id: Math.random().toString(),
-        title: "Test Tile",
-        description: "Esse é um caderno Bruh 1 sobre o mundo dos bruhs",
-        rating: 5,
-        author: {
-          name: "Eddy Pereira",
-          profile_picture: "https://bit.ly/3r7LHuK",
-        },
-      },
-    ]);
-  };
+  const [refreshing, setRefreshing] = useState(false);
 
   const retrieveData = async () => {
-    setLoading(true);
+    try {
 
-    setData([
-      {
-        id: "1",
-        title: "Bruh 1",
-        description: "Esse é um caderno Bruh 1 sobre o mundo dos bruhs",
-        rating: 4.98,
-        author: {
-          name: "Eddy Pereira",
-          profile_picture: "https://bit.ly/3r7LHuK",
-        },
-      },
-      {
-        id: "2",
-        title: "Bruh 2",
-        description:
-          "Esse é outro caderno da classe Bruh sobre o mundo dos bruhs",
-        rating: 4.5,
-        author: {
-          name: "Eddy Pereira",
-          profile_picture: "https://bit.ly/3r7LHuK",
-        },
-      },
-    ]);
+      const res = await authenticatedFetch(
+        `${API_URLS.noteGroup}${route.params.id}/`
+      );
 
-    setLoading(false);
+      console.warn(res.status);
+      console.warn(`${API_URLS.noteGroup}${route.params.id}/`);
+
+      if (res.status != 200) {
+        throw new Error();
+      }
+
+      const data = await res.json();
+      setData(data.notes);
+    } catch (err) {
+      Alert.alert("Falha ao obter conjuntos");
+    }
   };
 
+  const createAnotacao = async (title) => {
+    try {
+      const payload = {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title,
+          note_group: route.params.id,
+        }),
+      };
+      const res = await authenticatedFetch(API_URLS.noteCreate, payload);
+
+      if (res.status === 201) {
+        Toast.show({
+          type: "success",
+          text1: "Anotação criada com sucesso",
+        });
+      } else {
+        const fInfo = await extractFailureInfo(res);
+
+        if (fInfo.fail) {
+          Toast.show({
+            type: "error",
+            text1:
+              (fInfo.fields.title && `Título: ${fInfo.fields.title}`) ||
+              fInfo.message,
+          });
+        }
+      }
+    } catch {
+      Toast.show({
+        type: "error",
+        text1: "Falha ao realizar requisição",
+      });
+    }
+
+    await retrieveData();
+  };
+
+  const openTile = ({ id , title, author }) => {
+      navigation.navigate("Anotacao", { id, title, author } );
+  };
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+
+    await retrieveData();
+
+    setRefreshing(false);
+  };
   useEffect(() => {
-    retrieveData();
+    onRefresh();
   }, []);
 
   const presentationalProps = {
     goBack: navigation.goBack,
     data,
-    loading,
-    retrieveData,
+    refreshing,
+    onRefresh,
     openTile,
-    addTile,
+    createAnotacao,
     title: route.params.title,
   };
 
