@@ -31,7 +31,7 @@ function ConjuntoAnotacoesContainer({ navigation, route }) {
       const data = await res.json();
       setData(data.notes);
     } catch (err) {
-      Alert.alert("Falha ao obter conjuntos");
+      Alert.alert("Falha ao obter anotações");
     }
   };
 
@@ -48,7 +48,8 @@ function ConjuntoAnotacoesContainer({ navigation, route }) {
         }),
       };
       const res = await authenticatedFetch(API_URLS.noteCreate, payload);
-
+      console.warn(res.status);
+      console.warn(API_URLS.noteCreate, payload);
       if (res.status === 201) {
         Toast.show({
           type: "success",

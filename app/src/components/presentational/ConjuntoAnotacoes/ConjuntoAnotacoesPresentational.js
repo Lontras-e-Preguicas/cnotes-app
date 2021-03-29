@@ -126,10 +126,10 @@ const Tile = ({ item, tileSize, openTile }) => (
   </TileContainer>
 );
 
-const AddModal = ({ visible, setVisible, createElement, name }) => {
+const AddModal = ({ name, visible, setVisible, createElement }) => {
   const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(false);
-  
+
   const handleSubmit = async () => {
     setLoading(true);
     await createElement(title);
