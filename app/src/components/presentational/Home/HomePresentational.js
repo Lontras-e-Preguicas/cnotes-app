@@ -83,10 +83,10 @@ function HomePresentational({
   );
 }
 
-const Tile = ({ item: { id, title }, tileSize, openCaderno }) => (
-  <TileContainer tileSize={tileSize} onPress={() => openCaderno({ id, title })}>
+const Tile = ({ item, tileSize, openCaderno }) => (
+  <TileContainer tileSize={tileSize} onPress={() => openCaderno(item)}>
     <TileHeader>
-      <TileHeaderText>{title}</TileHeaderText>
+      <TileHeaderText>{item.title}</TileHeaderText>
     </TileHeader>
     <TileContent />
     <TileFooter>

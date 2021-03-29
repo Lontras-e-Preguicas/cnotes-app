@@ -43,7 +43,7 @@ export const ModalButtonRow = styled.View`
 
 export const ConfirmModalButtom = styled(Button).attrs({
   fill: true,
-  color: Colors.tertiaryAlt,
+  color: Colors.success,
   textColor: Colors.primaryLight,
 })`
   flex: 1;
