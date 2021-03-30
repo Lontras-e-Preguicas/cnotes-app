@@ -46,7 +46,7 @@ function GerenciamentoCadernoPresentational({
   data,
   refreshing,
   doRefresh,
-  role,
+  membership,
   removeMember,
   addMember,
   changeTitle,
@@ -56,6 +56,7 @@ function GerenciamentoCadernoPresentational({
   unBanMember,
   changeRole,
 }) {
+  const role = membership.role;
   const [memberModalVisible, setMemberModalVisible] = useState(false);
   const [inviteMemberModalVisible, setInviteMemberModalVisible] = useState(
     false,
@@ -275,12 +276,12 @@ function GerenciamentoCadernoPresentational({
         memberInfo={selectedMember}
         visible={memberModalVisible}
         setVisible={setMemberModalVisible}
-        currentRole={role}
         doBan={doBan}
         doKick={doKick}
         doPromote={doPromote}
         doDemote={doDemote}
         loading={modalActionLoading}
+        membership={membership}
       />
       <SingleFieldModal
         visible={inviteMemberModalVisible}
@@ -385,13 +386,18 @@ const MemberModal = ({
   doDemote,
   doBan,
   doKick,
-  currentRole,
+  membership,
   loading,
 }) => {
-  const canPromote = !is_banned && currentRole === "admin" && role === "member";
-  const canDemote = !is_banned && currentRole === "admin" && role === "mod";
-  const canBan = currentRole !== "member";
-  const canKick = currentRole !== "member;";
+  const currentRole = membership.role;
+  const isNotMe = membership.id !== id;
+
+  const canPromote =
+    isNotMe && !is_banned && currentRole === "admin" && role === "member";
+  const canDemote =
+    isNotMe && !is_banned && currentRole === "admin" && role === "mod";
+  const canBan = isNotMe && currentRole !== "member";
+  const canKick = isNotMe && currentRole !== "member;";
   return (
     <Modal visible={visible} setVisible={setVisible}>
       <MemberModalContainer>
