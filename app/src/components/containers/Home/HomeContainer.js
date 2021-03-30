@@ -113,7 +113,10 @@ function HomeContainer(props) {
   };
 
   useEffect(() => {
-    onRefresh();
+    const unsubscribe = navigation.addListener("focus", () => {
+      onRefresh();
+    });
+    return unsubscribe;
   }, []);
 
   const presentationalProps = {

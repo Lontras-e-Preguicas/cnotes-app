@@ -101,11 +101,11 @@ export const LoadingWrapper = styled.View`
 export const LoadingText = styled.Text`
   font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
   font-size: ${Typography.FONT_SIZES.extraLarge};
-  color: ${Colors.secondary};
+  color: ${Colors.primaryDark};
   margin-top: ${Spacing.getSpacing(8)};
 `;
 
 export const LoadingIndicator = styled.ActivityIndicator.attrs({
-  color: Colors.secondary,
+  color: Colors.primaryDark,
   size: "large",
 })``;
