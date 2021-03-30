@@ -13,6 +13,20 @@ import {
 function CadernoContainer({ navigation, route }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [title, setTitle] = useState(route.params.title);
+
+  const refreshInfo = async () => {
+    try {
+      const res = await authenticatedFetch(
+        `${API_URLS.notebook}${route.params.notebookId}/`,
+      );
+
+      if (res.status === 200) {
+        const notebookInfo = await res.json();
+        setTitle(notebookInfo.title);
+      }
+    } catch {}
+  };
 
   const retrieveData = async (triggerLoading = true) => {
     setLoading(triggerLoading);
@@ -47,6 +61,8 @@ function CadernoContainer({ navigation, route }) {
     }
 
     setLoading(false);
+
+    await refreshInfo();
   };
 
   const createFolder = async (title) => {
@@ -206,7 +222,7 @@ function CadernoContainer({ navigation, route }) {
     loading,
     retrieveData,
     id: route.params.id,
-    title: route.params.title,
+    title: title,
     folder: route.params.folder,
     path: route.params.path,
     createFolder,
