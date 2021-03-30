@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 import { Colors, Typography, Spacing } from "../../../config";
-import Button from "../../core/Button";
 
 export const Wrapper = styled.View`
   height: 100%;
@@ -11,6 +10,7 @@ export const Wrapper = styled.View`
 
 export const ContentContainer = styled.View`
   height: 100%;
+  width: 100%;
   padding: ${Spacing.getSpacing(8)} ${Spacing.getSpacing(16)};
 `;
 
@@ -19,15 +19,14 @@ export const ListNotification = styled.SectionList`
 `;
 
 export const ContainerDateNotification = styled.View`
-  background: ${Colors.primaryLight};
   justify-content: center;
   align-content: center;
-  flex-flow: row nowrap;
+  flex-direction: row;
 `;
 
 export const DateNotification = styled.Text`
   font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
-  font-size: ${Typography.FONT_SIZES.medium};
+  font-size: ${Typography.FONT_SIZES.large};
   padding: ${Spacing.getSpacing(8)};
 `;
 
@@ -51,19 +50,36 @@ export const BallNotification = styled.View`
 `;
 
 export const ContainerInfoNotification = styled.View`
-  flex-grow: 1;
+  flex: 1;
   margin-left: ${Spacing.getSpacing(12)};
+  margin-right: ${Spacing.getSpacing(8)};
+`;
+
+export const TitleRow = styled.View`
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 export const TitleNotification = styled.Text`
-  flex-flow: row wrap;
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
+  font-size: ${Typography.FONT_SIZES.extraLarge};
+  color: ${Colors.primaryDark};
+  flex: 1;
+`;
+
+export const TimeText = styled.Text`
   font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
   font-size: ${Typography.FONT_SIZES.large};
+  color: ${Colors.primaryDark};
+  opacity: 0.6;
 `;
+
 export const DescNotification = styled.Text`
-  flex-flow: row wrap;
   font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
-  font-size: ${Typography.FONT_SIZES.regular};
+  font-size: ${Typography.FONT_SIZES.medium};
+  color: ${Colors.primaryDark};
 `;
 
 // Empty List

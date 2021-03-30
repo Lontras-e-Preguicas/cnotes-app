@@ -16,6 +16,8 @@ import {
   EmptyListText,
   Wrapper,
   ContentContainer,
+  TitleRow,
+  TimeText,
 } from "./styles.js";
 
 import Modal, {
@@ -27,7 +29,7 @@ import Modal, {
 const AtividadesPresentational = ({ notificacoes, submitDeletion }) => {
   const rightButtons = [
     {
-      icon: "mail",
+      icon: "mail-outline",
       onPress: () => {
         setModalVisible(true);
       },
@@ -51,7 +53,10 @@ const AtividadesPresentational = ({ notificacoes, submitDeletion }) => {
                   <BallNotification />
                 </AlignBallNotification>
                 <ContainerInfoNotification>
-                  <TitleNotification>{data}</TitleNotification>
+                  <TitleRow>
+                    <TitleNotification>{data}</TitleNotification>
+                    <TimeText>16:16</TimeText>
+                  </TitleRow>
                   <DescNotification>{desc}</DescNotification>
                 </ContainerInfoNotification>
               </ContainerNotification>
@@ -77,7 +82,7 @@ const EmptyList = () => (
   <>
     <EmptyListTitle>Sem notificações</EmptyListTitle>
     <EmptyListText>
-      Não há atividades recentes para serem vizualizadas aqui.
+      Não há atividades recentes para serem visualizadas aqui.
     </EmptyListText>
   </>
 );
