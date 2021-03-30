@@ -13,6 +13,8 @@ import {
   ListNotification,
   TitleNotification,
   ScrollList,
+  EmptyListTitle,
+  EmptyListText,
   ModalButtonRow,
   DeleteModalButton,
   CancelModalButton,
@@ -20,7 +22,7 @@ import {
 
 import Modal from "../../core/Modal";
 
-const AtividadesPresentational = ({ExemploNotificacoes}) => {
+const AtividadesPresentational = ({notificacoes, submitDeletion}) => {
 
 const rightButtons = [
   {
@@ -37,7 +39,8 @@ return(
       <Header title="Atividades recentes" rightButtons={rightButtons} />
       <ScrollList>
         <ListNotification
-            sections={ExemploNotificacoes}
+            sections={notificacoes}
+            ListEmptyComponent={EmptyList}
             keyExtractor={(item, index) => index.toString()}
             renderItem= {({section:{desc,data}}) => (
               <ContainerNotification>
@@ -59,6 +62,7 @@ return(
           />
         </ScrollList>
         <ModalDelete
+          submitDeletion = {submitDeletion}
           modalVisible={modalVisible}
           close={() => setModalVisible(false)}
         />
@@ -66,6 +70,15 @@ return(
     </>
   );
 }
+
+const EmptyList = () => (
+  <>
+    <EmptyListTitle>Sem notificações</EmptyListTitle>
+      <EmptyListText>
+        Não há atividades recentes para serem vizualizadas aqui.
+      </EmptyListText>
+   </>
+ );
 
 const ModalDelete = ({
   modalVisible,
@@ -77,7 +90,7 @@ const ModalDelete = ({
     <Modal visible={modalVisible} close={close} title="Você deseja limpar as notificações?">
       <ModalButtonRow>
         <CancelModalButton onPress={close}>Cancelar</CancelModalButton>
-        <DeleteModalButton> Confirmar</DeleteModalButton>
+        <DeleteModalButton onPress={() => {submitDeletion([]); close();}}> Confirmar</DeleteModalButton>
       </ModalButtonRow>
     </Modal>
   );

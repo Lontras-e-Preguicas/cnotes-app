@@ -98,3 +98,27 @@ export const DeleteModalButton = styled(Button).attrs({
 export const CancelModalButton = styled(DeleteModalButton).attrs({
   color: Colors.secondaryAlt,
 })``;
+
+// Empty List
+
+export const EmptyListTitle = styled.Text`
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
+  font-size: ${Typography.FONT_SIZES.huge};
+  color: ${Colors.primaryDark};
+
+  align-self: center;
+  text-align: center;
+  max-width: 60%;
+`;
+
+export const EmptyListText = styled.Text`
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
+  font-size: ${Typography.FONT_SIZES.large};
+  color: ${Colors.primaryDark};
+
+  margin-top: ${Spacing.getSpacing(8)};
+
+  align-self: center;
+  text-align: center;
+  max-width: 60%;
+`;
