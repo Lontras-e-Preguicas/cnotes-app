@@ -25,8 +25,14 @@ import Modal, {
   ConfirmModalButtom,
   ModalButtonRow,
 } from "../../core/Modal";
+import { formatTime } from "../../../utils/format";
 
-const AtividadesPresentational = ({ notificacoes, submitDeletion }) => {
+const AtividadesPresentational = ({
+  activities,
+  onRefresh,
+  loading,
+  submitDeletion,
+}) => {
   const rightButtons = [
     {
       icon: "mail-outline",
@@ -44,20 +50,22 @@ const AtividadesPresentational = ({ notificacoes, submitDeletion }) => {
         <Header title="Atividades recentes" rightButtons={rightButtons} />
         <ContentContainer>
           <ListNotification
-            sections={notificacoes}
+            sections={activities}
             ListEmptyComponent={EmptyList}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={({ section: { desc, data } }) => (
+            refreshing={loading}
+            onRefresh={onRefresh}
+            renderItem={({ item: { title, description, creation_date } }) => (
               <ContainerNotification>
                 <AlignBallNotification>
                   <BallNotification />
                 </AlignBallNotification>
                 <ContainerInfoNotification>
                   <TitleRow>
-                    <TitleNotification>{data}</TitleNotification>
-                    <TimeText>16:16</TimeText>
+                    <TitleNotification>{title}</TitleNotification>
+                    <TimeText>{formatTime(creation_date)}</TimeText>
                   </TitleRow>
-                  <DescNotification>{desc}</DescNotification>
+                  <DescNotification>{description}</DescNotification>
                 </ContainerInfoNotification>
               </ContainerNotification>
             )}

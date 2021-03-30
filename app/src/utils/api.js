@@ -11,6 +11,7 @@ export const API_URLS = {
   passwordReset: `${Constants.API_URL}/api/user/password_reset/`,
   folder: `${Constants.API_URL}/api/notebook/folder/`,
   noteGroup: `${Constants.API_URL}/api/notebook/note_group/`,
+  activities: `${Constants.API_URL}/api/notebook/activity/`,
   noteCreate: `${Constants.API_URL}/api/notebook/note/`,
 };
 
