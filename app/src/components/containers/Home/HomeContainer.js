@@ -98,7 +98,7 @@ function HomeContainer(props) {
     setRefreshing(false);
   };
 
-  const openCaderno = ({ id, title, root_folder }) => {
+  const openCaderno = ({ id, title, root_folder, membership }) => {
     navigation.navigate("CadernoStack", {
       screen: "Caderno",
       params: {
@@ -107,6 +107,7 @@ function HomeContainer(props) {
         folderId: root_folder,
         path: "/Raiz",
         root: true,
+        membership,
       },
     });
   };

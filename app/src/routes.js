@@ -18,6 +18,7 @@ import {
   ConjuntoAnotacoesScreen,
   AnotacaoScreen,
   ComentariosScreen,
+  GerenciamentoCadernoScreen,
 } from "./screens";
 
 import { applyOpacity } from "./config/colors";
@@ -96,10 +97,9 @@ export function CadernoRoutes(props) {
         name="Conjunto"
         component={ConjuntoAnotacoesScreen}
       />
-
       <CadernoStack.Screen name="Anotacao" component={AnotacaoScreen} />
-
       <CadernoStack.Screen name="Comentarios" component={ComentariosScreen} />
+      <CadernoStack.Screen name="Gerenciamento" component={GerenciamentoCadernoScreen} />
     </CadernoStack.Navigator>
   );
 }

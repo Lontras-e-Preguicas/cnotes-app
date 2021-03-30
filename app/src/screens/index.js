@@ -6,6 +6,7 @@ import CadernoScreen from "./Caderno";
 import ConjuntoAnotacoesScreen from "./ConjuntoAnotacoes";
 import AnotacaoScreen from "./Anotacao";
 import ComentariosScreen from "./Comentarios";
+import GerenciamentoCadernoScreen from "./GerenciamentoCaderno";
 
 export {
   LoginScreen,
@@ -16,4 +17,5 @@ export {
   ConjuntoAnotacoesScreen,
   AnotacaoScreen,
   ComentariosScreen,
+  GerenciamentoCadernoScreen,
 };

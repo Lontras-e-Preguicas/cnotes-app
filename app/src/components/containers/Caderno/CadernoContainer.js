@@ -13,6 +13,20 @@ import {
 function CadernoContainer({ navigation, route }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [title, setTitle] = useState(route.params.title);
+
+  const refreshInfo = async () => {
+    try {
+      const res = await authenticatedFetch(
+        `${API_URLS.notebook}${route.params.notebookId}/`,
+      );
+
+      if (res.status === 200) {
+        const notebookInfo = await res.json();
+        setTitle(notebookInfo.title);
+      }
+    } catch {}
+  };
 
   const retrieveData = async (triggerLoading = true) => {
     setLoading(triggerLoading);
@@ -47,6 +61,8 @@ function CadernoContainer({ navigation, route }) {
     }
 
     setLoading(false);
+
+    await refreshInfo();
   };
 
   const createFolder = async (title) => {
@@ -172,7 +188,6 @@ function CadernoContainer({ navigation, route }) {
         folderId: id,
         title,
         path: pathJoin(route.params.path, title),
-        doRefresh: async () => retrieveData(),
       });
       return;
     }
@@ -181,7 +196,12 @@ function CadernoContainer({ navigation, route }) {
       root: false,
       id: id,
       title,
-      doRefresh: async () => retrieveData(),
+    });
+  };
+
+  const openSettings = () => {
+    navigation.push("Gerenciamento", {
+      ...route.params,
     });
   };
 
@@ -197,10 +217,13 @@ function CadernoContainer({ navigation, route }) {
   const presentationalProps = {
     goBack: navigation.goBack,
     openTile,
+    openSettings,
     data,
     loading,
     retrieveData,
-    title: route.params.title,
+    id: route.params.id,
+    title: title,
+    folder: route.params.folder,
     path: route.params.path,
     createFolder,
     createConj,

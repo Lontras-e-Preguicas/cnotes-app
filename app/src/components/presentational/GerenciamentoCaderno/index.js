@@ -1,0 +1,3 @@
+import GerenciamentoCadernoPresentational from "./GerenciamentoCadernoPresentational";
+
+export default GerenciamentoCadernoPresentational;
