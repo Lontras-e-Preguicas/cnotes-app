@@ -365,7 +365,7 @@ const MemberComponent = ({
             (profile_picture && {
               uri: profile_picture,
             }) ||
-            undefined
+            Images.defaultUser
           }
           defaultSource={Images.defaultUser}
         />
@@ -406,7 +406,7 @@ const MemberModal = ({
             (profile_picture && {
               uri: profile_picture,
             }) ||
-            undefined
+            Images.defaultUser
           }
           defaultSource={Images.defaultUser}
         />
