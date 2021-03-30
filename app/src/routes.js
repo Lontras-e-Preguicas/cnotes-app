@@ -16,7 +16,7 @@ import {
   ProfileScreen,
   CadernoScreen,
   ConjuntoAnotacoesScreen,
-  AtividadesScreen
+  AtividadesScreen,
   AnotacaoScreen,
   ComentariosScreen,
 } from "./screens";
