@@ -172,7 +172,6 @@ function CadernoContainer({ navigation, route }) {
         folderId: id,
         title,
         path: pathJoin(route.params.path, title),
-        doRefresh: async () => retrieveData(),
       });
       return;
     }
@@ -181,16 +180,12 @@ function CadernoContainer({ navigation, route }) {
       root: false,
       id: id,
       title,
-      doRefresh: async () => retrieveData(),
     });
   };
 
-  const openSettings = ({ folder, id, title }) => {
+  const openSettings = () => {
     navigation.push("Gerenciamento", {
-      folder,
-      id,
-      title,
-      path: pathJoin(route.params.path, title),
+      ...route.params,
     });
   };
 

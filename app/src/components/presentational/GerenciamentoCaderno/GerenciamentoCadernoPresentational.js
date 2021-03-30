@@ -1,122 +1,459 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
-import {Wrapper, Functionality, FunctionalityText, Member, MemberImage, MemberInfos, MemberOptions, LeaveNotebook} from "./styles";
+import {
+  Wrapper,
+  ContentWrapper,
+  MemberContainer,
+  MemberPictureWrapper,
+  MemberPictureImage,
+  MemberInfoWrapper,
+  MemberNameText,
+  MemberRoleText,
+  MemberWrapper,
+  MemberTopDelimiter,
+  TitleText,
+  StyledFlatList,
+  MemberModalPicture,
+  MemberModalContainer,
+  MemberModalName,
+  MemberModalRole,
+  BanIndicator,
+  PositiveButton,
+  NegativeButton,
+  StyledAddMemberIcon,
+  AddMemberContainer,
+  StyledHintedInput,
+} from "./styles";
 import Header from "../../core/Header";
-import { formatTitle } from "../../../utils/format";/*usado para manter o titulo do header no tamanho certo*/
-import {ScrollView, Text, FlatList} from "react-native";
+import { formatTitle } from "../../../utils/format";
+import { Images } from "../../../config";
+import Modal, {
+  CancelModalButton,
+  ConfirmModalButtom,
+  ModalButtonRow,
+} from "../../core/Modal";
+import { Alert } from "react-native";
 
-import { Ionicons } from "@expo/vector-icons";
-
+const ROLE_MAP = {
+  member: "Membro",
+  mod: "Moderador",
+  admin: "Administrador",
+};
 
 function GerenciamentoCadernoPresentational({
-  id, folder, title, goBack, membersData, bannedMembersData, functionalityOperations
-  }) {
+  title,
+  goBack,
+  data,
+  refreshing,
+  doRefresh,
+  role,
+  removeMember,
+  addMember,
+  changeTitle,
+  deleteNotebook,
+  leaveNotebook,
+  banMember,
+  unBanMember,
+  changeRole,
+}) {
+  const [memberModalVisible, setMemberModalVisible] = useState(false);
+  const [inviteMemberModalVisible, setInviteMemberModalVisible] = useState(
+    false,
+  );
+  const [renameModalVisible, setRenameModalVisible] = useState(false);
+  const [selectedMember, setSelectedMember] = useState({});
+  const [modalActionLoading, setModalActionLoading] = useState(false);
+
+  const openMember = (memberInfo) => {
+    setSelectedMember(memberInfo);
+    setMemberModalVisible(true);
+  };
+
+  const doBan = async (id, banned) => {
+    if (modalActionLoading) {
+      return;
+    }
+
+    setModalActionLoading(true);
+    if (banned) {
+      await unBanMember(id);
+    } else {
+      await banMember(id);
+    }
+    setModalActionLoading(false);
+    setMemberModalVisible(false);
+  };
+
+  const doKick = async (id) => {
+    if (modalActionLoading) {
+      return;
+    }
+
+    setModalActionLoading(true);
+
+    Alert.alert(
+      "Tem certeza que deseja expulsar esse membro do caderno?",
+      "Ele só poderá voltar com um novo convite.",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+          onPress: () => {
+            setModalActionLoading(false);
+          },
+        },
+        {
+          text: "Expulsar",
+          onPress: async () => {
+            await removeMember(id);
+
+            setModalActionLoading(false);
+            setMemberModalVisible(false);
+          },
+          style: "destructive",
+        },
+      ],
+      {
+        cancelable: true,
+      },
+    );
+  };
+
+  const doPromote = async (id, role) => {
+    if (modalActionLoading) {
+      return;
+    }
+
+    setModalActionLoading(true);
+
+    const newRole = role === "member" ? "mod" : "admin";
+
+    await changeRole(id, newRole);
+
+    setModalActionLoading(false);
+    setMemberModalVisible(false);
+  };
+
+  const doDemote = async (id, role) => {
+    if (modalActionLoading) {
+      return;
+    }
+
+    setModalActionLoading(true);
+
+    const newRole = role === "mod" ? "member" : "mod";
+
+    await changeRole(id, newRole);
+
+    setModalActionLoading(false);
+    setMemberModalVisible(false);
+  };
+
+  const doLeave = () => {
+    Alert.alert(
+      "Tem certeza que deseja sair do caderno?",
+      "Você só poderá voltar com um novo convite.",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Sair",
+          onPress: () => leaveNotebook(),
+          style: "destructive",
+        },
+      ],
+      {
+        cancelable: true,
+      },
+    );
+  };
+
+  const doDelete = () => {
+    Alert.alert(
+      "Tem certeza que deseja DELETAR o caderno?",
+      "Essa ação é irreversível!",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Deletar",
+          onPress: () => {
+            Alert.alert(
+              "Deseja mesmo continuar?",
+              "Todo conteúdo do caderno será IRRECUPERÁVEL!",
+              [
+                {
+                  text: "Cancel",
+                  style: "cancel",
+                },
+                {
+                  text: "Deletar",
+                  onPress: () => deleteNotebook(),
+                  style: "destructive",
+                },
+              ],
+              {
+                cancelable: true,
+              },
+            );
+          },
+          style: "destructive",
+        },
+      ],
+      {
+        cancelable: true,
+      },
+    );
+  };
 
   const headerProps = {
-    title: formatTitle(title),/*!!! não esquece de mudar depois para receber do caderno*/
+    title: formatTitle(title),
     leftButtons: [
       {
         icon: "chevron-back",
         label: "Voltar",
-        onPress: goBack,/*essa função está dentro do presentationprops em GerenciamentoCadernoContainer*/
+        onPress: goBack,
       },
     ],
-    rightButtons: [
-      {
-        icon: "pencil",
-        onPress: functionalityOperations.changeNotebooksName
-      },
-    ],
+    rightButtons: [],
   };
 
-  /*esses dois são os únicos states que não serão controlados dentro do container,
-  pois são relativos apenas ao controle da visibilidade da flatList com os membros,
-  não é nem mesmo uma operação que afeta outros componentes é só por estlização (mostar
-  todos os membros de uma vez numa lista giagnte e forçar o usuário a rolar a tela
-  seria incomodo, por isso o controle da visibilidade)*/
+  if (role !== "admin") {
+    headerProps.rightButtons.push({
+      icon: "exit-outline",
+      onPress: doLeave,
+    });
+  } else {
+    headerProps.rightButtons.push({
+      icon: "pencil-outline",
+      onPress: () => setRenameModalVisible(true),
+    });
+    headerProps.rightButtons.push({
+      icon: "trash-outline",
+      onPress: doDelete,
+    });
+  }
 
-  const [membersListVisible,setMembersListVisible]=useState(true);
-  const [bannedMembersListVisible,setBannedMembersListVisible]=useState(false);
-
-
-  return(
-
+  return (
     <Wrapper>
-      <Header {...headerProps}/>
-      <ScrollView>
+      <Header {...headerProps} />
+      <ContentWrapper>
+        <TitleText>Membros</TitleText>
 
-        <Functionality onPress={()=>{functionalityOperations.addMember();}}>
-          <FunctionalityText>
-            Adicionar membro
-          </FunctionalityText>
-          <Ionicons name="person-add" size={24} color="black" />
-        </Functionality>
-
-        <Functionality onPress={()=>{functionalityOperations.deleteNotebook();}}>
-
-          {folder? <FunctionalityText>Deletar pasta</FunctionalityText> :
-                   <FunctionalityText>Deletar caderno</FunctionalityText>
-          }
-          <Ionicons name="md-trash" size={24} color="black" />
-        </Functionality>
-
-        <Functionality
-              onPress={()=>{setMembersListVisible(!membersListVisible)}}
-        >
-          <FunctionalityText>
-            Membros
-          </FunctionalityText>
-          <Ionicons name={membersListVisible?"chevron-down":"chevron-forward"} size={24} color="black" />
-        </Functionality>
-        <FlatList
-          style={membersListVisible? {display: 'flex'}: {display:'none'}}
-          data={membersData}
-          renderItem={({item})=>(
-            <Member>
-              <MemberInfos>
-                <MemberImage source={require('../../../assets/images/default_user_image.png')}/>
-                <Text>{item.name}</Text>
-              </MemberInfos>
-              <MemberOptions onPress={()=>{functionalityOperations.openMemberOptions(item);}}>
-                <Ionicons name="ellipsis-vertical-sharp" size={24} color="black" />
-              </MemberOptions>
-            </Member>
+        <StyledFlatList
+          data={data}
+          keyExtractor={(_, index) => index.toString()}
+          renderItem={({ item, ...props }) => (
+            <MemberComponent
+              onPress={() => openMember(item)}
+              {...props}
+              {...item}
+            />
           )}
-          keyExtractor={item => item.id}
-        />
-
-        <Functionality
-              onPress={()=>{setBannedMembersListVisible(!bannedMembersListVisible)}}
-        >
-          <FunctionalityText>
-            Lista de banidos
-          </FunctionalityText>
-          <Ionicons name={bannedMembersListVisible?"chevron-down":"chevron-forward"} size={24} color="black" />
-        </Functionality>
-        <FlatList
-          style={bannedMembersListVisible? {display: 'flex'}: {display:'none'}}
-          data={bannedMembersData}
-          renderItem={({item})=>(
-            <Member>
-              <MemberInfos>
-                <MemberImage source={require('../../../assets/images/default_user_image.png')}/>
-                <Text>{item.name}</Text>
-              </MemberInfos>
-              <MemberOptions onPress={()=>{functionalityOperations.openUnBanMember(item);}}>
-                <Ionicons name="ellipsis-vertical-sharp" size={24} color="black" />
-              </MemberOptions>
-            </Member>
+          refreshing={refreshing}
+          onRefresh={doRefresh}
+          ListHeaderComponent={() => (
+            <MemberWrapper>
+              <AddMemberContainer
+                onPress={() => setInviteMemberModalVisible(true)}
+              >
+                <StyledAddMemberIcon />
+                <MemberInfoWrapper>
+                  <MemberNameText>Convidar novo membro</MemberNameText>
+                </MemberInfoWrapper>
+              </AddMemberContainer>
+              <MemberTopDelimiter />
+            </MemberWrapper>
           )}
-          keyExtractor={item => item.id}
         />
-
-        <LeaveNotebook onPress={()=>{functionalityOperations.leaveNotebook();}}>
-          <Ionicons name="md-log-out-outline" size={24} color="black" />
-          <Text>Deixar de ser membro deste caderno</Text>
-        </LeaveNotebook>
-      </ScrollView>
+      </ContentWrapper>
+      <MemberModal
+        memberInfo={selectedMember}
+        visible={memberModalVisible}
+        setVisible={setMemberModalVisible}
+        currentRole={role}
+        doBan={doBan}
+        doKick={doKick}
+        doPromote={doPromote}
+        doDemote={doDemote}
+        loading={modalActionLoading}
+      />
+      <SingleFieldModal
+        visible={inviteMemberModalVisible}
+        setVisible={setInviteMemberModalVisible}
+        doAction={addMember}
+        title="Convidar novo membro"
+        hint="E-mail"
+        placeholder="E-mail..."
+        confirmText="Convidar"
+      />
+      <SingleFieldModal
+        visible={renameModalVisible}
+        setVisible={setRenameModalVisible}
+        doAction={changeTitle}
+        title="Renomear caderno"
+        hint="Título"
+        placeholder="Título..."
+        confirmText="Renomear"
+        initialValue={title}
+      />
     </Wrapper>
   );
 }
+
+const SingleFieldModal = ({
+  visible,
+  setVisible,
+  doAction,
+  title,
+  hint,
+  placeholder,
+  confirmText,
+  initialValue = "",
+}) => {
+  const [data, setData] = useState(initialValue);
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async () => {
+    setLoading(true);
+    await doAction(data);
+    setLoading(false);
+    setVisible(false);
+    setData("");
+  };
+
+  return (
+    <Modal title={title} visible={visible} setVisible={setVisible}>
+      <StyledHintedInput
+        hint={hint}
+        placeholder={placeholder}
+        value={data}
+        onChangeText={setData}
+      />
+
+      <ModalButtonRow>
+        <CancelModalButton onPress={() => setVisible(false)}>
+          Cancelar
+        </CancelModalButton>
+        <ConfirmModalButtom loading={loading} onPress={handleSubmit}>
+          {confirmText}
+        </ConfirmModalButtom>
+      </ModalButtonRow>
+    </Modal>
+  );
+};
+
+const MemberComponent = ({
+  index,
+  profile_picture,
+  name,
+  role,
+  is_banned,
+  onPress,
+}) => (
+  <MemberWrapper>
+    {(index && <MemberTopDelimiter />) || undefined}
+    <MemberContainer banned={is_banned} onPress={onPress}>
+      <MemberPictureWrapper>
+        <MemberPictureImage
+          source={
+            (profile_picture && {
+              uri: profile_picture,
+            }) ||
+            undefined
+          }
+          defaultSource={Images.defaultUser}
+        />
+      </MemberPictureWrapper>
+      <MemberInfoWrapper>
+        <MemberNameText banned={is_banned}>{name}</MemberNameText>
+        <MemberRoleText>{ROLE_MAP[role]}</MemberRoleText>
+      </MemberInfoWrapper>
+    </MemberContainer>
+  </MemberWrapper>
+);
+
+const MemberModal = ({
+  memberInfo: { id, profile_picture, name, role, is_banned },
+  visible,
+  setVisible,
+  doPromote,
+  doDemote,
+  doBan,
+  doKick,
+  currentRole,
+  loading,
+}) => {
+  const canPromote = !is_banned && currentRole === "admin" && role === "member";
+  const canDemote = !is_banned && currentRole === "admin" && role === "mod";
+  const canBan = currentRole !== "member";
+  const canKick = currentRole !== "member;";
+  return (
+    <Modal visible={visible} setVisible={setVisible}>
+      <MemberModalContainer>
+        <MemberModalPicture
+          source={
+            (profile_picture && {
+              uri: profile_picture,
+            }) ||
+            undefined
+          }
+          defaultSource={Images.defaultUser}
+        />
+        <MemberModalName>{name}</MemberModalName>
+        <MemberModalRole>
+          {(is_banned && <BanIndicator>Banido</BanIndicator>) || ROLE_MAP[role]}
+        </MemberModalRole>
+        {(canPromote || canDemote) && (
+          <ModalButtonRow>
+            {canPromote && (
+              <PositiveButton
+                loading={loading}
+                onPress={() => doPromote(id, role)}
+              >
+                Promover
+              </PositiveButton>
+            )}
+            {canDemote && (
+              <NegativeButton
+                loading={loading}
+                onPress={() => doDemote(id, role)}
+              >
+                Rebaixar
+              </NegativeButton>
+            )}
+          </ModalButtonRow>
+        )}
+
+        {(canBan || canKick) && (
+          <ModalButtonRow>
+            {canBan && (
+              <PositiveButton
+                loading={loading}
+                onPress={() => doBan(id, is_banned)}
+              >
+                {is_banned ? "Desbanir" : "Banir"}
+              </PositiveButton>
+            )}
+            {canKick && (
+              <NegativeButton loading={loading} onPress={() => doKick(id)}>
+                Expulsar
+              </NegativeButton>
+            )}
+          </ModalButtonRow>
+        )}
+        <ModalButtonRow>
+          <CancelModalButton onPress={() => setVisible(false)}>
+            Fechar
+          </CancelModalButton>
+        </ModalButtonRow>
+      </MemberModalContainer>
+    </Modal>
+  );
+};
 
 export default GerenciamentoCadernoPresentational;

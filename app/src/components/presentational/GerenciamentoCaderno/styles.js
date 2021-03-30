@@ -1,88 +1,184 @@
 import styled from "styled-components/native";
 
 import { Colors, Typography, Spacing } from "../../../config";
-import { applyOpacity } from "../../../config/colors";
 
-import {Image, Text, View, SafeAreaView} from "react-native";
 import DefaultTouchable from "../../core/DefaultTouchable";
+import Button from "../../core/Button";
 
+import { SafeAreaView } from "react-native-safe-area-context";
 
-export const Wrapper = styled.SafeAreaView`
+import AddMemberIcon from "../../../assets/icons/add.svg";
+import { HintedInput } from "../../core/HintedInput";
+
+export const Wrapper = styled.View`
   height: 100%;
   background-color: ${Colors.primaryLight};
-  overflow: scroll;
 `;
 
-export const Functionality = styled(DefaultTouchable)`
-  background-color: ${Colors.primaryLight};
-  width: 98%;
-  height: ${Spacing.getSpacing(56)};/*essa parte infelizmente não teve como ser em medida relativa*/
-  flex-direction: row;
-  justify-content: space-between;
+export const ContentWrapper = styled(SafeAreaView).attrs({
+  edges: ["bottom", "left", "right"],
+})`
+  height: 100%;
+  width: 100%;
   align-items: center;
-  padding-left: 4%;
-  padding-right: 4%;
-  padding-top: 8%;
-  padding-bottom: 8%;
-  border-top-color: ${applyOpacity(Colors.primaryDark, 0.15)};
-  border-top-width: ${Spacing.getSpacing(1)};
-  align-self: center;
+  padding: ${Spacing.getSpacing(8)} ${Spacing.getSpacing(16)};
 `;
 
-export const FunctionalityText = styled.Text`
-  font-family: ${Typography.FONT_FAMILIES.Quicksand.Medium};
-  font-size: ${Typography.FONT_SIZES.extraLarge};
-  color: black;
+export const TitleText = styled.Text`
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
+  font-size: ${Typography.FONT_SIZES.huge};
+  color: ${Colors.primaryDark};
+  align-self: flex-start;
+  margin-bottom: ${Spacing.getSpacing(16)};
 `;
 
-export const Member = styled.View`
-  width:86%;
-  height: ${Spacing.getSpacing(56)};/*essa parte infelizmente não teve como ser em medida relativa*/
-  background-color: ${Colors.primaryLight};
-  border-top-color: ${applyOpacity(Colors.primaryDark, 0.15)};
-  border-top-width: ${Spacing.getSpacing(1)};
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding-top:7%;
-  padding-bottom:7%;
-  padding-left:4%;
-  padding-right:2%;
-  align-self: center;
-`;
+// Member
 
-export const MemberImage = styled.Image`
-  height: ${Spacing.getSpacing(30)};
-  width: ${Spacing.getSpacing(30)};
-  margin-right: ${Spacing.getSpacing(30)};
-`;
-
-export const MemberInfos = styled.View`
-  flex:0.8;
-  flex-direction: row;
-  justify-content: flex-start;
+export const MemberWrapper = styled.View`
+  width: 100%;
   align-items: center;
 `;
 
-export const MemberOptions = styled(DefaultTouchable)`
-  padding: ${Spacing.getSpacing(8)};
+export const MemberContainer = styled(DefaultTouchable)`
+  width: 100%;
   flex-direction: row;
+
+  padding-vertical: ${Spacing.getSpacing(16)};
+  align-items: center;
+  min-height: 48px;
+
+  opacity: ${({ banned }) => (banned ? 0.6 : 1)};
+`;
+
+export const AddMemberContainer = styled(MemberContainer)`
   align-items: center;
   justify-content: center;
 `;
 
-export const LeaveNotebook = styled(DefaultTouchable)`
-  background-color: ${applyOpacity(Colors.secondary, 0.6)};
-  width: 90%;
-  height: ${Spacing.getSpacing(56)};
-  margin-top:2%;
-  border-radius: ${Spacing.getSpacing(5)};
-  padding-left: 6%;
-  padding-right: 6%;
-  padding-top: 8%;
-  padding-bottom: 8%;
-  flex-direction: row;
+export const MemberPictureWrapper = styled.View`
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
+  overflow: hidden;
+
+  margin-right: ${Spacing.getSpacing(8)};
+`;
+
+export const MemberPictureImage = styled.Image`
+  width: 48px;
+  height: 48px;
+`;
+
+export const MemberInfoWrapper = styled.View`
+  flex: 1;
   justify-content: space-between;
+  padding-vertical: ${Spacing.getSpacing(0)};
+`;
+
+export const MemberNameText = styled.Text.attrs({
+  numberOfLines: 1,
+})`
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
+  font-size: ${Typography.FONT_SIZES.extraLarge};
+  color: ${({ banned }) => (banned ? Colors.secondaryAlt : Colors.primaryDark)};
+`;
+
+export const MemberRoleText = styled.Text`
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
+  font-size: ${Typography.FONT_SIZES.large};
+  color: ${Colors.primaryDark};
+  opacity: 0.6;
+`;
+
+export const MemberTopDelimiter = styled.View`
+  width: 80%;
+  height: 1px;
+  background-color: ${Colors.primaryDark};
+  opacity: 0.2;
+`;
+
+export const StyledFlatList = styled.FlatList`
+  width: 100%;
+  flex: 1;
+`;
+
+export const StyledAddMemberIcon = styled(AddMemberIcon).attrs({
+  fill: Colors.primaryDark,
+})`
+  width: 48px;
+  height: 48px;
+  margin-right: ${Spacing.getSpacing(8)};
+`;
+
+// Member Modal
+
+export const MemberModalContainer = styled.View`
   align-items: center;
-  align-self:center;
+`;
+
+export const MemberModalPicture = styled.Image`
+  width: 128px;
+  height: 128px;
+  border-radius: 64px;
+`;
+
+export const MemberModalName = styled.Text`
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
+  font-size: ${Typography.FONT_SIZES.huge};
+  color: ${Colors.primaryDark};
+  max-width: 80%;
+  margin-top: ${Spacing.getSpacing(8)};
+  text-align: center;
+`;
+
+export const MemberModalRole = styled.Text`
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
+  font-size: ${Typography.FONT_SIZES.large};
+  color: ${Colors.primaryDark};
+  opacity: 0.6;
+`;
+
+export const ModalFieldWrapper = styled.View`
+  margin-top: ${Spacing.getSpacing(8)};
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const BanIndicator = styled(MemberModalRole)`
+  color: ${Colors.secondaryAlt};
+  opacity: 1;
+`;
+
+export const ModalFieldName = styled.Text`
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
+  font-size: ${Typography.FONT_SIZES.large};
+  color: ${Colors.primaryDark};
+`;
+
+export const ModalFieldValue = styled.Text`
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
+  font-size: ${Typography.FONT_SIZES.medium};
+  color: ${Colors.primaryDark};
+  opacity: 0.6;
+  margin-left: ${Spacing.getSpacing(4)};
+`;
+
+export const PositiveButton = styled(Button).attrs({
+  fill: false,
+  color: Colors.secondaryAlt,
+})`
+  flex: 1;
+  margin: 0 ${Spacing.getSpacing(8)};
+`;
+
+export const NegativeButton = styled(PositiveButton).attrs({
+  color: Colors.secondaryAlt,
+})``;
+
+export const StyledHintedInput = styled(HintedInput).attrs({
+  color: Colors.primaryDark,
+})`
+  margin-top: ${Spacing.getSpacing(8)};
+  width: 100%;
 `;
