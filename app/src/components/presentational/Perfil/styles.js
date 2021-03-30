@@ -2,7 +2,7 @@ import styled from "styled-components/native";
 import { Colors, Spacing, Typography } from "../../../config";
 import { applyOpacity } from "../../../config/colors";
 
-export const Wrapper = styled.SafeAreaView`
+export const Wrapper = styled.View`
   height: 100%;
   background-color: ${Colors.primaryLight};
 `;

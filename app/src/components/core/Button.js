@@ -4,19 +4,36 @@ import styled from "styled-components/native";
 import { Colors, Typography } from "../../config";
 import getSpacing from "../../config/spacing";
 import DefaultTouchable from "./DefaultTouchable";
+import { ActivityIndicator } from "react-native";
 
 export function Button({
   ContentComponent = ButtonText,
   fill = false,
   color = Colors.primaryLight,
   children,
+  loading = false,
+  textColor,
+  activityIndicatorColor,
+  loadingComponent = ActivityIndicator,
   ...props
 }) {
-  const textColor = props.textColor || color;
+  const _textColor = textColor || color;
+  const _activityIndicatorColor = activityIndicatorColor || textColor;
+  const LoadingComponent = loadingComponent;
+
+  let buttonContent = (
+    <ContentComponent textColor={_textColor}>{children}</ContentComponent>
+  );
+
+  if (loading) {
+    buttonContent = (
+      <LoadingComponent size="small" color={_activityIndicatorColor} />
+    );
+  }
 
   return (
     <ButtonWrapper fill={fill} color={color} {...props}>
-      <ContentComponent textColor={textColor}>{children}</ContentComponent>
+      {buttonContent}
     </ButtonWrapper>
   );
 }

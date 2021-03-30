@@ -3,7 +3,9 @@ import { Colors, Spacing, Typography } from "../../../config";
 import getSpacing from "../../../config/spacing";
 import Button from "../../core/Button";
 
-import { HintedInputWrapper } from "../../core/HintedInput";
+import { SafeAreaView } from "react-native-safe-area-context";
+
+import { HintedInput } from "../../core/HintedInput";
 
 // Containers
 
@@ -12,7 +14,7 @@ export const Background = styled.ImageBackground`
   background-color: ${Colors.primaryDark};
 `;
 
-export const SafeAreaView = styled.SafeAreaView`
+export const StyledSafeAreaView = styled(SafeAreaView)`
   height: 100%;
   align-items: center;
   justify-content: center;
@@ -54,9 +56,8 @@ export const Title = styled.Text`
   margin-bottom: ${Spacing.getSpacing(4)};
 `;
 
-export const StyledInputWrapper = styled(HintedInputWrapper)`
+export const StyledInput = styled(HintedInput)`
   width: 80%;
-
   margin-top: ${getSpacing(12)};
 `;
 
@@ -70,10 +71,4 @@ export const SignupButton = styled(Button).attrs({
   margin-top: ${getSpacing(32)};
   width: 75%;
   height: 48px;
-`;
-
-export const StyledActivityIndicator = styled.ActivityIndicator.attrs({
-  color: Colors.primaryLight,
-})`
-  height: 100%;
 `;

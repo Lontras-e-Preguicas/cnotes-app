@@ -1,11 +1,11 @@
 import React from "react";
 
-import { StatusBar } from "expo-status-bar";
 import CadernoContainer from "../components/containers/Caderno";
+import { MainStatusBar } from "./styles";
 
 const CadernoScreen = ({ navigation, route }) => (
   <>
-    <StatusBar style="dark" />
+    <MainStatusBar />
     <CadernoContainer navigation={navigation} route={route} />
   </>
 );

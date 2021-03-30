@@ -3,16 +3,17 @@ import styled from "styled-components/native";
 import { Colors, Typography, Spacing } from "../../../config";
 import { applyOpacity } from "../../../config/colors";
 import DefaultTouchable from "../../core/DefaultTouchable";
+import { HintedInput } from "../../core/HintedInput";
 
 // Containers
 
-export const Container = styled.SafeAreaView`
+export const Container = styled.View`
   height: 100%;
   background-color: ${Colors.primaryLight};
   position: relative;
 `;
 
-export const Wrapper = styled.SafeAreaView`
+export const Wrapper = styled.View`
   height: 100%;
   position: relative;
 `;
@@ -107,4 +108,11 @@ export const EmptyListText = styled.Text`
   align-self: center;
   text-align: center;
   max-width: 60%;
+`;
+
+export const StyledHintedInput = styled(HintedInput).attrs({
+  color: Colors.primaryDark,
+})`
+  margin-top: ${Spacing.getSpacing(8)};
+  width: 100%;
 `;

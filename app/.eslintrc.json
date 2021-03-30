@@ -27,7 +27,8 @@
     "react/style-prop-object": [0],
     "quotes": [2, "double", "avoid-escape"],
     "import/no-named-as-default": 0,
-    "import/named": 1
+    "import/named": 1,
+    "react-hooks/exhaustive-deps": 0
   },
   "settings": {
     "react": {

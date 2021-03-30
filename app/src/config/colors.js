@@ -5,7 +5,7 @@ const Colors = {
   secondaryAlt: "#D94141",
   tertiary: "#63E9E9",
   tertiaryAlt: "#13ECEC",
-  opaciDark:'rgba(0,0,0,0.3)'//Coloquei isso só para teste pois não consegui usar a função a baixo
+  success: "#00C853",
 };
 
 export function applyOpacity(color, opacity) {

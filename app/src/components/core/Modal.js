@@ -4,6 +4,8 @@ import { Colors, Typography, Spacing } from "../../config";
 import DefaultTouchable from "./DefaultTouchable";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { KeyboardAvoidingView, Platform } from "react-native";
+import Button from "./Button";
+import { applyOpacity } from "../../config/colors";
 
 export function Modal({ visible, setVisible, children, title, close }) {
   const insets = useSafeAreaInsets();
@@ -34,6 +36,34 @@ export function Modal({ visible, setVisible, children, title, close }) {
   );
 }
 
+export const ModalButtonRow = styled.View`
+  flex-direction: row;
+  margin-top: ${Spacing.getSpacing(16)};
+`;
+
+export const ConfirmModalButtom = styled(Button).attrs({
+  fill: true,
+  color: Colors.success,
+  textColor: Colors.primaryLight,
+})`
+  flex: 1;
+  margin: 0 ${Spacing.getSpacing(8)};
+`;
+
+export const CancelModalButton = styled(ConfirmModalButtom).attrs({
+  color: Colors.secondaryAlt,
+})``;
+
+export const ModalDescription = styled.Text`
+  margin-top: ${Spacing.getSpacing(8)};
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
+  font-size: ${Typography.FONT_SIZES.medium};
+  max-width: 80%;
+  color: ${applyOpacity(Colors.primaryDark, 0.8)};
+  text-align: center;
+  align-self: center;
+`;
+
 /* Styles */
 
 //Containers do Modal
@@ -51,7 +81,7 @@ const Backdrop = styled(DefaultTouchable).attrs({
 `;
 
 const ContainerModal = styled(KeyboardAvoidingView).attrs({
-  behavior: Platform.OS === "ios" ? "padding" : "height",
+  behavior: Platform.OS === "ios" ? "padding" : "",
 })`
   background-color: ${Colors.primaryLight};
   border-top-left-radius: 24px;

@@ -1,12 +1,11 @@
 import React from "react";
 
-import { StatusBar } from "expo-status-bar";
-
 import SignupContainer from "../components/containers/Signup";
+import { AuthStatusBar } from "./styles";
 
 const SignupScreen = (props) => (
   <>
-    <StatusBar style="light" />
+    <AuthStatusBar />
     <SignupContainer />
   </>
 );
