@@ -7,6 +7,7 @@ import ConjuntoAnotacoesScreen from "./ConjuntoAnotacoes";
 import AtividadesScreen from "./Atividades.js";
 import AnotacaoScreen from "./Anotacao";
 import ComentariosScreen from "./Comentarios";
+import GerenciamentoCadernoScreen from "./GerenciamentoCaderno";
 
 export {
   LoginScreen,
@@ -18,4 +19,5 @@ export {
   AtividadesScreen,
   AnotacaoScreen,
   ComentariosScreen,
+  GerenciamentoCadernoScreen,
 };
