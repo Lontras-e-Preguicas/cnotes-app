@@ -12,6 +12,7 @@ export const API_URLS = {
   folder: `${Constants.API_URL}/api/notebook/folder/`,
   noteGroup: `${Constants.API_URL}/api/notebook/note_group/`,
   noteCreate: `${Constants.API_URL}/api/notebook/note/`,
+  comments: `${Constants.API_URL}/api/notebook/note/`,
 };
 
 // Storage

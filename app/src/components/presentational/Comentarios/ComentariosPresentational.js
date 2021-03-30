@@ -30,8 +30,8 @@ import Modal, {
 function ComentariosPresentational({
   goBack,
   data,
-  loading,
-  retrieveData,
+  refreshing,
+  onRefresh,
   addTile,
 }) {
   const dimensions = useDimensions();
@@ -62,8 +62,8 @@ function ComentariosPresentational({
         <StyledFlatList
           data={data}
           keyExtractor={(item, index) => index.toString()}
-          refreshing={loading}
-          onRefresh={retrieveData}
+          refreshing={refreshing}
+          onRefresh={onRefresh}
           renderItem={(props) => <Tile tileSize={tileSize} {...props} />}
         />
         <Modal
