@@ -393,11 +393,11 @@ const MemberModal = ({
   const isNotMe = membership.id !== id;
 
   const canPromote =
-    isNotMe && !is_banned && currentRole === "admin" && role === "member";
+    isNotMe && !is_banned && currentRole !== "member" && role === "member";
   const canDemote =
-    isNotMe && !is_banned && currentRole === "admin" && role === "mod";
-  const canBan = isNotMe && currentRole !== "member";
-  const canKick = isNotMe && currentRole !== "member;";
+    isNotMe && !is_banned && currentRole !== "member" && role === "mod";
+  const canBan = isNotMe && currentRole !== "member" && role !== "admin";
+  const canKick = isNotMe && currentRole !== "member" && role !== "admin";
   return (
     <Modal visible={visible} setVisible={setVisible}>
       <MemberModalContainer>
