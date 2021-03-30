@@ -12,11 +12,16 @@ function AnotacaoContainer({ navigation, route }) {
     });
   };
 
+function submitRating(ratingvalue) {
+  //    console.log(ratingvalue);
+  };
+
   const presentationalProps = {
     goBack: navigation.goBack,
     title: route.params.title,
     author: route.params.author,
     openComentarios,
+    submitRating,
   };
 
   return <AnotacaoPresentational {...presentationalProps} />;
