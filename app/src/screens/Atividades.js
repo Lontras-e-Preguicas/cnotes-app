@@ -3,10 +3,10 @@ import React from "react";
 import { StatusBar } from "expo-status-bar";
 import AtividadesContainer from "../components/containers/Atividades";
 
-const AtividadesScreen = (props) => (
+const AtividadesScreen = ({ navigation }) => (
   <>
     <StatusBar style="dark" />
-    <AtividadesContainer />
+    <AtividadesContainer navigation={navigation} />
   </>
 );
 

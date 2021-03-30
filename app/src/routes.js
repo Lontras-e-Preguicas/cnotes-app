@@ -100,7 +100,10 @@ export function CadernoRoutes(props) {
       />
       <CadernoStack.Screen name="Anotacao" component={AnotacaoScreen} />
       <CadernoStack.Screen name="Comentarios" component={ComentariosScreen} />
-      <CadernoStack.Screen name="Gerenciamento" component={GerenciamentoCadernoScreen} />
+      <CadernoStack.Screen
+        name="Gerenciamento"
+        component={GerenciamentoCadernoScreen}
+      />
     </CadernoStack.Navigator>
   );
 }
@@ -108,8 +111,8 @@ export function CadernoRoutes(props) {
 export function MainRoutes(props) {
   return (
     <MainStack.Navigator headerMode="none" initialRouteName="AuthStack">
+      <MainStack.Screen name="AuthStack" component={AuthRoutes} />
       <MainStack.Screen name="HomeTabs" component={HomeRoutes} />
-      <MainStack.Screen name="Profile" component={ProfileScreen} />
       <MainStack.Screen name="CadernoStack" component={CadernoRoutes} />
     </MainStack.Navigator>
   );

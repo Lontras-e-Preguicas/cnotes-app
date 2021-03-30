@@ -10,12 +10,12 @@ import {
 } from "../../../utils/api";
 import { formatDate } from "../../../utils/format";
 
-function AtividadesContainer(props) {
-  const submitDeletion = (Newnotificacoes) => {
-    setNotificacoes(Newnotificacoes);
-  };
+function AtividadesContainer({ navigation }) {
+  const [activitiesRaw, setActivitiesRaw] = useState([]);
   const [activities, setActivities] = useState([]);
+  const [invites, setInvites] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [invitesLoading, setInvitesLoading] = useState(false);
 
   const retrieveData = async () => {
     setLoading(true);
@@ -24,6 +24,7 @@ function AtividadesContainer(props) {
 
       if (res.status === 200) {
         const data = await res.json();
+        setActivitiesRaw(data);
 
         const newActivities = {};
 
@@ -54,7 +55,6 @@ function AtividadesContainer(props) {
         });
       }
     } catch (err) {
-      console.warn(err);
       Toast.show({
         type: "error",
         text1: "Falha ao realizar requisição",
@@ -63,14 +63,133 @@ function AtividadesContainer(props) {
     setLoading(false);
   };
 
+  const markAsSeen = async (id) => {
+    try {
+      const res = await authenticatedFetch(`${API_URLS.activities}${id}/see/`, {
+        method: "post",
+      });
+      if (res.status !== 204) {
+        const fInfo = await extractFailureInfo(res);
+
+        Toast.show({
+          type: "error",
+          text1: fInfo.message,
+        });
+      }
+    } catch (err) {
+      Toast.show({
+        type: "error",
+        text1: "Falha ao realizar requisição",
+      });
+    }
+  };
+
+  const seeAll = async () => {
+    for (let a of activitiesRaw) {
+      if (a.seen) {
+        continue;
+      }
+
+      await markAsSeen(a.id);
+    }
+    await retrieveData();
+  };
+
+  const retrieveInvite = async () => {
+    setInvitesLoading(true);
+    try {
+      const res = await authenticatedFetch(API_URLS.invite);
+
+      if (res.status === 200) {
+        const data = await res.json();
+        setInvites(data);
+      } else {
+        const fInfo = await extractFailureInfo(res);
+
+        Toast.show({
+          type: "error",
+          text1: fInfo.message,
+        });
+      }
+    } catch (err) {
+      Toast.show({
+        type: "error",
+        text1: "Falha ao realizar requisição",
+      });
+    }
+    setInvitesLoading(false);
+  };
+
+  const acceptInvite = async (id) => {
+    setInvitesLoading(true);
+    try {
+      const res = await authenticatedFetch(`${API_URLS.invite}${id}/accept/`, {
+        method: "post",
+      });
+
+      if (res.status === 204) {
+        await retrieveInvite();
+      } else {
+        const fInfo = await extractFailureInfo(res);
+
+        Toast.show({
+          type: "error",
+          text1: fInfo.message,
+        });
+      }
+    } catch (err) {
+      Toast.show({
+        type: "error",
+        text1: "Falha ao realizar requisição",
+      });
+    }
+    setInvitesLoading(false);
+  };
+
+  const denyInvite = async (id) => {
+    setInvitesLoading(true);
+    try {
+      const res = await authenticatedFetch(`${API_URLS.invite}${id}/deny/`, {
+        method: "post",
+      });
+
+      if (res.status === 204) {
+        await retrieveInvite();
+      } else {
+        const fInfo = await extractFailureInfo(res);
+
+        Toast.show({
+          type: "error",
+          text1: fInfo.message,
+        });
+      }
+    } catch (err) {
+      Toast.show({
+        type: "error",
+        text1: "Falha ao realizar requisição",
+      });
+    }
+    setInvitesLoading(false);
+  };
+
   useEffect(() => {
-    retrieveData();
+    const unsubscribe = navigation.addListener("focus", () => {
+      retrieveData();
+      retrieveInvite();
+    });
+    return unsubscribe;
   }, []);
 
   const presentationalProps = {
     activities,
     loading,
     onRefresh: retrieveData,
+    retrieveInvite,
+    invitesLoading,
+    invites,
+    acceptInvite,
+    denyInvite,
+    seeAll,
   };
 
   return <AtividadesPresentational {...presentationalProps} />;
