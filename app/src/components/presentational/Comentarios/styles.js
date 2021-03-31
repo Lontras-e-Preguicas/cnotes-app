@@ -121,3 +121,25 @@ export const StyledHintedInput = styled(HintedInput).attrs({
   margin-top: ${Spacing.getSpacing(8)};
   width: 100%;
 `;
+
+export const EmptyListTitle = styled.Text`
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
+  font-size: ${Typography.FONT_SIZES.huge};
+  color: ${applyOpacity(Colors.primaryDark, 0.8)};
+
+  align-self: center;
+  text-align: center;
+  max-width: 80%;
+`;
+
+export const EmptyListText = styled.Text`
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
+  font-size: ${Typography.FONT_SIZES.large};
+  color: ${applyOpacity(Colors.primaryDark, 0.6)};
+
+  margin-top: ${Spacing.getSpacing(8)};
+
+  align-self: center;
+  text-align: center;
+  max-width: 80%;
+`;
