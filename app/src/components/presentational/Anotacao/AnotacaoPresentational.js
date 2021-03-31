@@ -236,7 +236,7 @@ const NoteTitle = ({ title, setTitle, submitTitle, author, editable }) => (
           (author.profile_picture && {
             uri: author.profile_picture,
           }) ||
-          undefined
+          Images.defaultUser
         }
         defaultSource={Images.defaultUser}
       />

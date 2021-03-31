@@ -136,7 +136,7 @@ const Tile = ({ item, tileSize, openTile }) => (
             (item.author.profile_picture && {
               uri: item.author.profile_picture,
             }) ||
-            undefined
+            Images.defaultUserLight
           }
           defaultSource={Images.defaultUserLight}
         />
