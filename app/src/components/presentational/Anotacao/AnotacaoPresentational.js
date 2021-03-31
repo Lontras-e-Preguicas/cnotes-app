@@ -33,6 +33,17 @@ import Modal, {
 import DefaultTouchable from "../../core/DefaultTouchable";
 import { Alert } from "react-native";
 
+
+
+
+/*///////////////////////////////////*/
+/*///////////////////////////////////////*/
+import {Text} from "react-native";
+import * as ImagePicker from 'expo-image-picker';
+
+
+
+
 function AnotacaoPresentational({
   goBack,
   title,
@@ -56,6 +67,12 @@ function AnotacaoPresentational({
   const richText = useRef(); //referencia ao componente RichEditor
   const [modalVisible, setModalVisible] = useState(false);
   const [currentTitle, setCurrentTitle] = useState(title);
+
+/*////////////////////////////////////*/
+  const pressAddImage = (photo) => {
+    /*console.log(photo.toString());*/
+
+  };
 
   const setContent = (newContent) => {
     setNoteInfo({ ...noteInfo, content: newContent });
@@ -156,11 +173,28 @@ function AnotacaoPresentational({
     width: "100%",
     backgroundColor: "transparent",
   };
-
+/*
+onPressAddImage={pressAddImage} linha 228 toolbar
+*/
   return (
     <>
       <Wrapper insets={insets}>
         <Header {...headerButtons} />
+        <DefaultTouchable style={{backgroundColor: 'purple'}} onPress={()=> ImagePicker.launchImageLibrary(
+                                                                                            {
+                                                                                              mediaType: 'photo',
+                                                                                              includeBase64: false,
+                                                                                              maxHeight: 200,
+                                                                                              maxWidth: 200,
+                                                                                            },
+                                                                                            (response) => {
+                                                                                              console.log(response);
+                                                                                              
+                                                                                            }
+                                                                                          )
+                                                                        }>
+          <Text>selecione uma imagem, teste</Text>
+        </DefaultTouchable>
         {beingEdited && (
           <BeingEditedWrapper>
             <BeingEditedText>
