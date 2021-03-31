@@ -14,6 +14,7 @@ export const Wrapper = styled.View`
 `;
 
 export const ContentWrapper = styled.View`
+  display: ${({ loading }) => (loading ? "none" : "flex")};
   padding: ${Spacing.getSpacing(8)} ${Spacing.getSpacing(16)};
   flex-grow: 1;
 `;
@@ -90,4 +91,19 @@ export const StarIcon = styled(Ionicons).attrs(({ fill = true }) => ({
   color: gold;
   font-size: 40px;
   margin: 0 ${Spacing.getSpacing(8)};
+`;
+
+export const LoadingText = styled.Text`
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
+  font-size: ${Typography.FONT_SIZES.extraLarge};
+  color: ${Colors.primaryDark};
+  margin-top: ${Spacing.getSpacing(8)};
+  text-align: center;
+`;
+
+export const LoadingIndicator = styled.ActivityIndicator.attrs({
+  color: Colors.primaryDark,
+  size: "large",
+})`
+  margin-top: ${Spacing.getSpacing(24)};
 `;

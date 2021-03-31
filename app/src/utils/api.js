@@ -15,7 +15,7 @@ export const API_URLS = {
   noteCreate: `${Constants.API_URL}/api/notebook/note/`,
   member: `${Constants.API_URL}/api/notebook/member/`,
   invite: `${Constants.API_URL}/api/notebook/invite/`,
-  toEvaluate: `${Constants.API_URL}/api/notebook/note/`,
+  note: `${Constants.API_URL}/api/notebook/note/`,
 };
 
 // Storage

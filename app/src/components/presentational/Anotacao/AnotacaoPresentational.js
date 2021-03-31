@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { RichEditor, RichToolbar } from "react-native-pell-rich-editor";
@@ -20,6 +20,8 @@ import {
   ScrollWrapper,
   RatingWrapper,
   StarIcon,
+  LoadingIndicator,
+  LoadingText,
 } from "./styles.js";
 import Modal, {
   CancelModalButton,
@@ -36,6 +38,14 @@ function AnotacaoPresentational({
   submitRating,
   rating,
   setRating,
+  noteInfo,
+  setNoteInfo,
+  saveContent,
+  changeTitle,
+  loading,
+  edit,
+  setEdit,
+  wasEditing,
 }) {
   const insets = useSafeAreaInsets();
 
@@ -66,10 +76,23 @@ function AnotacaoPresentational({
   };
 
   const richText = useRef(); //referencia ao componente RichEditor
-  const [article, setArticle] = useState("");
-  const [edit, setEdit] = useState(false); //ativar ou desativar a edicao
   const [modalVisible, setModalVisible] = useState(false);
   const [currentTitle, setCurrentTitle] = useState(title);
+
+  const setContent = (newContent) => {
+    setNoteInfo({ ...noteInfo, content: newContent });
+  };
+
+  const submitTitle = async () => {
+    const goneRight = (await changeTitle(currentTitle)) || {};
+    setCurrentTitle(goneRight.title || noteInfo.title);
+  };
+
+  useEffect(() => {
+    if (!edit && richText.current?.setContentHTML) {
+      richText.current?.setContentHTML(noteInfo.content);
+    }
+  }, [noteInfo]);
 
   const toolbarStyle = {
     display: edit ? "flex" : "none",
@@ -81,13 +104,14 @@ function AnotacaoPresentational({
     <>
       <Wrapper insets={insets}>
         <Header {...headerButtons} />
-        <ContentWrapper>
+        {loading && <LoadingComponent />}
+        <ContentWrapper loading={loading}>
           <NoteTitle
             editable={edit}
             author={author}
             title={currentTitle}
             setTitle={setCurrentTitle}
-            submitTitle={setCurrentTitle}
+            submitTitle={submitTitle}
           />
           <ScrollWrapper>
             <EditorScroll>
@@ -100,8 +124,8 @@ function AnotacaoPresentational({
                   editorStyle={{
                     backgroundColor: Colors.primaryLight,
                   }}
-                  initialContentHTML={article}
-                  onChange={(text) => setArticle(text)}
+                  initialContentHTML={noteInfo.content}
+                  onChange={(text) => setContent(text)}
                 />
               </EditorContainer>
             </EditorScroll>
@@ -178,7 +202,6 @@ const RatingModal = ({
       <ModalButtonRow>
         <CancelModalButton
           onPress={() => {
-            submitRating(null);
             close();
           }}
         >
@@ -196,5 +219,12 @@ const RatingModal = ({
     </Modal>
   );
 };
+
+export const LoadingComponent = () => (
+  <>
+    <LoadingIndicator />
+    <LoadingText>Carregando</LoadingText>
+  </>
+);
 
 export default AnotacaoPresentational;
