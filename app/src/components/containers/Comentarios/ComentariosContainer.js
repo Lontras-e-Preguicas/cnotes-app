@@ -13,36 +13,16 @@ function ComentariosContainer({ navigation, route }) {
   const [data, setData] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 
-  const addTile = () => {
-    setData([
-      ...data,
-      {
-        id: Math.random().toString(),
-        commenter: {
-          name: "Eddyzinho",
-          profile_picture: "https://bit.ly/315W8DK",
-        },
-        message:
-          "Esse é um teste de descrição, descricao de teste, ou seja, o comentario mesmo",
-        creation_date: "2019-08-24T14:15:22Z",
-      },
-    ]);
-  };
-
   const retrieveData = async () => {
     setRefreshing(true);
     try {
       const res = await authenticatedFetch(
-        `${API_URLS.comment}${route.params.id}/comments`,
+        `${API_URLS.note}${route.params.id}/comments/`,
       );
-
-      console.warn(res.status);
-      console.warn(`${API_URLS.comment}${route.params.id}/comments`);
-      console.warn(route.params.id);
 
       if (res.status === 200) {
         const data = await res.json();
-        setData(data.notes);
+        setData(data);
       } else {
         const fInfo = await extractFailureInfo(res);
         if (fInfo.fail) {
@@ -61,24 +41,55 @@ function ComentariosContainer({ navigation, route }) {
     setRefreshing(false);
   };
 
-  const onRefresh = async () => {
-    setRefreshing(true);
+  const doComment = async (message) => {
+    try {
+      const payload = {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          note: route.params.id,
+          message,
+        }),
+      };
+      const res = await authenticatedFetch(API_URLS.comments, payload);
 
-    await retrieveData();
-
-    setRefreshing(false);
+      if (res.status === 201) {
+        Toast.show({
+          type: "success",
+          text1: "Comentário realizado com sucesso!",
+        });
+        await retrieveData();
+      } else {
+        const fInfo = await extractFailureInfo(res);
+        if (fInfo.fail) {
+          Toast.show({
+            type: "error",
+            text1:
+              (fInfo.fields.message && `Mensagem: ${fInfo.fields.message}`) ||
+              fInfo.message,
+          });
+        }
+      }
+    } catch (err) {
+      Toast.show({
+        type: "error",
+        text1: "Falha ao realizar requisição",
+      });
+    }
   };
 
   useEffect(() => {
-    onRefresh();
+    retrieveData();
   }, []);
 
   const presentationalProps = {
     goBack: navigation.goBack,
     data,
     refreshing,
-    onRefresh,
-    addTile,
+    retrieveData,
+    doComment,
   };
 
   return <ComentariosPresentational {...presentationalProps} />;
