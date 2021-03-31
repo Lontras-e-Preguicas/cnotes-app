@@ -12,14 +12,15 @@ import {
 function AnotacaoContainer({ navigation, route }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [rating, setRating] = useState(0);
+
   const openComentarios = () => {
     navigation.navigate("Comentarios", {
       id: route.params.id,
     });
   };
 
-//ratingValue => é um param que armazenena o valor da avaliacao
-  const submitRating = async (ratingValue) => {
+  const submitRating = async () => {
     try {
       const payload = {
         method: "post",
@@ -27,8 +28,7 @@ function AnotacaoContainer({ navigation, route }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          ratingValue,
-          note_group: route.params.id,
+          rating,
         }),
       };
       const res = await authenticatedFetch(
@@ -36,12 +36,11 @@ function AnotacaoContainer({ navigation, route }) {
         payload,
       );
 
-      if (res.status === 204) {
+      if (res.status === 200) {
         Toast.show({
           type: "success",
           text1: "Anotação avaliada com sucesso",
         });
-        navigation.goBack();
       } else {
         const fInfo = await extractFailureInfo(res);
 
@@ -58,8 +57,38 @@ function AnotacaoContainer({ navigation, route }) {
         text1: "Falha ao realizar requisição",
       });
     }
-//console.log(ratingValue);
   };
+
+  const retrieveRating = async () => {
+    try {
+      const res = await authenticatedFetch(
+        `${API_URLS.toEvaluate}${route.params.id}/rating/`,
+      );
+
+      if (res.status === 200) {
+        const data = await res.json();
+        setRating(data.rating);
+      } else {
+        const fInfo = await extractFailureInfo(res);
+
+        if (fInfo.fail) {
+          Toast.show({
+            type: "error",
+            text1: fInfo.message,
+          });
+        }
+      }
+    } catch {
+      Toast.show({
+        type: "error",
+        text1: "Falha ao realizar requisição",
+      });
+    }
+  };
+
+  useEffect(() => {
+    retrieveRating();
+  }, []);
 
   const presentationalProps = {
     goBack: navigation.goBack,
@@ -67,6 +96,8 @@ function AnotacaoContainer({ navigation, route }) {
     author: route.params.author,
     openComentarios,
     submitRating,
+    rating,
+    setRating,
   };
 
   return <AnotacaoPresentational {...presentationalProps} />;

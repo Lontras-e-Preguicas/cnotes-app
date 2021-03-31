@@ -28,7 +28,15 @@ import Modal, {
 } from "../../core/Modal";
 import DefaultTouchable from "../../core/DefaultTouchable";
 
-function AnotacaoPresentational({ goBack, title, author, openComentarios, submitRating }) {
+function AnotacaoPresentational({
+  goBack,
+  title,
+  author,
+  openComentarios,
+  submitRating,
+  rating,
+  setRating,
+}) {
   const insets = useSafeAreaInsets();
 
   const headerButtons = {
@@ -61,7 +69,6 @@ function AnotacaoPresentational({ goBack, title, author, openComentarios, submit
   const [article, setArticle] = useState("");
   const [edit, setEdit] = useState(false); //ativar ou desativar a edicao
   const [modalVisible, setModalVisible] = useState(false);
-  const [rating, setRating] = useState(0);
   const [currentTitle, setCurrentTitle] = useState(title);
 
   const toolbarStyle = {
@@ -169,20 +176,20 @@ const RatingModal = ({
     <Modal visible={modalVisible} close={close} title="Avaliar Anotação">
       <RatingWrapper>{ratingStars}</RatingWrapper>
       <ModalButtonRow>
-      <CancelModalButton
-        onPress={() => {
-          submitRating(null);
-          close();
+        <CancelModalButton
+          onPress={() => {
+            submitRating(null);
+            close();
           }}
         >
-        Cancelar
-      </CancelModalButton>
-      <ConfirmModalButtom
+          Cancelar
+        </CancelModalButton>
+        <ConfirmModalButtom
           onPress={() => {
             submitRating(value);
             close();
-            }}
-          >
+          }}
+        >
           Avaliar
         </ConfirmModalButtom>
       </ModalButtonRow>
