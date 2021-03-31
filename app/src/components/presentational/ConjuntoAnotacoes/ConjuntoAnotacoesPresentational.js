@@ -126,7 +126,7 @@ const Tile = ({ item, tileSize, openTile }) => (
     <TileFooter>
       <RatingTextContainer>
         <RatingIcon />
-        <RatingValue>{formatRating(item.rating)}</RatingValue>
+        <RatingValue>{formatRating(item.avg_rating)}</RatingValue>
       </RatingTextContainer>
       <AuthorContainer>
         <AuthorText>Por:</AuthorText>
