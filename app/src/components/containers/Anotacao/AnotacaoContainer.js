@@ -306,14 +306,14 @@ function AnotacaoContainer({ navigation, route }) {
     }
   }, [edit, saveContent]);
 
-  const canEdit =
-    route.params.membership.role !== "member" ||
-    route.params.author.id === route.params.membership.id;
-
   const beingEdited =
     route.params.author.id !== route.params.membership.id &&
     !loading &&
     new Date() - new Date(noteInfo.last_edited) <= BEING_EDITED_TL;
+
+  const canEdit =
+    (!beingEdited && route.params.membership.role !== "member") ||
+    route.params.author.id === route.params.membership.id;
 
   const presentationalProps = {
     goBack: navigation.goBack,
