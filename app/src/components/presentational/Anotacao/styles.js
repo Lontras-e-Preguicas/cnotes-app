@@ -42,6 +42,7 @@ export const TitleText = styled.TextInput`
 export const AuthorText = styled.Text`
   font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
   font-size: ${Typography.FONT_SIZES.medium};
+  color: ${Colors.primaryDark};
 `;
 
 export const AuthorContainer = styled.View`
@@ -106,4 +107,15 @@ export const LoadingIndicator = styled.ActivityIndicator.attrs({
   size: "large",
 })`
   margin-top: ${Spacing.getSpacing(24)};
+`;
+
+export const BeingEditedWrapper = styled.View`
+  padding: ${Spacing.getSpacing(4)} ${Spacing.getSpacing(16)};
+  background: ${Colors.secondaryAlt};
+`;
+
+export const BeingEditedText = styled.Text`
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
+  font-size: ${Typography.FONT_SIZES.regular};
+  color: ${Colors.primaryLight};
 `;

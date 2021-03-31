@@ -81,7 +81,7 @@ function ConjuntoAnotacoesContainer({ navigation, route }) {
     await retrieveData();
   };
 
-  const deleteFolder = async () => {
+  const deleteNoteGroup = async () => {
     try {
       const payload = {
         method: "delete",
@@ -116,7 +116,7 @@ function ConjuntoAnotacoesContainer({ navigation, route }) {
   };
 
   const openTile = ({ id, title, author }) => {
-    navigation.navigate("Anotacao", { id, title, author });
+    navigation.navigate("Anotacao", { ...route.params, id, title, author });
   };
 
   const onRefresh = async () => {
@@ -145,7 +145,7 @@ function ConjuntoAnotacoesContainer({ navigation, route }) {
     createAnotacao,
     title: route.params.title,
     canDelete,
-    deleteFolder,
+    deleteNoteGroup,
   };
 
   return <ConjuntoAnotacoesPresentational {...presentationalProps} />;

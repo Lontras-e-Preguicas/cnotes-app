@@ -22,6 +22,8 @@ import {
   StarIcon,
   LoadingIndicator,
   LoadingText,
+  BeingEditedWrapper,
+  BeingEditedText,
 } from "./styles.js";
 import Modal, {
   CancelModalButton,
@@ -29,6 +31,7 @@ import Modal, {
   ModalButtonRow,
 } from "../../core/Modal";
 import DefaultTouchable from "../../core/DefaultTouchable";
+import { Alert } from "react-native";
 
 function AnotacaoPresentational({
   goBack,
@@ -40,40 +43,15 @@ function AnotacaoPresentational({
   setRating,
   noteInfo,
   setNoteInfo,
-  saveContent,
   changeTitle,
   loading,
   edit,
   setEdit,
-  wasEditing,
+  canEdit,
+  beingEdited,
+  deleteNote,
 }) {
   const insets = useSafeAreaInsets();
-
-  const headerButtons = {
-    leftButtons: [
-      {
-        icon: "chevron-back",
-        label: "Voltar",
-        onPress: goBack,
-      },
-    ],
-    rightButtons: [
-      {
-        icon: "pencil",
-        onPress: () => setEdit(!edit),
-      },
-      {
-        icon: "chatbubble-ellipses-outline",
-        onPress: openComentarios,
-      },
-      {
-        icon: "star-outline",
-        onPress: () => {
-          setModalVisible(true);
-        },
-      },
-    ],
-  };
 
   const richText = useRef(); //referencia ao componente RichEditor
   const [modalVisible, setModalVisible] = useState(false);
@@ -94,6 +72,85 @@ function AnotacaoPresentational({
     }
   }, [noteInfo]);
 
+  const headerButtons = {
+    leftButtons: [
+      {
+        icon: "chevron-back",
+        label: "Voltar",
+        onPress: goBack,
+      },
+    ],
+    rightButtons: [],
+  };
+
+  const doDelete = () => {
+    Alert.alert(
+      "Tem certeza que deseja DELETAR a anotação?",
+      "Essa ação é irreversível!",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Deletar",
+          onPress: () => {
+            Alert.alert(
+              "Deseja mesmo continuar?",
+              "Todo o conteúdo da anotação será perdido!",
+              [
+                {
+                  text: "Cancel",
+                  style: "cancel",
+                },
+                {
+                  text: "Deletar",
+                  onPress: () => deleteNote(),
+                  style: "destructive",
+                },
+              ],
+              {
+                cancelable: true,
+              },
+            );
+          },
+          style: "destructive",
+        },
+      ],
+      {
+        cancelable: true,
+      },
+    );
+  };
+
+  if (canEdit) {
+    headerButtons.rightButtons.push({
+      icon: "pencil",
+      onPress: () => setEdit(!edit),
+    });
+    if (edit) {
+      headerButtons.rightButtons.push({
+        icon: "trash-outline",
+        onPress: doDelete,
+      });
+    }
+  }
+
+  if (!edit) {
+    headerButtons.rightButtons.push(
+      {
+        icon: "chatbubble-ellipses-outline",
+        onPress: openComentarios,
+      },
+      {
+        icon: "star-outline",
+        onPress: () => {
+          setModalVisible(true);
+        },
+      },
+    );
+  }
+
   const toolbarStyle = {
     display: edit ? "flex" : "none",
     width: "100%",
@@ -104,6 +161,15 @@ function AnotacaoPresentational({
     <>
       <Wrapper insets={insets}>
         <Header {...headerButtons} />
+        {beingEdited && (
+          <BeingEditedWrapper>
+            <BeingEditedText>
+              Em edição por:{" "}
+              {(noteInfo.last_edited_by && noteInfo.last_edited_by.name) ||
+                "Desconhecido"}
+            </BeingEditedText>
+          </BeingEditedWrapper>
+        )}
         {loading && <LoadingComponent />}
         <ContentWrapper loading={loading}>
           <NoteTitle

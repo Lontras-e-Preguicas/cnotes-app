@@ -10,6 +10,7 @@ import {
 
 const AUTO_SAVE_INTERVAL = 5000;
 const AUTO_SAVE_BUFFER = 500;
+const BEING_EDITED_TL = 10000;
 
 /*
   Auto-save não optimizado para mínimo consumo de dados, caminho possível:
@@ -20,6 +21,11 @@ const AUTO_SAVE_BUFFER = 500;
     - Auto-save durante edição com intervalo maior
     - Auto-save por inatividade menor (0.5s~2s)
       - Importante: tomar cuidado com o impacto para usuários com digitação lenta
+*/
+
+/*
+  TO-DO:
+    - Auto reload while being edited
 */
 
 function AnotacaoContainer({ navigation, route }) {
@@ -213,6 +219,42 @@ function AnotacaoContainer({ navigation, route }) {
     }
   };
 
+  const deleteNote = async () => {
+    try {
+      const payload = {
+        method: "delete",
+      };
+
+      const res = await authenticatedFetch(
+        `${API_URLS.note}${route.params.id}/`,
+        payload,
+      );
+
+      if (res.status === 204) {
+        Toast.show({
+          type: "success",
+          text1: "Anotação deletada com sucesso!",
+        });
+        wasEditing.current = false; // Bypass back auto-save
+        navigation.goBack();
+      } else {
+        const fInfo = await extractFailureInfo(res);
+
+        if (fInfo.fail) {
+          Toast.show({
+            type: "error",
+            text1: fInfo.message,
+          });
+        }
+      }
+    } catch {
+      Toast.show({
+        type: "error",
+        text1: "Falha ao realizar requisição",
+      });
+    }
+  };
+
   // Retrieve data
   useEffect(() => {
     retrieveNoteInfo();
@@ -264,6 +306,15 @@ function AnotacaoContainer({ navigation, route }) {
     }
   }, [edit, saveContent]);
 
+  const canEdit =
+    route.params.membership.role !== "member" ||
+    route.params.author.id === route.params.membership.id;
+
+  const beingEdited =
+    route.params.author.id !== route.params.membership.id &&
+    !loading &&
+    new Date() - new Date(noteInfo.last_edited) <= BEING_EDITED_TL;
+
   const presentationalProps = {
     goBack: navigation.goBack,
     title: route.params.title,
@@ -280,6 +331,9 @@ function AnotacaoContainer({ navigation, route }) {
     edit,
     setEdit,
     wasEditing,
+    canEdit,
+    beingEdited,
+    deleteNote,
   };
 
   return <AnotacaoPresentational {...presentationalProps} />;
