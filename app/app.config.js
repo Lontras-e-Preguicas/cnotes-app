@@ -1,7 +1,7 @@
 import "dotenv/config";
 
 export default {
-  name: "cnotes",
+  name: "CNotes",
   slug: "cnotes",
   version: "1.0.0-denis",
   orientation: "portrait",
