@@ -3,25 +3,25 @@ import "dotenv/config";
 export default {
   name: "cnotes",
   slug: "cnotes",
-  version: "1.0.0",
+  version: "1.0.0-denis",
   orientation: "portrait",
   icon: "./src/assets/app/icon.png",
   splash: {
     image: "./src/assets/app/splash.png",
     resizeMode: "contain",
-    backgroundColor: "#ffffff",
+    backgroundColor: "#F25C5C",
   },
   updates: {
     fallbackToCacheTimeout: 0,
   },
   assetBundlePatterns: ["**/*"],
   ios: {
-    supportsTablet: true,
+    supportsTablet: false,
   },
   android: {
     adaptiveIcon: {
       foregroundImage: "./src/assets/app/adaptive-icon.png",
-      backgroundColor: "#FFFFFF",
+      backgroundColor: "#F25C5C",
     },
   },
   web: {
