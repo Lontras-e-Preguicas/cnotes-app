@@ -19,6 +19,7 @@ export default {
     supportsTablet: false,
   },
   android: {
+    package: "com.cnotes",
     adaptiveIcon: {
       foregroundImage: "./src/assets/app/adaptive-icon.png",
       backgroundColor: "#F25C5C",
