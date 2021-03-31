@@ -42,7 +42,10 @@ function PerfilContainer(props) {
   };
 
   useEffect(() => {
-    retrieveData();
+    const unsubscribe = navigation.addListener("focus", () => {
+      retrieveData();
+    });
+    return unsubscribe;
   }, []);
 
   const onEdit = () => {};

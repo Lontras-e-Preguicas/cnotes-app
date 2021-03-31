@@ -11,8 +11,12 @@ export const API_URLS = {
   passwordReset: `${Constants.API_URL}/api/user/password_reset/`,
   folder: `${Constants.API_URL}/api/notebook/folder/`,
   noteGroup: `${Constants.API_URL}/api/notebook/note_group/`,
+  activities: `${Constants.API_URL}/api/notebook/activity/`,
   noteCreate: `${Constants.API_URL}/api/notebook/note/`,
   comments: `${Constants.API_URL}/api/notebook/note/`,
+  member: `${Constants.API_URL}/api/notebook/member/`,
+  invite: `${Constants.API_URL}/api/notebook/invite/`,
+  note: `${Constants.API_URL}/api/notebook/note/`,
 };
 
 // Storage

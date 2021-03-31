@@ -4,8 +4,10 @@ import HomeScreen from "./Home";
 import ProfileScreen from "./Profile";
 import CadernoScreen from "./Caderno";
 import ConjuntoAnotacoesScreen from "./ConjuntoAnotacoes";
+import AtividadesScreen from "./Atividades.js";
 import AnotacaoScreen from "./Anotacao";
 import ComentariosScreen from "./Comentarios";
+import GerenciamentoCadernoScreen from "./GerenciamentoCaderno";
 
 export {
   LoginScreen,
@@ -14,6 +16,8 @@ export {
   ProfileScreen,
   CadernoScreen,
   ConjuntoAnotacoesScreen,
+  AtividadesScreen,
   AnotacaoScreen,
   ComentariosScreen,
+  GerenciamentoCadernoScreen,
 };

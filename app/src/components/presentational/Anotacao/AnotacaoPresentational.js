@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { RichEditor, RichToolbar } from "react-native-pell-rich-editor";
@@ -20,6 +20,10 @@ import {
   ScrollWrapper,
   RatingWrapper,
   StarIcon,
+  LoadingIndicator,
+  LoadingText,
+  BeingEditedWrapper,
+  BeingEditedText,
 } from "./styles.js";
 import Modal, {
   CancelModalButton,
@@ -27,9 +31,46 @@ import Modal, {
   ModalButtonRow,
 } from "../../core/Modal";
 import DefaultTouchable from "../../core/DefaultTouchable";
+import { Alert } from "react-native";
 
-function AnotacaoPresentational({ goBack, title, author, openComentarios }) {
+function AnotacaoPresentational({
+  goBack,
+  title,
+  author,
+  openComentarios,
+  submitRating,
+  rating,
+  setRating,
+  noteInfo,
+  setNoteInfo,
+  changeTitle,
+  loading,
+  edit,
+  setEdit,
+  canEdit,
+  beingEdited,
+  deleteNote,
+}) {
   const insets = useSafeAreaInsets();
+
+  const richText = useRef(); //referencia ao componente RichEditor
+  const [modalVisible, setModalVisible] = useState(false);
+  const [currentTitle, setCurrentTitle] = useState(title);
+
+  const setContent = (newContent) => {
+    setNoteInfo({ ...noteInfo, content: newContent });
+  };
+
+  const submitTitle = async () => {
+    const goneRight = (await changeTitle(currentTitle)) || {};
+    setCurrentTitle(goneRight.title || noteInfo.title);
+  };
+
+  useEffect(() => {
+    if (!edit && richText.current?.setContentHTML) {
+      richText.current?.setContentHTML(noteInfo.content);
+    }
+  }, [noteInfo]);
 
   const headerButtons = {
     leftButtons: [
@@ -39,11 +80,64 @@ function AnotacaoPresentational({ goBack, title, author, openComentarios }) {
         onPress: goBack,
       },
     ],
-    rightButtons: [
+    rightButtons: [],
+  };
+
+  const doDelete = () => {
+    Alert.alert(
+      "Tem certeza que deseja DELETAR a anotação?",
+      "Essa ação é irreversível!",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Deletar",
+          onPress: () => {
+            Alert.alert(
+              "Deseja mesmo continuar?",
+              "Todo o conteúdo da anotação será perdido!",
+              [
+                {
+                  text: "Cancel",
+                  style: "cancel",
+                },
+                {
+                  text: "Deletar",
+                  onPress: () => deleteNote(),
+                  style: "destructive",
+                },
+              ],
+              {
+                cancelable: true,
+              },
+            );
+          },
+          style: "destructive",
+        },
+      ],
       {
-        icon: "pencil",
-        onPress: () => setEdit(!edit),
+        cancelable: true,
       },
+    );
+  };
+
+  if (canEdit) {
+    headerButtons.rightButtons.push({
+      icon: "pencil",
+      onPress: () => setEdit(!edit),
+    });
+    if (edit) {
+      headerButtons.rightButtons.push({
+        icon: "trash-outline",
+        onPress: doDelete,
+      });
+    }
+  }
+
+  if (!edit) {
+    headerButtons.rightButtons.push(
       {
         icon: "chatbubble-ellipses-outline",
         onPress: openComentarios,
@@ -54,15 +148,8 @@ function AnotacaoPresentational({ goBack, title, author, openComentarios }) {
           setModalVisible(true);
         },
       },
-    ],
-  };
-
-  const richText = useRef(); //referencia ao componente RichEditor
-  const [article, setArticle] = useState("");
-  const [edit, setEdit] = useState(false); //ativar ou desativar a edicao
-  const [modalVisible, setModalVisible] = useState(false);
-  const [rating, setRating] = useState(0);
-  const [currentTitle, setCurrentTitle] = useState(title);
+    );
+  }
 
   const toolbarStyle = {
     display: edit ? "flex" : "none",
@@ -74,13 +161,23 @@ function AnotacaoPresentational({ goBack, title, author, openComentarios }) {
     <>
       <Wrapper insets={insets}>
         <Header {...headerButtons} />
-        <ContentWrapper>
+        {beingEdited && (
+          <BeingEditedWrapper>
+            <BeingEditedText>
+              Em edição por:{" "}
+              {(noteInfo.last_edited_by && noteInfo.last_edited_by.name) ||
+                "Desconhecido"}
+            </BeingEditedText>
+          </BeingEditedWrapper>
+        )}
+        {loading && <LoadingComponent />}
+        <ContentWrapper loading={loading}>
           <NoteTitle
             editable={edit}
             author={author}
             title={currentTitle}
             setTitle={setCurrentTitle}
-            submitTitle={setCurrentTitle}
+            submitTitle={submitTitle}
           />
           <ScrollWrapper>
             <EditorScroll>
@@ -93,8 +190,8 @@ function AnotacaoPresentational({ goBack, title, author, openComentarios }) {
                   editorStyle={{
                     backgroundColor: Colors.primaryLight,
                   }}
-                  initialContentHTML={article}
-                  onChange={(text) => setArticle(text)}
+                  initialContentHTML={noteInfo.content}
+                  onChange={(text) => setContent(text)}
                 />
               </EditorContainer>
             </EditorScroll>
@@ -112,6 +209,7 @@ function AnotacaoPresentational({ goBack, title, author, openComentarios }) {
           />
         </ToolBarContainer>
         <RatingModal
+          submitRating={submitRating}
           modalVisible={modalVisible}
           close={() => setModalVisible(false)}
           value={rating}
@@ -168,11 +266,31 @@ const RatingModal = ({
     <Modal visible={modalVisible} close={close} title="Avaliar Anotação">
       <RatingWrapper>{ratingStars}</RatingWrapper>
       <ModalButtonRow>
-        <CancelModalButton onPress={close}>Cancelar</CancelModalButton>
-        <ConfirmModalButtom onPress={submitRating}>Avaliar</ConfirmModalButtom>
+        <CancelModalButton
+          onPress={() => {
+            close();
+          }}
+        >
+          Cancelar
+        </CancelModalButton>
+        <ConfirmModalButtom
+          onPress={() => {
+            submitRating(value);
+            close();
+          }}
+        >
+          Avaliar
+        </ConfirmModalButtom>
       </ModalButtonRow>
     </Modal>
   );
 };
+
+export const LoadingComponent = () => (
+  <>
+    <LoadingIndicator />
+    <LoadingText>Carregando</LoadingText>
+  </>
+);
 
 export default AnotacaoPresentational;

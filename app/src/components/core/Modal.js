@@ -7,7 +7,7 @@ import { KeyboardAvoidingView, Platform } from "react-native";
 import Button from "./Button";
 import { applyOpacity } from "../../config/colors";
 
-export function Modal({ visible, setVisible, children, title, close }) {
+export function Modal({ visible, setVisible, children, title, close, style }) {
   const insets = useSafeAreaInsets();
 
   if (!close) {
@@ -25,8 +25,8 @@ export function Modal({ visible, setVisible, children, title, close }) {
       <StyledModal visible={visible} onRequestClose={close}>
         <Backdrop onPress={close} />
 
-        <ContainerModal>
-          <ContentWrapper insets={insets}>
+        <ContainerModal insets={insets} style={style}>
+          <ContentWrapper>
             {titleComponent}
             {children}
           </ContentWrapper>
@@ -99,11 +99,11 @@ const ContainerModal = styled(KeyboardAvoidingView).attrs({
   shadow-opacity: 0.2;
   shadow-offset: 0px 1px;
   shadow-radius: 2px;
+  padding-bottom: ${({ insets }) => insets.bottom}px;
 `;
 
 const ContentWrapper = styled.View`
   padding: ${Spacing.getSpacing(24)};
-  margin-bottom: ${({ insets }) => insets.bottom}px;
 `;
 
 const TitleText = styled.Text`
