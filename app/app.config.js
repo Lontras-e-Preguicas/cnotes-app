@@ -20,6 +20,8 @@ export default {
   },
   android: {
     package: "com.cnotes",
+    versionCode: 101,
+    permissions: [],
     adaptiveIcon: {
       foregroundImage: "./src/assets/app/adaptive-icon.png",
       backgroundColor: "#F25C5C",
