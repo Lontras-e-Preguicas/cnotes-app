@@ -255,6 +255,57 @@ function AnotacaoContainer({ navigation, route }) {
     }
   };
 
+  const doUpload = async (uri) => {
+    try {
+      const payload = {
+        method: "post",
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        body: new FormData(),
+      };
+
+      payload.body.append("note", route.params.id);
+
+      const ext = /^.*\.(.+)$/g.exec(uri)[1];
+
+      payload.body.append("uploaded_file", {
+        uri,
+        type: `image/${ext}`,
+        name: `upload.${ext}`,
+      });
+
+      const res = await authenticatedFetch(API_URLS.attachment, payload);
+
+      if (res.status === 201) {
+        Toast.show({
+          type: "success",
+          text1: "Imagem subida com sucesso",
+        });
+
+        const data = await res.json();
+        return data;
+      } else {
+        const fInfo = await extractFailureInfo(res);
+
+        if (fInfo.fail) {
+          Toast.show({
+            type: "error",
+            text1:
+              (fInfo.fields.uploaded_file &&
+                `Arquivo: ${fInfo.fields.uploaded_file}`) ||
+              fInfo.message,
+          });
+        }
+      }
+    } catch {
+      Toast.show({
+        type: "error",
+        text1: "Falha ao realizar requisição",
+      });
+    }
+  };
+
   // Retrieve data
   useEffect(() => {
     retrieveNoteInfo();
@@ -334,6 +385,7 @@ function AnotacaoContainer({ navigation, route }) {
     canEdit,
     beingEdited,
     deleteNote,
+    doUpload,
   };
 
   return <AnotacaoPresentational {...presentationalProps} />;

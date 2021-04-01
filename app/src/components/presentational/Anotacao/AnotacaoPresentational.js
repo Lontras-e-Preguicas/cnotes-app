@@ -1,7 +1,11 @@
 import React, { useRef, useState, useEffect } from "react";
 
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { RichEditor, RichToolbar } from "react-native-pell-rich-editor";
+import {
+  RichEditor,
+  RichToolbar,
+  actions,
+} from "react-native-pell-rich-editor";
 
 import { Colors, Images } from "../../../config";
 import Header from "../../core/Header";
@@ -24,6 +28,8 @@ import {
   LoadingText,
   BeingEditedWrapper,
   BeingEditedText,
+  UploadingModalContainer,
+  UploadingText,
 } from "./styles.js";
 import Modal, {
   CancelModalButton,
@@ -31,18 +37,10 @@ import Modal, {
   ModalButtonRow,
 } from "../../core/Modal";
 import DefaultTouchable from "../../core/DefaultTouchable";
-import { Alert } from "react-native";
+import { Alert, Platform } from "react-native";
 
-
-
-
-/*///////////////////////////////////*/
-/*///////////////////////////////////////*/
-import {Text} from "react-native";
-import * as ImagePicker from 'expo-image-picker';
-
-
-
+import { Text } from "react-native";
+import * as ImagePicker from "expo-image-picker";
 
 function AnotacaoPresentational({
   goBack,
@@ -61,18 +59,14 @@ function AnotacaoPresentational({
   canEdit,
   beingEdited,
   deleteNote,
+  doUpload,
 }) {
   const insets = useSafeAreaInsets();
 
   const richText = useRef(); //referencia ao componente RichEditor
   const [modalVisible, setModalVisible] = useState(false);
   const [currentTitle, setCurrentTitle] = useState(title);
-
-/*////////////////////////////////////*/
-  const pressAddImage = (photo) => {
-    /*console.log(photo.toString());*/
-
-  };
+  const [uploading, setUploading] = useState(false);
 
   const setContent = (newContent) => {
     setNoteInfo({ ...noteInfo, content: newContent });
@@ -173,28 +167,37 @@ function AnotacaoPresentational({
     width: "100%",
     backgroundColor: "transparent",
   };
-/*
-onPressAddImage={pressAddImage} linha 228 toolbar
-*/
+
+  const pickImage = async () => {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== "granted") {
+      Alert.alert("Não foi possível obter a imagem");
+    }
+
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: Platform.OS === "android",
+      quality: 0.4,
+    });
+
+    if (result.cancelled) {
+      return;
+    }
+    setUploading(true);
+    const res = await doUpload(result.uri);
+    setUploading(false);
+
+    if (!res) {
+      return;
+    }
+
+    richText.current.insertImage(res.uploaded_file);
+  };
+
   return (
     <>
       <Wrapper insets={insets}>
         <Header {...headerButtons} />
-        <DefaultTouchable style={{backgroundColor: 'purple'}} onPress={()=> ImagePicker.launchImageLibrary(
-                                                                                            {
-                                                                                              mediaType: 'photo',
-                                                                                              includeBase64: false,
-                                                                                              maxHeight: 200,
-                                                                                              maxWidth: 200,
-                                                                                            },
-                                                                                            (response) => {
-                                                                                              console.log(response);
-                                                                                              
-                                                                                            }
-                                                                                          )
-                                                                        }>
-          <Text>selecione uma imagem, teste</Text>
-        </DefaultTouchable>
         {beingEdited && (
           <BeingEditedWrapper>
             <BeingEditedText>
@@ -240,6 +243,22 @@ onPressAddImage={pressAddImage} linha 228 toolbar
             disabledIconTint={Colors.primaryDark}
             iconSize={24}
             style={toolbarStyle}
+            actions={[
+              actions.keyboard,
+              actions.undo,
+              actions.redo,
+              actions.setBold,
+              actions.setItalic,
+              actions.setStrikethrough,
+              actions.setUnderline,
+              actions.insertBulletsList,
+              actions.insertOrderedList,
+              actions.checkboxList,
+              actions.insertLink,
+              actions.insertImage,
+              actions.removeFormat,
+            ]}
+            onPressAddImage={pickImage}
           />
         </ToolBarContainer>
         <RatingModal
@@ -249,6 +268,7 @@ onPressAddImage={pressAddImage} linha 228 toolbar
           value={rating}
           setValue={setRating}
         />
+        <UploadingIndicator visible={uploading} />
       </Wrapper>
     </>
   );
@@ -325,6 +345,15 @@ export const LoadingComponent = () => (
     <LoadingIndicator />
     <LoadingText>Carregando</LoadingText>
   </>
+);
+
+const UploadingIndicator = ({ visible }) => (
+  <Modal visible={visible} setVisible={() => {}} title="Enviando Imagem">
+    <UploadingModalContainer>
+      <LoadingIndicator />
+      <UploadingText>Enviando</UploadingText>
+    </UploadingModalContainer>
+  </Modal>
 );
 
 export default AnotacaoPresentational;
