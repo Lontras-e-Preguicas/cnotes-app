@@ -186,7 +186,6 @@ function CadernoContainer({ navigation, route }) {
         ...route.params,
         root: false,
         folderId: id,
-        title,
         path: pathJoin(route.params.path, title),
       });
       return;

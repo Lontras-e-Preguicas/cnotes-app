@@ -1,14 +1,19 @@
+import { KeyboardAvoidingView, Platform } from "react-native";
 import styled from "styled-components/native";
 import { Colors, Spacing, Typography } from "../../../config";
 import { applyOpacity } from "../../../config/colors";
+import Button, { ButtonText } from "../../core/Button";
+import { HintedInput } from "../../core/HintedInput";
 
-export const Wrapper = styled.View`
+export const Wrapper = styled(KeyboardAvoidingView).attrs({
+  behavior: Platform.OS === "ios" ? "padding" : "",
+})`
   height: 100%;
   background-color: ${Colors.primaryLight};
 `;
 
 export const Content = styled.View`
-  flex-grow: 1;
+  flex: 1;
   margin-top: ${Spacing.getSpacing(8)};
 
   align-items: center;
@@ -29,7 +34,7 @@ export const ProfilePicture = styled.Image`
   border-radius: 90px;
 `;
 
-export const ProfileName = styled.Text`
+export const ProfileName = styled.TextInput`
   font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
   font-size: ${Typography.FONT_SIZES.huge};
   color: ${Colors.primaryDark};
@@ -59,7 +64,7 @@ export const InfoName = styled.Text`
   margin-bottom: ${Spacing.getSpacing(4)};
 `;
 
-export const InfoData = styled.Text`
+export const InfoData = styled.TextInput`
   font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
   font-size: ${Typography.FONT_SIZES.medium};
   color: ${applyOpacity(Colors.primaryDark, 0.6)};
@@ -75,21 +80,6 @@ export const BottomRow = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-`;
-
-export const BottomText = styled.Text`
-  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
-  font-size: ${Typography.FONT_SIZES.medium};
-  text-decoration: underline;
-
-  color: ${Colors.primaryDark};
-  text-decoration-color: ${Colors.primaryDark};
-  padding: ${Spacing.getSpacing(8)};
-`;
-
-export const BottomTextAlt = styled(BottomText)`
-  color: ${Colors.secondaryAlt};
-  text-decoration-color: ${Colors.secondaryAlt};
 `;
 
 export const LoadingWrapper = styled.View`
@@ -109,3 +99,56 @@ export const LoadingIndicator = styled.ActivityIndicator.attrs({
   color: Colors.primaryDark,
   size: "large",
 })``;
+
+export const StyledButtonText = styled(ButtonText)`
+  font-size: ${Typography.FONT_SIZES.medium};
+`;
+
+export const ChangePasswordButton = styled(Button).attrs({
+  fill: false,
+  color: Colors.primaryDark,
+  ContentComponent: StyledButtonText,
+})``;
+
+export const LogoutButton = styled(Button).attrs({
+  fill: false,
+  color: Colors.secondaryAlt,
+  ContentComponent: StyledButtonText,
+})``;
+
+export const UploadingModalContainer = styled.View`
+  align-items: center;
+  justify-content: center;
+  padding: ${Spacing.getSpacing(24)};
+`;
+
+export const UploadingText = styled.Text`
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
+  font-size: ${Typography.FONT_SIZES.extraLarge};
+  color: ${Colors.primaryDark};
+  margin-top: ${Spacing.getSpacing(8)};
+`;
+
+export const EditModeWrapper = styled.View`
+  padding: ${Spacing.getSpacing(4)} ${Spacing.getSpacing(16)};
+  background: ${Colors.tertiary};
+`;
+
+export const EditModeText = styled.Text`
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
+  font-size: ${Typography.FONT_SIZES.regular};
+  color: ${Colors.primaryDark};
+`;
+
+export const ModalContent = styled.View`
+  width: 100%;
+  align-items: center;
+  margin-top: ${Spacing.getSpacing(8)};
+`;
+
+export const PasswordInput = styled(HintedInput).attrs({
+  color: Colors.primaryDark,
+})`
+  margin-top: ${Spacing.getSpacing(8)};
+  width: 100%;
+`;
