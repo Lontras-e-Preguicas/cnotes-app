@@ -3,7 +3,7 @@ import "dotenv/config";
 export default {
   name: "CNotes",
   slug: "cnotes",
-  version: "1.0.1-blanc",
+  version: "1.1.0-vamp",
   orientation: "portrait",
   icon: "./src/assets/app/icon.png",
   splash: {
@@ -20,7 +20,7 @@ export default {
   },
   android: {
     package: "com.cnotes",
-    versionCode: 101,
+    versionCode: 2,
     permissions: [],
     adaptiveIcon: {
       foregroundImage: "./src/assets/app/adaptive-icon.png",
