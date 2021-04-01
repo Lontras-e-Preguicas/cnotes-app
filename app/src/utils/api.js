@@ -17,6 +17,7 @@ export const API_URLS = {
   member: `${Constants.API_URL}/api/notebook/member/`,
   invite: `${Constants.API_URL}/api/notebook/invite/`,
   note: `${Constants.API_URL}/api/notebook/note/`,
+  attachment: `${Constants.API_URL}/api/notebook/attachment/`,
 };
 
 // Storage

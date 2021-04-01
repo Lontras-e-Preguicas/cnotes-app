@@ -3,7 +3,6 @@ import styled from "styled-components/native";
 import { Ionicons } from "@expo/vector-icons";
 
 import { Colors, Typography, Spacing } from "../../../config";
-import Button from "../../core/Button";
 
 // Main Wrappers
 
@@ -64,6 +63,7 @@ export const ToolBarContainer = styled(KeyboardAvoidingView).attrs({
 })`
   align-items: center;
   width: 100%;
+  padding-horizontal: ${Spacing.getSpacing(16)};
 `;
 
 export const EditorContainer = styled.View`
@@ -118,4 +118,17 @@ export const BeingEditedText = styled.Text`
   font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
   font-size: ${Typography.FONT_SIZES.regular};
   color: ${Colors.primaryLight};
+`;
+
+export const UploadingModalContainer = styled.View`
+  align-items: center;
+  justify-content: center;
+  padding: ${Spacing.getSpacing(24)};
+`;
+
+export const UploadingText = styled.Text`
+  font-family: ${Typography.FONT_FAMILIES.Quicksand.Regular};
+  font-size: ${Typography.FONT_SIZES.extraLarge};
+  color: ${Colors.primaryDark};
+  margin-top: ${Spacing.getSpacing(8)};
 `;
