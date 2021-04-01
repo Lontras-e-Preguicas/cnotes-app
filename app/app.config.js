@@ -3,7 +3,7 @@ import "dotenv/config";
 export default {
   name: "CNotes",
   slug: "cnotes",
-  version: "1.2.0-ahri",
+  version: "1.2.1-carrot",
   orientation: "portrait",
   icon: "./src/assets/app/icon.png",
   splash: {

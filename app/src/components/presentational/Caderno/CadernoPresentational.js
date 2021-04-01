@@ -59,16 +59,18 @@ function CadernoPresentational({
       },
     ],
     rightButtons: [
-      {
-        icon: "search-outline",
-      },
+      // {
+      //   icon: "search-outline",
+      // },
       {
         icon: "settings-outline",
-        onPress: ()=>{openSettings({
-          id,
-          title,
-          folder
-        })},
+        onPress: () => {
+          openSettings({
+            id,
+            title,
+            folder,
+          });
+        },
       },
     ],
   };
